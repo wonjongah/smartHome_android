@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:text="Hello World!"
+        android:id="@+id/textViewReciev" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="server-ip"
+        android:ems="10"
+        android:layout_below="@+id/textViewReciev"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="31dp"
+        android:id="@+id/addressText" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Send message"
+        android:ems="10"
+        android:layout_marginTop="10dp"
+        android:id="@+id/messageText"
+        android:layout_below="@+id/portText"
+        android:layout_alignStart="@+id/portText" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="port"
+        android:ems="10"
+        android:id="@+id/portText"
+        android:layout_below="@+id/addressText"
+        android:layout_alignStart="@+id/addressText" />
+
+    <Button
+        android:text="clear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonClear"
+        android:layout_alignBaseline="@+id/buttonConnect"
+        android:layout_alignBottom="@+id/buttonConnect"
+        android:layout_alignEnd="@+id/messageText" />
+
+    <Button
+        android:text="Send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonConnect"
+        android:layout_below="@+id/messageText"
+        android:layout_alignStart="@+id/messageText"
+        android:layout_marginTop="13dp" />
+
+    <Button
+        android:id="@+id/btn_ledOn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="led on"
+        android:layout_below="@id/buttonConnect"
+        android:layout_alignStart="@id/buttonConnect"
+        android:layout_marginTop="13dp"/>
+
+    <Button
+        android:id="@+id/btn_ledOff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buttonClear"
+        android:layout_marginTop="13dp"
+        android:text="led off"
+        android:layout_alignStart="@id/buttonClear"/>
+
+    <TextView
+        android:id="@+id/txt_rcv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_ledOn"
+        android:layout_alignStart="@id/btn_ledOn"
+        android:layout_marginTop="13dp"
+        android:text="TextView" />
+
+</RelativeLayout>
+
