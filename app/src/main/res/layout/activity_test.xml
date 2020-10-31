@@ -17,8 +17,8 @@
             android:id="@+id/tv_weather"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="76dp"
-            android:layout_marginEnd="180dp"
+            android:layout_marginTop="70dp"
+            android:layout_marginEnd="163dp"
             android:text="Sunny"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintEnd_toEndOf="parent"
@@ -29,13 +29,13 @@
             android:id="@+id/imageView"
             android:layout_width="77dp"
             android:layout_height="81dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="12dp"
             app:layout_constraintBottom_toTopOf="@+id/tv_celsius"
             app:layout_constraintEnd_toStartOf="@+id/tv_weather"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.32"
-            tools:srcCompat="@tools:sample/avatars" />
+            app:layout_constraintVertical_bias="0.358"
+            tools:srcCompat="@drawable/sunny2" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
@@ -61,7 +61,8 @@
             android:id="@+id/tv_celsius"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="29dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginBottom="14dp"
             android:text="17.5 °C"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintBottom_toTopOf="@+id/tab_layout"
@@ -73,6 +74,7 @@
             android:id="@+id/tv_humi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
             android:text="Dry"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintBaseline_toBaselineOf="@+id/tv_celsius"
@@ -83,6 +85,7 @@
             android:id="@+id/tv_finedust"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
             android:layout_marginEnd="160dp"
             android:text="15㎍/㎥"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -94,6 +97,7 @@
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:text="온도"
             app:layout_constraintBottom_toTopOf="@+id/tv_celsius"
             app:layout_constraintStart_toStartOf="@+id/tv_celsius"
@@ -103,6 +107,7 @@
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:text="습도"
             app:layout_constraintBottom_toTopOf="@+id/tv_humi"
             app:layout_constraintStart_toStartOf="@+id/tv_humi"
@@ -113,6 +118,7 @@
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="180dp"
             android:text="미세먼지"
             app:layout_constraintBottom_toTopOf="@+id/tv_finedust"
@@ -123,12 +129,15 @@
             app:layout_constraintVertical_bias="0.478" />
 
         <Switch
-            android:id="@+id/switch1"
+            android:id="@+id/switch_outing1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
             android:text="외출모드"
-            tools:layout_editor_absoluteX="338dp"
-            tools:layout_editor_absoluteY="16dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.925"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

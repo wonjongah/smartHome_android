@@ -12,7 +12,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_a.view.*
 import kotlinx.android.synthetic.main.fragment_b.view.*
 
-class RecyclerAdapter(var items: MutableList<MainData>) : RecyclerView.Adapter<RecyclerAdapter.MainViewHolder>() {
+class RecyclerAdapter(var items: MutableList<MainData>,
+                      val onLightClick:()->Unit, val onGasClick:()->Unit,
+                      val onFireClick:()->Unit, val onLeakClick:()->Unit, val onCctvClick:()->Unit) : RecyclerView.Adapter<RecyclerAdapter.MainViewHolder>() {
 // var -> 멤버변수 선언, var 안 쓰면 생성자에서만 쓰이는 지역변수
     // 생성자의 매개변수 앞에 var, val 키워드가 붙으면 멤버변수로 운영하겠다란 뜻
 
@@ -26,7 +28,6 @@ class RecyclerAdapter(var items: MutableList<MainData>) : RecyclerView.Adapter<R
         // 카드뷰 자식으로 메인 컨텐트가 뭐냐를 참조로 넣음
         // 뷰홀더와 연관된 데이터를 나중에 설정할 것, 그곳이 저기다
     }
-
 
 
     // 2번째 호출
@@ -53,7 +54,39 @@ class RecyclerAdapter(var items: MutableList<MainData>) : RecyclerView.Adapter<R
                 iconA.setImageResource(it.icon)
                 tvfurStateA.text = it.content
                 imageBtnA.setImageResource(it.imagebtn)
-            } // 실제 데이터 넣는 작업, 그 연결작업을 뷰홀더가 해주는 것
+
+                if (position == 0) {
+                    itemView.setOnClickListener {
+                        onLightClick()
+                    }
+                } // 실제 데이터 넣는 작업, 그 연결작업을 뷰홀더가 해주는 것
+
+                if (position == 1){
+                    itemView.setOnClickListener {
+                        onGasClick()
+                    }
+                }
+
+                if (position == 3){
+                    itemView.setOnClickListener {
+                        onFireClick()
+                    }
+                }
+
+                if (position == 5){
+                    itemView.setOnClickListener {
+                        onLeakClick()
+                    }
+                }
+
+                if (position == 6){
+                    itemView.setOnClickListener {
+                        onCctvClick()
+                    }
+                }
+            }
+
+
         }
     }
 

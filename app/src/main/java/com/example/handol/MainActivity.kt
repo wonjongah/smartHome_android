@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_test.*
+import org.jetbrains.anko.startActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,6 +25,11 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    fun onLightClick(position:Int){
+        startActivity<LightActivity>(
+            "position" to position
+        )
+    }
 
     fun changeFragment(f: Fragment, cleanStack: Boolean = false){
         val ft = supportFragmentManager.beginTransaction()

@@ -4,7 +4,6 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,14 +11,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Handol">
-        <activity android:name=".MainActivity3">
-
-        </activity>
-        <activity android:name=".MainActivity2">
-
-        </activity>
+        <activity android:name=".CctvActivity"></activity>
+        <activity android:name=".GasActivity" />
+        <activity android:name=".FireActivity" />
+        <activity android:name=".LeakActivity" />
+        <activity
+            android:name=".LightActivity"
+            android:label="@string/title_activity_light"
+            android:theme="@style/Theme.Handol.NoActionBar" />
+        <activity android:name=".MainActivity3" />
+        <activity android:name=".MainActivity2" />
         <activity android:name=".MainActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
