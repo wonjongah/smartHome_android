@@ -1,45 +1,73 @@
 package com.example.handol
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.fragment_b.*
+import android.widget.ProgressBar
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.rv_fragment_a.*
 
+private const val DATAB = "datab"
 
 class BFragment : Fragment() {
-    // TODO: Rename and change types of parameters
 
+
+    private var datab: String?=null
+
+
+    var items: MutableList<MainData> = mutableListOf(
+            MainData(R.drawable.doorlock, "도 어 락", R.drawable.on_64_3),
+            MainData(R.drawable.sunny, "날 씨", R.drawable.off_64_3)
+
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-
+            datab = it.getString(DATAB)
         }
+
+
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_b, container, false)
+        return inflater.inflate(R.layout.rv_fragment_a, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
 
     }
 
     companion object {
 
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            BFragment().apply {
-                arguments = Bundle().apply {
-
+        fun newInstance(uri: String) =
+                AFragment().apply {
+                    arguments = Bundle().apply {
+                        //putString(DATAB, datab)
+                    }
                 }
-            }
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        rv_fragment_a.adapter = RecyclerAdapterB(items)
+        rv_fragment_a.setHasFixedSize(true)
+        rv_fragment_a.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        rv_fragment_a.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+    }
+
+
 }

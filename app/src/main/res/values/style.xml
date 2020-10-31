@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="TabTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">#f5a623</item>                                <!-- 배경 -->
+        <item name="colorPrimary">#171717</item>                                <!-- 배경 -->
 
         <item name="android:textColorPrimary">@android:color/white</item>       <!-- 탭바 선택된 텍스트 -->
         <item name="android:textColorSecondary">@android:color/black</item>     <!-- 탭바 텍스트 -->

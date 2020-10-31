@@ -11,17 +11,19 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_a.view.*
 import kotlinx.android.synthetic.main.fragment_b.view.*
+import kotlinx.android.synthetic.main.fragment_c.view.*
 
-class RecyclerAdapter(var items: MutableList<MainData>) : RecyclerView.Adapter<RecyclerAdapter.MainViewHolder>() {
+class RecyclerAdapterC(var items: MutableList<MainData>) : RecyclerView.Adapter<RecyclerAdapterC.MainViewHolder>() {
 // var -> 멤버변수 선언, var 안 쓰면 생성자에서만 쓰이는 지역변수
     // 생성자의 매개변수 앞에 var, val 키워드가 붙으면 멤버변수로 운영하겠다란 뜻
 
     // 3번째 호출
     inner class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
-        val iconA = itemView.iv_a
-        val tvfurStateA = itemView.tv_furState_a
-        val imageBtnA = itemView.ib_a
+
+        val iconC = itemView.iv_c
+        val tvfurStateC = itemView.tv_furState_c
+        val imageBtnC = itemView.ib_c
 
         // 카드뷰 자식으로 메인 컨텐트가 뭐냐를 참조로 넣음
         // 뷰홀더와 연관된 데이터를 나중에 설정할 것, 그곳이 저기다
@@ -32,7 +34,7 @@ class RecyclerAdapter(var items: MutableList<MainData>) : RecyclerView.Adapter<R
     // 2번째 호출
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         // ViewHolder 만들어내는 역할
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.fragment_a, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.fragment_c, parent, false)
         // 레이아웃아이디, parent, 인플레이트한 걸 페어런트에게 즉시 추가할 거냐(false는 아직은 넣지 마라)
         return MainViewHolder(view) // 메인뷰홀더 생성시키는데 매개변수 view(inflate 결과로 리턴되는 루트엘리먼트(카드뷰))
         // 메인뷰홀더 -> item_main 하나당 홀더 하나가 만들어진다
@@ -50,9 +52,9 @@ class RecyclerAdapter(var items: MutableList<MainData>) : RecyclerView.Adapter<R
             // holder.tvTitle.text = it.title과 밑의 코드는 같음
 
             with(holder) {
-                iconA.setImageResource(it.icon)
-                tvfurStateA.text = it.content
-                imageBtnA.setImageResource(it.imagebtn)
+                iconC.setImageResource(it.icon)
+                tvfurStateC.text = it.content
+                imageBtnC.setImageResource(it.imagebtn)
             } // 실제 데이터 넣는 작업, 그 연결작업을 뷰홀더가 해주는 것
         }
     }

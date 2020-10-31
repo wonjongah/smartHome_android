@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.rv_fragment_a.*
@@ -22,12 +23,14 @@ class AFragment : Fragment() {
 
 
     var items: MutableList<MainData> = mutableListOf(
-        MainData(R.drawable.icon_led,"전등", R.drawable.icon_power),
-        MainData(R.drawable.icon_led,"가스", R.drawable.icon_power),
-        MainData(R.drawable.icon_led,"창문", R.drawable.icon_power),
-        MainData(R.drawable.icon_led,"화재", R.drawable.icon_power),
-        MainData(R.drawable.icon_led,"세탁기", R.drawable.icon_power),
-        MainData(R.drawable.icon_led,"누수", R.drawable.icon_power)
+        MainData(R.drawable.light,"전 등", R.drawable.on_64_3),
+        MainData(R.drawable.valve,"가 스", R.drawable.off_64_3),
+        MainData(R.drawable.window,"창 문", R.drawable.on_64_3),
+        MainData(R.drawable.fire,"화 재", R.drawable.off_64_3),
+        MainData(R.drawable.washer3,"세 탁 기", R.drawable.on_64_3),
+        MainData(R.drawable.faucet,"누 수", R.drawable.off_64_3),
+            MainData(R.drawable.doorlock, "도 어 락", R.drawable.on_64_3),
+            MainData(R.drawable.sunny, "날 씨", R.drawable.off_64_3)
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,7 +71,7 @@ class AFragment : Fragment() {
         rv_fragment_a.adapter = RecyclerAdapter(items)
         rv_fragment_a.setHasFixedSize(true)
         rv_fragment_a.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-
+        rv_fragment_a.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
         }
 
 
