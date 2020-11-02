@@ -1,5 +1,6 @@
 package com.example.handol
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -48,6 +49,13 @@ class CFragment : Fragment() {
 
     }
 
+
+    fun onLightClick(){
+        val nextIntext = Intent(context, LightActivity::class.java)
+        startActivity(nextIntext)
+    }
+
+
     companion object {
 
         @JvmStatic
@@ -62,7 +70,7 @@ class CFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        rv_fragment_a.adapter = RecyclerAdapterC(items)
+        rv_fragment_a.adapter = RecyclerAdapterC(items, ::onLightClick)
         rv_fragment_a.setHasFixedSize(true)
         rv_fragment_a.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         rv_fragment_a.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))

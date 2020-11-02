@@ -1,5 +1,6 @@
 package com.example.handol
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -48,6 +49,11 @@ class EFragment : Fragment() {
 
     }
 
+    fun onLeakClick(){
+        val nextIntent = Intent(context, LeakActivity::class.java)
+        startActivity(nextIntent)
+    }
+
     companion object {
 
         @JvmStatic
@@ -62,7 +68,7 @@ class EFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        rv_fragment_a.adapter = RecyclerAdapterE(items)
+        rv_fragment_a.adapter = RecyclerAdapterE(items, ::onLeakClick)
         rv_fragment_a.setHasFixedSize(true)
         rv_fragment_a.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         rv_fragment_a.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))

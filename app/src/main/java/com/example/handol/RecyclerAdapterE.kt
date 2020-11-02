@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.fragment_c.view.*
 import kotlinx.android.synthetic.main.fragment_d.view.*
 import kotlinx.android.synthetic.main.fragment_e.view.*
 
-class RecyclerAdapterE(var items: MutableList<MainData>) : RecyclerView.Adapter<RecyclerAdapterE.MainViewHolder>() {
+class RecyclerAdapterE(var items: MutableList<MainData>, val onLeackClick:()->Unit) : RecyclerView.Adapter<RecyclerAdapterE.MainViewHolder>() {
 // var -> 멤버변수 선언, var 안 쓰면 생성자에서만 쓰이는 지역변수
     // 생성자의 매개변수 앞에 var, val 키워드가 붙으면 멤버변수로 운영하겠다란 뜻
 
@@ -57,6 +57,12 @@ class RecyclerAdapterE(var items: MutableList<MainData>) : RecyclerView.Adapter<
                 iconE.setImageResource(it.icon)
                 tvfurStateE.text = it.content
                 imageBtnE.setImageResource(it.imagebtn)
+
+                if(position == 1){
+                    itemView.setOnClickListener {
+                        onLeackClick()
+                    }
+                }
             } // 실제 데이터 넣는 작업, 그 연결작업을 뷰홀더가 해주는 것
         }
     }

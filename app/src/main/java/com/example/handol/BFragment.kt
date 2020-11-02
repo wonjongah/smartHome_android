@@ -1,5 +1,6 @@
 package com.example.handol
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -49,6 +50,11 @@ class BFragment : Fragment() {
 
     }
 
+    fun onCctvClick(){
+        val nextIntent = Intent(context, CctvActivity::class.java)
+        startActivity(nextIntent)
+    }
+
     companion object {
 
         @JvmStatic
@@ -63,7 +69,7 @@ class BFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        rv_fragment_a.adapter = RecyclerAdapterB(items)
+        rv_fragment_a.adapter = RecyclerAdapterB(items, ::onCctvClick)
         rv_fragment_a.setHasFixedSize(true)
         rv_fragment_a.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         rv_fragment_a.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))

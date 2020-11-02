@@ -25,11 +25,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun onLightClick(position:Int){
-        startActivity<LightActivity>(
-            "position" to position
-        )
-    }
 
     fun changeFragment(f: Fragment, cleanStack: Boolean = false){
         val ft = supportFragmentManager.beginTransaction()

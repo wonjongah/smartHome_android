@@ -57,43 +57,107 @@ class RecyclerAdapter(var items: MutableList<MainData>,
                 tvfurStateA.text = it.content
                 imageBtnA.setImageResource(it.imagebtn)
 
+
                 if (position == 0) {
                     itemView.setOnClickListener {
                         onLightClick()
-                        Log.d("POS", position.toString())
-
+                    }
+                    imageBtnA.setOnClickListener {
+                        if(imageBtnA.isSelected){
+                            imageBtnA.setSelected(false)
+                        }
+                        else{
+                            imageBtnA.setSelected(true)
+                        }
                     }
                 } // 실제 데이터 넣는 작업, 그 연결작업을 뷰홀더가 해주는 것
 
-                if (position == 1){
+                else if (position == 1){
                     itemView.setOnClickListener {
                         onGasClick()
-                        Log.d("POS", position.toString())
-
+                    }
+                    imageBtnA.setOnClickListener {
+                        if(imageBtnA.isSelected){
+                            imageBtnA.setSelected(false)
+                        }
+                        else{
+                            imageBtnA.setSelected(true)
+                        }
                     }
                 }
 
-                if (position == 3){
+                else if(position == 2){
+                    imageBtnA.setOnClickListener {
+                        if(imageBtnA.isSelected){
+                            imageBtnA.setSelected(false)
+                        }
+                        else{
+                            imageBtnA.setSelected(true)
+                        }
+                    }
+                }
+
+                else if (position == 3){
                     itemView.setOnClickListener {
                         onFireClick()
-                        Log.d("POS", position.toString())
-
+                    }
+                    imageBtnA.setOnClickListener {
+                        if(imageBtnA.isSelected){
+                            imageBtnA.setSelected(false)
+                        }
+                        else{
+                            imageBtnA.setSelected(true)
+                        }
                     }
                 }
 
-                if (position == 5){
+                else if(position == 4){
+                    imageBtnA.setOnClickListener {
+                        if(imageBtnA.isSelected){
+                            imageBtnA.setSelected(false)
+                        }
+                        else{
+                            imageBtnA.setSelected(true)
+                        }
+                    }
+                }
+
+                else if (position == 5){
                     itemView.setOnClickListener {
                         onLeakClick()
-                        Log.d("POS", position.toString())
-
+                    }
+                    imageBtnA.setOnClickListener {
+                        if(imageBtnA.isSelected){
+                            imageBtnA.setSelected(false)
+                        }
+                        else{
+                            imageBtnA.setSelected(true)
+                        }
                     }
                 }
 
-                if (position == 6){
+                else if (position == 6){
                     itemView.setOnClickListener {
                         onCctvClick()
-                        Log.d("POS", position.toString())
+                    }
+                    imageBtnA.setOnClickListener {
+                        if(imageBtnA.isSelected){
+                            imageBtnA.setSelected(false)
+                        }
+                        else{
+                            imageBtnA.setSelected(true)
+                        }
+                    }
+                }
 
+                else if(position == 7){
+                    imageBtnA.setOnClickListener {
+                        if(imageBtnA.isSelected){
+                            imageBtnA.setSelected(false)
+                        }
+                        else{
+                            imageBtnA.setSelected(true)
+                        }
                     }
                 }
             }

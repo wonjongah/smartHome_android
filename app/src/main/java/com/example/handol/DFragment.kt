@@ -1,5 +1,6 @@
 package com.example.handol
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -59,10 +60,20 @@ class DFragment : Fragment() {
                 }
     }
 
+    fun onGasClick(){
+        val nextIntext = Intent(context, GasActivity::class.java)
+        startActivity(nextIntext)
+    }
+
+    fun onFireClick(){
+        val nextIntext = Intent(context, FireActivity::class.java)
+        startActivity(nextIntext)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        rv_fragment_a.adapter = RecyclerAdapterD(items)
+        rv_fragment_a.adapter = RecyclerAdapterD(items, ::onFireClick, ::onGasClick)
         rv_fragment_a.setHasFixedSize(true)
         rv_fragment_a.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         rv_fragment_a.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
