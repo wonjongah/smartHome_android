@@ -1,6 +1,7 @@
 package com.example.handol
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,6 +43,7 @@ class RecyclerAdapter(var items: MutableList<MainData>,
 
     // 4번째 호출
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
+
         // bindViewHolder -> 각각의 컴포넌트를 홀더에 넣는 역할
         items[position].let { // 실제데이터와 뷰 연결
             // items[position] -> item 선택
@@ -58,30 +60,40 @@ class RecyclerAdapter(var items: MutableList<MainData>,
                 if (position == 0) {
                     itemView.setOnClickListener {
                         onLightClick()
+                        Log.d("POS", position.toString())
+
                     }
                 } // 실제 데이터 넣는 작업, 그 연결작업을 뷰홀더가 해주는 것
 
                 if (position == 1){
                     itemView.setOnClickListener {
                         onGasClick()
+                        Log.d("POS", position.toString())
+
                     }
                 }
 
                 if (position == 3){
                     itemView.setOnClickListener {
                         onFireClick()
+                        Log.d("POS", position.toString())
+
                     }
                 }
 
                 if (position == 5){
                     itemView.setOnClickListener {
                         onLeakClick()
+                        Log.d("POS", position.toString())
+
                     }
                 }
 
                 if (position == 6){
                     itemView.setOnClickListener {
                         onCctvClick()
+                        Log.d("POS", position.toString())
+
                     }
                 }
             }

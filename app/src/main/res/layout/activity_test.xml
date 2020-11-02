@@ -35,7 +35,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.358"
-            tools:srcCompat="@drawable/sunny2" />
+            tools:srcCompat="@drawable/cloudy" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
