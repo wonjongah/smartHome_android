@@ -41,7 +41,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/ib_a"
             app:layout_constraintStart_toEndOf="@+id/iv_a"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.262" />
 
         <ImageButton
             android:id="@+id/ib_a"
@@ -57,6 +58,16 @@
             app:layout_constraintStart_toEndOf="@+id/tv_furState_a"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.506" />
+
+        <TextView
+            android:id="@+id/tv_rec_a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/ib_a"
+            app:layout_constraintStart_toEndOf="@+id/iv_a"
+            app:layout_constraintTop_toBottomOf="@+id/tv_furState_a" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

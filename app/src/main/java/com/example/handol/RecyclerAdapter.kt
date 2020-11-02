@@ -1,17 +1,16 @@
 package com.example.handol
 
-import android.os.Bundle
-import android.util.Log
+import android.os.AsyncTask
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_a.view.*
-import kotlinx.android.synthetic.main.fragment_b.view.*
+import java.io.ByteArrayOutputStream
+import java.io.IOException
+import java.net.Socket
+import java.net.UnknownHostException
+
 
 class RecyclerAdapter(var items: MutableList<MainData>,
                       val onLightClick:()->Unit, val onGasClick:()->Unit,
@@ -25,10 +24,70 @@ class RecyclerAdapter(var items: MutableList<MainData>,
         val iconA = itemView.iv_a
         val tvfurStateA = itemView.tv_furState_a
         val imageBtnA = itemView.ib_a
-
+        val tvrec = itemView.tv_rec_a
         // 카드뷰 자식으로 메인 컨텐트가 뭐냐를 참조로 넣음
         // 뷰홀더와 연관된 데이터를 나중에 설정할 것, 그곳이 저기다
     }
+
+    inner class MyClientTask (var dstAddress: String, var dstPort: Int, message: String, private val tv_rec: View) : AsyncTask<Void?, Void?, Void?>() {
+
+        var response = ""
+        var myMessage = ""
+        override fun doInBackground(vararg p0: Void?): Void? {
+            var socket: Socket? = null
+            myMessage = myMessage
+            try {
+                socket = Socket(dstAddress, dstPort)
+                //송신
+                val out = socket.getOutputStream()
+                out.write(myMessage.toByteArray())
+
+                //수신
+                val byteArrayOutputStream = ByteArrayOutputStream(1024)
+                val buffer = ByteArray(1024)
+                var bytesRead: Int
+                val inputStream = socket.getInputStream()
+                /*
+                 * notice:
+                 * inputStream.read() will block if no data return
+                 */while (inputStream.read(buffer).also { bytesRead = it } != -1) {
+                    byteArrayOutputStream.write(buffer, 0, bytesRead)
+                    response += byteArrayOutputStream.toString("UTF-8")
+                }
+                response = "($response)"
+            } catch (e: UnknownHostException) {
+                // TODO Auto-generated catch block
+                e.printStackTrace()
+                response = "UnknownHostException: " + e.toString()
+            } catch (e: IOException) {
+                // TODO Auto-generated catch block
+                e.printStackTrace()
+                response = "IOException: $e"
+            } finally {
+                if (socket != null) {
+                    try {
+                        socket.close()
+                    } catch (e: IOException) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace()
+                    }
+                }
+            }
+            return null
+        }
+
+        override fun onPostExecute(result: Void?) {
+//            tv_rec.textView.text = result.toString()
+            tv_rec.tv_rec_a.text = response
+            super.onPostExecute(result)
+        }
+
+        //constructor
+        init {
+            myMessage = message
+        }
+    }
+
 
 
     // 2번째 호출
@@ -65,9 +124,13 @@ class RecyclerAdapter(var items: MutableList<MainData>,
                     imageBtnA.setOnClickListener {
                         if(imageBtnA.isSelected){
                             imageBtnA.setSelected(false)
+                            val myClientTask = MyClientTask("192.168.35.196", 8888, "on", itemView.tv_rec_a)
+                            myClientTask.execute()
                         }
                         else{
                             imageBtnA.setSelected(true)
+                            val myClientTask = MyClientTask("192.168.35.196", 8888, "off", itemView.tv_rec_a)
+                            myClientTask.execute()
                         }
                     }
                 } // 실제 데이터 넣는 작업, 그 연결작업을 뷰홀더가 해주는 것
@@ -165,6 +228,7 @@ class RecyclerAdapter(var items: MutableList<MainData>,
 
         }
     }
+
 
     // 1번째 호출
     override fun getItemCount(): Int = items.size
