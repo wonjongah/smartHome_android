@@ -61,11 +61,28 @@ class RecyclerAdapterD(var items: MutableList<MainData>, val onFireClick:()->Uni
                     itemView.setOnClickListener {
                         onFireClick()
                     }
+                    imageBtnD.setOnClickListener {
+                        if(imageBtnD.isSelected){
+                            imageBtnD.setSelected(false)
+                        }
+                        else{
+                            imageBtnD.setSelected(true)
+                        }
+                    }
                 }
 
                 if(position == 1){
                     itemView.setOnClickListener {
                         onGasClick()
+                    }
+
+                    imageBtnD.setOnClickListener {
+                        if(imageBtnD.isSelected){
+                            imageBtnD.setSelected(false)
+                        }
+                        else{
+                            imageBtnD.setSelected(true)
+                        }
                     }
                 }
             } // 실제 데이터 넣는 작업, 그 연결작업을 뷰홀더가 해주는 것

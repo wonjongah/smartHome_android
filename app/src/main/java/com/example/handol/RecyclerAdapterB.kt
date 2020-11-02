@@ -60,6 +60,25 @@ class RecyclerAdapterB(var items: MutableList<MainData>, val onCctvClick:()->Uni
                     itemView.setOnClickListener {
                         onCctvClick()
                     }
+                    imageBtnB.setOnClickListener {
+                        if(imageBtnB.isSelected){
+                            imageBtnB.setSelected(false)
+                        }
+                        else{
+                            imageBtnB.setSelected(true)
+                        }
+                    }
+                }
+
+                if(position == 1){
+                    imageBtnB.setOnClickListener {
+                        if(imageBtnB.isSelected){
+                            imageBtnB.setSelected(false)
+                        }
+                        else{
+                            imageBtnB.setSelected(true)
+                        }
+                    }
                 }
 
             } // 실제 데이터 넣는 작업, 그 연결작업을 뷰홀더가 해주는 것

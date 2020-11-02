@@ -58,9 +58,27 @@ class RecyclerAdapterE(var items: MutableList<MainData>, val onLeackClick:()->Un
                 tvfurStateE.text = it.content
                 imageBtnE.setImageResource(it.imagebtn)
 
+                if (position == 0){
+                    imageBtnE.setOnClickListener {
+                        if(imageBtnE.isSelected){
+                            imageBtnE.setSelected(false)
+                        }
+                        else{
+                            imageBtnE.setSelected(true)
+                        }
+                    }
+                }
                 if(position == 1){
                     itemView.setOnClickListener {
                         onLeackClick()
+                    }
+                    imageBtnE.setOnClickListener {
+                        if(imageBtnE.isSelected){
+                            imageBtnE.setSelected(false)
+                        }
+                        else{
+                            imageBtnE.setSelected(true)
+                        }
                     }
                 }
             } // 실제 데이터 넣는 작업, 그 연결작업을 뷰홀더가 해주는 것

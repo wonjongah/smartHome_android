@@ -2,12 +2,14 @@ package com.example.handol
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.CompoundButton
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_test.*
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.toast
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,6 +25,15 @@ class MainActivity : AppCompatActivity() {
 
         tab_layout.setupWithViewPager(vpMainAcitivty)
 
+        switch_outing1.setOnCheckedChangeListener{CompoundButton, onSwitch->
+            if(onSwitch){
+                toast("switch on")
+
+            }
+            else{
+                toast("switch off")
+            }
+        }
     }
 
 

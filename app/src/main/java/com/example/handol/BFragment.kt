@@ -24,8 +24,8 @@ class BFragment : Fragment() {
 
 
     var items: MutableList<MainData> = mutableListOf(
-            MainData(R.drawable.doorlock, "도 어 락", R.drawable.on_64_3),
-            MainData(R.drawable.sunny, "날 씨", R.drawable.off_64_3)
+            MainData(R.drawable.doorlock, "도 어 락", R.drawable.imagebtn_states),
+            MainData(R.drawable.sunny, "날 씨", R.drawable.imagebtn_states)
 
     )
 

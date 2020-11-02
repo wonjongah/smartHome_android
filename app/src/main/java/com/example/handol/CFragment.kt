@@ -24,8 +24,8 @@ class CFragment : Fragment() {
 
 
     var items: MutableList<MainData> = mutableListOf(
-            MainData(R.drawable.light_out2,"전 등", R.drawable.on_64_3),
-            MainData(R.drawable.window,"창 문", R.drawable.off_64_3)
+            MainData(R.drawable.light_out2,"전 등", R.drawable.imagebtn_states),
+            MainData(R.drawable.window,"창 문", R.drawable.imagebtn_states)
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {

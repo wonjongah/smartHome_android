@@ -24,8 +24,8 @@ class DFragment : Fragment() {
 
 
     var items: MutableList<MainData> = mutableListOf(
-            MainData(R.drawable.fire,"화 재", R.drawable.off_64_3),
-            MainData(R.drawable.valve,"가 스", R.drawable.on_64_3)
+            MainData(R.drawable.fire,"화 재", R.drawable.imagebtn_states),
+            MainData(R.drawable.valve,"가 스", R.drawable.imagebtn_states)
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
