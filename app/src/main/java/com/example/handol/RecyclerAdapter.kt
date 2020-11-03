@@ -72,7 +72,7 @@ class RecyclerAdapter(var items: MutableList<MainData>,
             } finally {
                 if (socket != null) {
                     try {
-                        socket.close()
+                        //socket.close()
                     } catch (e: IOException) {
                         // TODO Auto-generated catch block
                         e.printStackTrace()
