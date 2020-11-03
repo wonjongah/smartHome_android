@@ -1,15 +1,21 @@
 package com.example.handol
 
+import android.content.ContentValues.TAG
 import android.os.AsyncTask
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_a.view.*
+import org.json.JSONArray
+import org.json.JSONObject
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.net.Socket
 import java.net.UnknownHostException
+import java.util.*
+import kotlin.concurrent.timer
 
 
 class RecyclerAdapter(var items: MutableList<MainData>,
@@ -102,7 +108,6 @@ class RecyclerAdapter(var items: MutableList<MainData>,
 
     // 4번째 호출
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-
         // bindViewHolder -> 각각의 컴포넌트를 홀더에 넣는 역할
         items[position].let { // 실제데이터와 뷰 연결
             // items[position] -> item 선택
@@ -116,6 +121,10 @@ class RecyclerAdapter(var items: MutableList<MainData>,
                 tvfurStateA.text = it.content
                 imageBtnA.setImageResource(it.imagebtn)
 
+//                timer(period = 100000, initialDelay = 1000) {
+//                    val myClientTask = MyClientTask("192.168.0.103", 8888, "humi", itemView.tv_rec_a)
+//                    myClientTask.execute()
+//                }
 
                 if (position == 0) {
                     itemView.setOnClickListener {
@@ -124,16 +133,18 @@ class RecyclerAdapter(var items: MutableList<MainData>,
                     imageBtnA.setOnClickListener {
                         if(imageBtnA.isSelected){
                             imageBtnA.setSelected(false)
-                            val myClientTask = MyClientTask("192.168.35.196", 8888, "on", itemView.tv_rec_a)
+                            val myClientTask = MyClientTask("192.168.0.103", 8888, "living_LED_ON", itemView.tv_rec_a)
+                            // val myClientTast = MyClientTask("192.168.0.103", 8888, "on", itemView.tv_rec_a)
                             myClientTask.execute()
                         }
                         else{
                             imageBtnA.setSelected(true)
-                            val myClientTask = MyClientTask("192.168.35.196", 8888, "off", itemView.tv_rec_a)
+                            val myClientTask = MyClientTask("192.168.0.103", 8888, "living_LED_OFF", itemView.tv_rec_a)
                             myClientTask.execute()
                         }
+                        //jasonObjectsExample()
                     }
-                } // 실제 데이터 넣는 작업, 그 연결작업을 뷰홀더가 해주는 것
+                }
 
                 else if (position == 1){
                     itemView.setOnClickListener {
@@ -234,5 +245,50 @@ class RecyclerAdapter(var items: MutableList<MainData>,
     override fun getItemCount(): Int = items.size
     // 데이터 몇 개 있는가
 
+//    fun startTimer(){
+//        var timerTask: Timer? = null
+//        timerTask = timer(period = 10000){
+//            val myClientTask = MyClientTask("192.168.0.103", 8888, "humi", itemView.tv_rec_a)
+//            myClientTask.execute()
+//            runOnUiThread{
+//
+//            }
+//        }
+//    }
+
+    fun jasonObjectsExample(){
+        val jasonString = """
+            {
+                "IoT3": {
+                    {
+                        "room" : "living",
+                        "sensor" : "LED",
+                        "order" : "ON"
+                    },
+                    {
+                        "room" : "living",
+                        "sensor" : "LED",
+                        "order" : "OFF"
+                    }
+                }
+            }
+        """.trimIndent()
+
+        val jObject = JSONObject(jasonString)
+        val jArray = jObject.getJSONArray("IoT3")
+
+        for (i in 0 until jArray.length()){
+            val obj = jArray.getJSONObject(i)
+            val room = obj.getString("room")
+            val sensor = obj.getString("sensor")
+            val order = obj.getString("order")
+            Log.d(TAG, "room: $room")
+            Log.d(TAG, "sensor: $sensor")
+            Log.d(TAG, "order: $order")
+
+        }
+
+
+    }
 
 }
