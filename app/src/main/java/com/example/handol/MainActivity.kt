@@ -1,5 +1,6 @@
 package com.example.handol
 
+import android.content.ContentValues
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -16,6 +17,7 @@ import kotlinx.android.synthetic.main.fragment_a.view.*
 import org.eclipse.paho.client.mqttv3.MqttMessage
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
+import org.json.JSONObject
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.lang.Exception
@@ -24,7 +26,7 @@ import java.net.UnknownHostException
 import kotlin.concurrent.timer
 
 const val SUB_TOPIC = "iot_app"
-const val SERVER_URI = "tcp://192.168.0.103"
+const val SERVER_URI = "tcp://192.168.35.115"
 
 class MainActivity : AppCompatActivity() {
 
@@ -49,7 +51,6 @@ class MainActivity : AppCompatActivity() {
                 toast("switch off")
             }
         }
-
         mqttClient = Mqtt(this, SERVER_URI)
 
         try{
@@ -77,7 +78,63 @@ class MainActivity : AppCompatActivity() {
        //  println(msg + topic)
         Log.d(TAG, msg + topic)
 
-        tv_celsius.text = msg
+        jasonObjectsExample()
+        //jasonObjectsExample(msg)
+        //tv_celsius.text = msg
+    }
+
+    fun jasonObjectsExample(){//msg:String
+//        val jasonString = msg.trimIndent()
+
+        val jasonString = """
+            {
+                "living": {
+                    "DHT" : {
+                        "Temp": 24,
+                        "Humi" :30
+                    },
+                    "LED" : {
+                        "Brig" : 255,
+                        "stat" : 1
+                    }
+                }
+                "bathroom" : {
+                    "tap" : {
+                        "str" : 0,
+                        "open" : 0
+                    }
+                }
+                
+            }
+        """.trimIndent()
+
+
+        val jObject = JSONObject(jasonString)
+        val livingObject = jObject.getJSONObject("living")
+        Log.d(TAG, livingObject.toString())
+        val dhtObject = livingObject.getJSONObject("DHT")
+        Log.d(TAG, dhtObject.toString())
+        val temp = dhtObject.getString("Temp")
+        Log.d(TAG, "temp : $temp")
+        val humi = dhtObject.getString("Humi")
+        Log.d(TAG, "humi : $humi")
+
+        tv_celsius.text = temp
+        tv_humi.text = humi
+//        val jArray = jObject.getJSONArray("IoT3")
+//
+//        for (i in 0 until jArray.length()){
+//            val obj = jArray.getJSONObject(i)
+//            val room = obj.getString("room")
+//            val sensor = obj.getString("sensor")
+//            val order = obj.getString("order")
+//            Log.d(ContentValues.TAG, "room: $room")
+//            Log.d(ContentValues.TAG, "sensor: $sensor")
+//            Log.d(ContentValues.TAG, "order: $order")
+//
+//        }
+
+
     }
 
     fun changeFragment(f: Fragment, cleanStack: Boolean = false){

@@ -35,10 +35,12 @@ class RecyclerAdapter(var items: MutableList<MainData>,
         // 뷰홀더와 연관된 데이터를 나중에 설정할 것, 그곳이 저기다
     }
 
-    inner class MyClientTask (var dstAddress: String, var dstPort: Int, message: String, private val tv_rec: View) : AsyncTask<Void?, Void?, Void?>() {
+    inner class MyClientTask (message: String, private val tv_rec: View) : AsyncTask<Void?, Void?, Void?>() {
 
         var response = ""
         var myMessage = ""
+        var dstAddress = "192.168.35.115"
+        var dstPort = 8888
         override fun doInBackground(vararg p0: Void?): Void? {
             var socket: Socket? = null
             myMessage = myMessage
@@ -133,13 +135,13 @@ class RecyclerAdapter(var items: MutableList<MainData>,
                     imageBtnA.setOnClickListener {
                         if(imageBtnA.isSelected){
                             imageBtnA.setSelected(false)
-                            val myClientTask = MyClientTask("192.168.0.103", 8888, "living_LED_ON", itemView.tv_rec_a)
+                            val myClientTask = MyClientTask("living_LED_ON", itemView.tv_rec_a)
                             // val myClientTast = MyClientTask("192.168.0.103", 8888, "on", itemView.tv_rec_a)
                             myClientTask.execute()
                         }
                         else{
                             imageBtnA.setSelected(true)
-                            val myClientTask = MyClientTask("192.168.0.103", 8888, "living_LED_OFF", itemView.tv_rec_a)
+                            val myClientTask = MyClientTask("living_LED_OFF", itemView.tv_rec_a)
                             myClientTask.execute()
                         }
                         //jasonObjectsExample()

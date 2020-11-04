@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Handol</string>
+    <string name="app_name">한 돌</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_light">LightActivity</string>
