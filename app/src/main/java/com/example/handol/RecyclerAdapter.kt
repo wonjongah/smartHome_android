@@ -21,7 +21,7 @@ import kotlin.concurrent.timer
 
 class RecyclerAdapter(var items: MutableList<MainData>,
                       val onLightClick:()->Unit, val onGasClick:()->Unit,
-                      val onFireClick:()->Unit, val onLeakClick:()->Unit, val onCctvClick:()->Unit, val controlOn:(state:Boolean)->Boolean) : RecyclerView.Adapter<RecyclerAdapter.MainViewHolder>() {
+                      val onFireClick:()->Unit, val onLeakClick:()->Unit, val onCctvClick:()->Unit) : RecyclerView.Adapter<RecyclerAdapter.MainViewHolder>() {
 // var -> 멤버변수 선언, var 안 쓰면 생성자에서만 쓰이는 지역변수
     // 생성자의 매개변수 앞에 var, val 키워드가 붙으면 멤버변수로 운영하겠다란 뜻
 
@@ -137,17 +137,17 @@ class RecyclerAdapter(var items: MutableList<MainData>,
                     itemView.setOnClickListener {
                         onLightClick()
                     }
-                    if(controlOn(true)){
-                        imageBtnA.setSelected(false)
-                        val myClientTask = MyClientTask("living_LED_ON", itemView.tv_rec_a)
-                        myClientTask.execute()
-                    }
-                    else if(!controlOn(false)){
-                        imageBtnA.setSelected(true)
-                        val myClientTask = MyClientTask("living_LED_OFF", itemView.tv_rec_a)
-                        myClientTask.execute()
-                    }
-                    else {
+//                    if(controlOn(true)){
+//                        imageBtnA.setSelected(false)
+//                        val myClientTask = MyClientTask("living_LED_ON", itemView.tv_rec_a)
+//                        myClientTask.execute()
+//                    }
+//                    else if(!controlOn(false)){
+//                        imageBtnA.setSelected(true)
+//                        val myClientTask = MyClientTask("living_LED_OFF", itemView.tv_rec_a)
+//                        myClientTask.execute()
+//                    }
+//                    else {
                         imageBtnA.setOnClickListener {
                             if (imageBtnA.isSelected) {
                                 imageBtnA.setSelected(false)
@@ -161,7 +161,7 @@ class RecyclerAdapter(var items: MutableList<MainData>,
                             }
                             // jasonObjectsExample()
                         }
-                    }
+//                    }
                 }
 
                 else if (position == 1){

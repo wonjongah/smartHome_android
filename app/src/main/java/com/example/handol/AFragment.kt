@@ -114,14 +114,18 @@ class AFragment : Fragment() {
 
 
     fun controlOn(state:Boolean): Boolean{
-        val newstate = state
 
-//        items
+
+        for (i in 0..items.size -1){
+            Log.d("D", items[i].imagebtn.toString())
+            items[i].imagebtn = R.drawable.on_64_3
+            //items[i][2] = R.drawable.imagebtn_states
+        }
         // items를 여기서 갱신, 버튼 이미지를 바꾼다든가
-//        rv_fragment_a.adapter?.notifyDataSetChanged()
+        rv_fragment_a.adapter?.notifyDataSetChanged()
 
 
-        return newstate
+        return state
     }
 
     fun onLightClick(){
@@ -152,7 +156,7 @@ class AFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        rv_fragment_a.adapter = RecyclerAdapter(items, ::onLightClick, ::onGasClick, ::onFireClick, ::onLeakClick, ::onCctvClick, ::controlOn)
+        rv_fragment_a.adapter = RecyclerAdapter(items, ::onLightClick, ::onGasClick, ::onFireClick, ::onLeakClick, ::onCctvClick)
         rv_fragment_a.setHasFixedSize(true)
         rv_fragment_a.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         rv_fragment_a.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
