@@ -25,7 +25,7 @@
         android:layout_marginStart="80dp"
         android:text="밝기  :  "
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintBottom_toTopOf="@+id/seekBar4"
+        app:layout_constraintBottom_toTopOf="@+id/seekBar_light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.284"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,11 +33,9 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <SeekBar
-        android:id="@+id/seekBar4"
+        android:id="@+id/seekBar_light"
         android:layout_width="290dp"
         android:layout_height="86dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginEnd="67dp"
         android:layout_marginBottom="29dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

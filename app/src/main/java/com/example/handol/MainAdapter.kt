@@ -30,4 +30,14 @@ class MainAdapter(fm:FragmentManager):FragmentStatePagerAdapter(fm){
     override fun getPageTitle(position: Int): CharSequence? {
         return fragmentTitleList[position]
     }
+
+    var currentFragment : AFragment?=null
+
+    override fun setPrimaryItem(container: ViewGroup, position: Int, `object`: Any) {
+        if (currentFragment !== `object`) {
+            currentFragment = `object` as AFragment
+        }
+        super.setPrimaryItem(container!!, position, `object`)
+    }
+
 }

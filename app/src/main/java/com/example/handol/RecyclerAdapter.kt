@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.activity_test.*
 import kotlinx.android.synthetic.main.fragment_a.view.*
 import org.json.JSONArray
 import org.json.JSONObject
@@ -20,7 +21,7 @@ import kotlin.concurrent.timer
 
 class RecyclerAdapter(var items: MutableList<MainData>,
                       val onLightClick:()->Unit, val onGasClick:()->Unit,
-                      val onFireClick:()->Unit, val onLeakClick:()->Unit, val onCctvClick:()->Unit) : RecyclerView.Adapter<RecyclerAdapter.MainViewHolder>() {
+                      val onFireClick:()->Unit, val onLeakClick:()->Unit, val onCctvClick:()->Unit, val controlOn:(state:Boolean)->Boolean) : RecyclerView.Adapter<RecyclerAdapter.MainViewHolder>() {
 // var -> 멤버변수 선언, var 안 쓰면 생성자에서만 쓰이는 지역변수
     // 생성자의 매개변수 앞에 var, val 키워드가 붙으면 멤버변수로 운영하겠다란 뜻
 
@@ -31,6 +32,9 @@ class RecyclerAdapter(var items: MutableList<MainData>,
         val tvfurStateA = itemView.tv_furState_a
         val imageBtnA = itemView.ib_a
         val tvrec = itemView.tv_rec_a
+        lateinit var ACTIVITY:MainActivity
+        lateinit var str:String
+
         // 카드뷰 자식으로 메인 컨텐트가 뭐냐를 참조로 넣음
         // 뷰홀더와 연관된 데이터를 나중에 설정할 것, 그곳이 저기다
     }
@@ -39,7 +43,9 @@ class RecyclerAdapter(var items: MutableList<MainData>,
 
         var response = ""
         var myMessage = ""
-        var dstAddress = "192.168.35.115"
+        // var dstAddress = "192.168.35.115"
+        var dstAddress = "192.168.0.103"
+
         var dstPort = 8888
         override fun doInBackground(vararg p0: Void?): Void? {
             var socket: Socket? = null
@@ -117,7 +123,6 @@ class RecyclerAdapter(var items: MutableList<MainData>,
             // with -> apply와 유사, holder를 this로 삼겠다 (holder.apply)
 
             // holder.tvTitle.text = it.title과 밑의 코드는 같음
-
             with(holder) {
                 iconA.setImageResource(it.icon)
                 tvfurStateA.text = it.content
@@ -132,19 +137,30 @@ class RecyclerAdapter(var items: MutableList<MainData>,
                     itemView.setOnClickListener {
                         onLightClick()
                     }
-                    imageBtnA.setOnClickListener {
-                        if(imageBtnA.isSelected){
-                            imageBtnA.setSelected(false)
-                            val myClientTask = MyClientTask("living_LED_ON", itemView.tv_rec_a)
-                            // val myClientTast = MyClientTask("192.168.0.103", 8888, "on", itemView.tv_rec_a)
-                            myClientTask.execute()
+                    if(controlOn(true)){
+                        imageBtnA.setSelected(false)
+                        val myClientTask = MyClientTask("living_LED_ON", itemView.tv_rec_a)
+                        myClientTask.execute()
+                    }
+                    else if(!controlOn(false)){
+                        imageBtnA.setSelected(true)
+                        val myClientTask = MyClientTask("living_LED_OFF", itemView.tv_rec_a)
+                        myClientTask.execute()
+                    }
+                    else {
+                        imageBtnA.setOnClickListener {
+                            if (imageBtnA.isSelected) {
+                                imageBtnA.setSelected(false)
+                                val myClientTask = MyClientTask("living_LED_ON", itemView.tv_rec_a)
+                                // val myClientTast = MyClientTask("192.168.0.103", 8888, "on", itemView.tv_rec_a)
+                                myClientTask.execute()
+                            } else {
+                                imageBtnA.setSelected(true)
+                                val myClientTask = MyClientTask("living_LED_OFF", itemView.tv_rec_a)
+                                myClientTask.execute()
+                            }
+                            // jasonObjectsExample()
                         }
-                        else{
-                            imageBtnA.setSelected(true)
-                            val myClientTask = MyClientTask("living_LED_OFF", itemView.tv_rec_a)
-                            myClientTask.execute()
-                        }
-                        //jasonObjectsExample()
                     }
                 }
 
@@ -236,6 +252,9 @@ class RecyclerAdapter(var items: MutableList<MainData>,
                         }
                     }
                 }
+                else{
+                    Log.d("else", "else")
+                }
             }
 
 
@@ -258,37 +277,55 @@ class RecyclerAdapter(var items: MutableList<MainData>,
 //        }
 //    }
 
-    fun jasonObjectsExample(){
+    fun jasonObjectsExample(){//msg:String
+//        val jasonString = msg.trimIndent()
+
         val jasonString = """
             {
-                "IoT3": {
-                    {
-                        "room" : "living",
-                        "sensor" : "LED",
-                        "order" : "ON"
+                "living": {
+                    "DHT" : {
+                        "Temp": 24,
+                        "Humi" :30
                     },
-                    {
-                        "room" : "living",
-                        "sensor" : "LED",
-                        "order" : "OFF"
+                    "LED" : {
+                        "Brig" : 255,
+                        "stat" : 1
+                    }
+                },
+                "bathroom" : {
+                    "tap" : {
+                        "str" : 0,
+                        "open" : 0
                     }
                 }
+                
             }
         """.trimIndent()
 
+
         val jObject = JSONObject(jasonString)
-        val jArray = jObject.getJSONArray("IoT3")
+        val livingObject = jObject.getJSONObject("living")
+        Log.d(TAG, livingObject.toString())
+        val dhtObject = livingObject.getJSONObject("DHT")
+        Log.d(TAG, dhtObject.toString())
+        val temp = dhtObject.getString("Temp")
+        Log.d(TAG, "temp : $temp")
+        val humi = dhtObject.getString("Humi")
+        Log.d(TAG, "humi : $humi")
 
-        for (i in 0 until jArray.length()){
-            val obj = jArray.getJSONObject(i)
-            val room = obj.getString("room")
-            val sensor = obj.getString("sensor")
-            val order = obj.getString("order")
-            Log.d(TAG, "room: $room")
-            Log.d(TAG, "sensor: $sensor")
-            Log.d(TAG, "order: $order")
 
-        }
+//        val jArray = jObject.getJSONArray("IoT3")
+//
+//        for (i in 0 until jArray.length()){
+//            val obj = jArray.getJSONObject(i)
+//            val room = obj.getString("room")
+//            val sensor = obj.getString("sensor")
+//            val order = obj.getString("order")
+//            Log.d(ContentValues.TAG, "room: $room")
+//            Log.d(ContentValues.TAG, "sensor: $sensor")
+//            Log.d(ContentValues.TAG, "order: $order")
+//
+//        }
 
 
     }

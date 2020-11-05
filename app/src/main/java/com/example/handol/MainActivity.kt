@@ -1,38 +1,33 @@
 package com.example.handol
 
-import android.content.ContentValues
 import android.os.AsyncTask
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.CompoundButton
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.tabs.TabLayout
+import androidx.fragment.app.FragmentTransaction
 import kotlinx.android.synthetic.main.activity_test.*
 import kotlinx.android.synthetic.main.activity_test.view.*
-import kotlinx.android.synthetic.main.fragment_a.view.*
 import org.eclipse.paho.client.mqttv3.MqttMessage
-import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import org.json.JSONObject
 import java.io.ByteArrayOutputStream
 import java.io.IOException
-import java.lang.Exception
 import java.net.Socket
 import java.net.UnknownHostException
-import kotlin.concurrent.timer
 
 const val SUB_TOPIC = "iot_app"
-const val SERVER_URI = "tcp://192.168.35.115"
+const val SERVER_URI = "tcp://192.168.0.103"
 
 class MainActivity : AppCompatActivity() {
 
     private val adapter by lazy{MainAdapter(supportFragmentManager)}
     val TAG = "MqttActivity"
+    val switchOn = "LED_ON"
+    val swtichOff = "LED_OFF"
     lateinit var mqttClient: Mqtt
+    var textValriable = "This to be read from the fragments"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,13 +37,35 @@ class MainActivity : AppCompatActivity() {
 
         tab_layout.setupWithViewPager(vpMainAcitivty)
 
+        textValriable = "I can also change this text"
+
+        val name = intent.getStringExtra("input_txt")
+        if (name != null) {
+            AFragment.newInstance(name)
+        }
+
         switch_outing1.setOnCheckedChangeListener{CompoundButton, onSwitch->
             if(onSwitch){
                 toast("switch on")
+                // 프레그먼트에 데이터 보내서 on 버튼들 세팅하기
+                // 아두이노에게 명령 보내기? -> 이거 프레그먼트에서 해야 함?
+               // getOnData()
+                // passDataCom()
+
+                // ViewPager의 현재 프레그먼트를 찾아야 함.
+                val state = false
+                val adapter = vpMainAcitivty.adapter as MainAdapter
+                adapter.currentFragment?.controlOn(true)
+
 
             }
             else{
                 toast("switch off")
+                // 프레그먼트에 데이터 보내서 off 버튼들 세팅하기
+                // 아두이노에게 명령 보내기? -> 이거 프레그먼트에서 해야 함?
+                val state = true
+                val fg = AFragment
+                //fg.controlOn(state)
             }
         }
         mqttClient = Mqtt(this, SERVER_URI)
@@ -71,6 +88,28 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+        fun passDataCom() {
+        val bundle = Bundle(1)
+        val myMessage = "Message received"
+        bundle.putString("input_txt",myMessage)
+
+        val transaction = this.supportFragmentManager.beginTransaction()
+        val fraga = AFragment()
+        fraga.arguments = bundle
+//
+//        transaction.replace(R.id.rv_fragment_a, fraga)
+//        transaction.addToBackStack(null)
+//        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+//        transaction.commit()
+    }
+
+    fun getOnData(): String {
+        return switchOn
+    }
+
+    fun getOffData(): String{
+        return swtichOff
+    }
 
     fun onReceived(topic:String, message:MqttMessage){
         val msg = String(message.payload)
@@ -97,7 +136,7 @@ class MainActivity : AppCompatActivity() {
                         "Brig" : 255,
                         "stat" : 1
                     }
-                }
+                },
                 "bathroom" : {
                     "tap" : {
                         "str" : 0,
