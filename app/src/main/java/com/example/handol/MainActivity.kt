@@ -7,91 +7,180 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.google.gson.JsonObject
+import com.google.gson.annotations.SerializedName
 import kotlinx.android.synthetic.main.activity_test.*
 import kotlinx.android.synthetic.main.activity_test.view.*
+import okhttp3.Callback
+import okhttp3.Response
 import org.eclipse.paho.client.mqttv3.MqttMessage
 import org.jetbrains.anko.toast
 import org.json.JSONObject
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import android.telecom.Call
+import androidx.viewpager.widget.ViewPager
+import kotlinx.android.synthetic.main.fragment_a.*
+import kotlinx.android.synthetic.main.fragment_a.view.*
+import kotlinx.android.synthetic.main.rv_fragment_a.*
+import retrofit2.http.GET
+import retrofit2.http.Path
+import retrofit2.http.Query
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.net.Socket
+import java.net.URI.create
 import java.net.UnknownHostException
+
 
 const val SUB_TOPIC = "iot_app"
 const val SERVER_URI = "tcp://192.168.0.103"
 
-class MainActivity : AppCompatActivity() {
-
-    private val adapter by lazy{MainAdapter(supportFragmentManager)}
-    val TAG = "MqttActivity"
-    val switchOn = "LED_ON"
-    val swtichOff = "LED_OFF"
-    lateinit var mqttClient: Mqtt
-    var textValriable = "This to be read from the fragments"
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_test)
-
-        vpMainAcitivty.adapter = MainActivity@adapter
-
-        tab_layout.setupWithViewPager(vpMainAcitivty)
-
-        textValriable = "I can also change this text"
-
-        val name = intent.getStringExtra("input_txt")
-        if (name != null) {
-            AFragment.newInstance(name)
-        }
-
-        switch_outing1.setOnCheckedChangeListener{CompoundButton, onSwitch->
-            if(onSwitch){
-                toast("switch on")
-                // 프레그먼트에 데이터 보내서 on 버튼들 세팅하기
-                // 아두이노에게 명령 보내기? -> 이거 프레그먼트에서 해야 함?
-               // getOnData()
-                // passDataCom()
-
-                // ViewPager의 현재 프레그먼트를 찾아야 함.
-                val state = false
-                val adapter = vpMainAcitivty.adapter as MainAdapter
-
-                adapter.currentFragment?.controlOn(false)
-                adapter.currentFragmentB?.controlOn(false)
-                adapter.currentFragmentC?.controlOn(false)
-
-                adapter.currentFragmentD?.controlOn(false)
-                adapter.currentFragmentE?.controlOn(false)
 
 
+    class MainActivity : AppCompatActivity() {
 
+        inner class MyClientTask (message: String, private val tv_rec: View) : AsyncTask<Void?, Void?, Void?>() {
 
+            var response = ""
+            var myMessage = ""
+            // var dstAddress = "192.168.35.115"
+            //var dstAddress = "192.168.0.103"
+            var dstAddress = "192.168.35.148"
+
+            var dstPort = 8888
+            override fun doInBackground(vararg p0: Void?): Void? {
+                var socket: Socket? = null
+                myMessage = myMessage
+                try {
+                    socket = Socket(dstAddress, dstPort)
+                    //송신
+                    val out = socket.getOutputStream()
+                    out.write(myMessage.toByteArray())
+
+                    //수신
+                    val byteArrayOutputStream = ByteArrayOutputStream(1024)
+                    val buffer = ByteArray(1024)
+                    var bytesRead: Int
+                    val inputStream = socket.getInputStream()
+                    /*
+                     * notice:
+                     * inputStream.read() will block if no data return
+                     */while (inputStream.read(buffer).also { bytesRead = it } != -1) {
+                        byteArrayOutputStream.write(buffer, 0, bytesRead)
+                        response += byteArrayOutputStream.toString("UTF-8")
+                    }
+                    response = "($response)"
+                } catch (e: UnknownHostException) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace()
+                    response = "UnknownHostException: " + e.toString()
+                } catch (e: IOException) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace()
+                    response = "IOException: $e"
+                } finally {
+                    if (socket != null) {
+                        try {
+                            //socket.close()
+                        } catch (e: IOException) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace()
+                        }
+                    }
+                }
+                return null
             }
-            else{
-                toast("switch off")
-                // 프레그먼트에 데이터 보내서 off 버튼들 세팅하기
-                // 아두이노에게 명령 보내기? -> 이거 프레그먼트에서 해야 함?
-                val state = true
-                val fg = AFragment
-                val adapter = vpMainAcitivty.adapter as MainAdapter
-                adapter.currentFragment?.controlOn(true)
-                adapter.currentFragmentB?.controlOn(true)
-                adapter.currentFragmentC?.controlOn(true)
 
-                adapter.currentFragmentD?.controlOn(true)
-                adapter.currentFragmentE?.controlOn(true)
-                //fg.controlOn(state)
+            override fun onPostExecute(result: Void?) {
+//            tv_rec.textView.text = result.toString()
+                tv_rec.tv_rec_a.text = response
+                super.onPostExecute(result)
+            }
+
+            //constructor
+            init {
+                myMessage = message
             }
         }
-        mqttClient = Mqtt(this, SERVER_URI)
 
-        try{
-            // mqttClient.setCallback{topic, message ->}
-            mqttClient.setCallback(::onReceived)
-            mqttClient.connect(arrayOf<String>(SUB_TOPIC))
-        } catch(e:Exception){
-            e.printStackTrace()
+        companion object {
+            var BaseUrl = "http://api.openweathermap.org/"
+            var AppId = "69e1fd5353fda6a66022ce70e12f5dfe"
+            var lat = "37.445293"
+            var lon = "126.785823"
         }
+
+        private val adapter by lazy { MainAdapter(supportFragmentManager) }
+        val TAG = "MqttActivity"
+        val switchOn = "LED_ON"
+        val swtichOff = "LED_OFF"
+        lateinit var mqttClient: Mqtt
+        var textValriable = "This to be read from the fragments"
+
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+            setContentView(R.layout.activity_test)
+
+            vpMainAcitivty.adapter = MainActivity@ adapter
+
+            tab_layout.setupWithViewPager(vpMainAcitivty)
+
+            textValriable = "I can also change this text"
+
+
+            val name = intent.getStringExtra("input_txt")
+            if (name != null) {
+                AFragment.newInstance(name)
+            }
+
+            switch_outing1.setOnCheckedChangeListener { CompoundButton, onSwitch ->
+                if (onSwitch) {
+                    toast("switch on")
+                    // 프레그먼트에 데이터 보내서 on 버튼들 세팅하기
+                    // 아두이노에게 명령 보내기? -> 이거 프레그먼트에서 해야 함?
+                    // getOnData()
+                    // passDataCom()
+
+                    // ViewPager의 현재 프레그먼트를 찾아야 함.
+
+                    val state = false
+                    val adapter = vpMainAcitivty.adapter as MainAdapter
+
+                    adapter.currentFragment?.controlOn(false)
+                    adapter.currentFragmentB?.controlOn(false)
+                    adapter.currentFragmentC?.controlOn(false)
+                    adapter.currentFragmentD?.controlOn(false)
+                    adapter.currentFragmentE?.controlOn(false)
+
+
+                } else {
+                    toast("switch off")
+                    // 프레그먼트에 데이터 보내서 off 버튼들 세팅하기
+                    // 아두이노에게 명령 보내기? -> 이거 프레그먼트에서 해야 함?
+
+
+                    val state = true
+                    val fg = AFragment
+                    val adapter = vpMainAcitivty.adapter as MainAdapter
+                    adapter.currentFragment?.controlOn(true)
+                    adapter.currentFragmentB?.controlOn(true)
+                    adapter.currentFragmentC?.controlOn(true)
+                    adapter.currentFragmentD?.controlOn(true)
+                    adapter.currentFragmentE?.controlOn(true)
+
+                    //fg.controlOn(state)
+                }
+            }
+            mqttClient = Mqtt(this, SERVER_URI)
+
+            try {
+                // mqttClient.setCallback{topic, message ->}
+                mqttClient.setCallback(::onReceived)
+                mqttClient.connect(arrayOf<String>(SUB_TOPIC))
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
 
 //        timer(period = 10000, initialDelay = 100) {
 //
@@ -101,46 +190,27 @@ class MainActivity : AppCompatActivity() {
 //            myClientTask2.execute()
 //        }
 
-    }
 
-        fun passDataCom() {
-        val bundle = Bundle(1)
-        val myMessage = "Message received"
-        bundle.putString("input_txt",myMessage)
 
-        val transaction = this.supportFragmentManager.beginTransaction()
-        val fraga = AFragment()
-        fraga.arguments = bundle
-//
-//        transaction.replace(R.id.rv_fragment_a, fraga)
-//        transaction.addToBackStack(null)
-//        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-//        transaction.commit()
-    }
 
-    fun getOnData(): String {
-        return switchOn
-    }
+        }
 
-    fun getOffData(): String{
-        return swtichOff
-    }
 
-    fun onReceived(topic:String, message:MqttMessage){
-        val msg = String(message.payload)
-        val topic = topic
-       //  println(msg + topic)
-        Log.d(TAG, msg + topic)
+        fun onReceived(topic: String, message: MqttMessage) {
+            val msg = String(message.payload)
+            val topic = topic
+            //  println(msg + topic)
+            Log.d(TAG, msg + topic)
 
-        jasonObjectsExample()
-        //jasonObjectsExample(msg)
-        //tv_celsius.text = msg
-    }
+            jasonObjectsExample()
+            //jasonObjectsExample(msg)
+            //tv_celsius.text = msg
+        }
 
-    fun jasonObjectsExample(){//msg:String
+        fun jasonObjectsExample() {//msg:String
 //        val jasonString = msg.trimIndent()
 
-        val jasonString = """
+            val jasonString = """
             {
                 "living": {
                     "DHT" : {
@@ -163,18 +233,18 @@ class MainActivity : AppCompatActivity() {
         """.trimIndent()
 
 
-        val jObject = JSONObject(jasonString)
-        val livingObject = jObject.getJSONObject("living")
-        Log.d(TAG, livingObject.toString())
-        val dhtObject = livingObject.getJSONObject("DHT")
-        Log.d(TAG, dhtObject.toString())
-        val temp = dhtObject.getString("Temp")
-        Log.d(TAG, "temp : $temp")
-        val humi = dhtObject.getString("Humi")
-        Log.d(TAG, "humi : $humi")
+            val jObject = JSONObject(jasonString)
+            val livingObject = jObject.getJSONObject("living")
+            Log.d(TAG, livingObject.toString())
+            val dhtObject = livingObject.getJSONObject("DHT")
+            Log.d(TAG, dhtObject.toString())
+            val temp = dhtObject.getString("Temp")
+            Log.d(TAG, "temp : $temp")
+            val humi = dhtObject.getString("Humi")
+            Log.d(TAG, "humi : $humi")
 
-        tv_celsius.text = temp
-        tv_humi.text = humi
+            tv_celsius.text = temp
+            tv_humi.text = humi
 //        val jArray = jObject.getJSONArray("IoT3")
 //
 //        for (i in 0 until jArray.length()){
@@ -189,16 +259,30 @@ class MainActivity : AppCompatActivity() {
 //        }
 
 
+        }
+
+
+        fun changeFragment(f: Fragment, cleanStack: Boolean = false) {
+            val ft = supportFragmentManager.beginTransaction()
+            ft.replace(R.id.rv_fragment_a, f)
+            ft.addToBackStack(null)
+            ft.commit()
+        }
+
+
+
     }
 
-    fun changeFragment(f: Fragment, cleanStack: Boolean = false){
-        val ft = supportFragmentManager.beginTransaction()
-        ft.replace(R.id.rv_fragment_a, f)
-        ft.addToBackStack(null)
-        ft.commit()
-    }
+
+interface WeatherService{
 
 
-
-
+    @GET("data/2.5/weather")
+    fun getCurrentWeatherData(
+            @Query("lat") lat: String,
+            @Query("lon") lon: String,
+            @Query("appid") appid: String) :
+            retrofit2.Call<WeatherResponse>
 }
+
+

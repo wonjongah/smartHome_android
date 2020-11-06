@@ -39,9 +39,9 @@ class AFragment : Fragment() {
     var items: MutableList<MainData> = mutableListOf(
         MainData(R.drawable.light_out2,"전 등", R.drawable.imagebtn_states),
         MainData(R.drawable.valve,"가 스", R.drawable.imagebtn_states),
-        MainData(R.drawable.window,"창 문", R.drawable.imagebtn_states),
+        MainData(R.drawable.window,"침실 창문", R.drawable.imagebtn_states),
         MainData(R.drawable.fire,"화 재", R.drawable.imagebtn_states),
-        MainData(R.drawable.washer3,"세 탁 기", R.drawable.imagebtn_states),
+        MainData(R.drawable.window2,"거실 창문", R.drawable.imagebtn_states),
         MainData(R.drawable.faucet,"누 수", R.drawable.imagebtn_states),
             MainData(R.drawable.doorlock, "도 어 락", R.drawable.imagebtn_states),
             MainData(R.drawable.sunny, "날 씨", R.drawable.imagebtn_states)
@@ -99,19 +99,16 @@ class AFragment : Fragment() {
             for (i in 0..items.size - 1) {
                 Log.d("D", items[i].imagebtn.toString())
                 items[i].imagebtn = R.drawable.imagebtn_state_on
-
-                //items[i][2] = R.drawable.imagebtn_states
             }
             // items를 여기서 갱신, 버튼 이미지를 바꾼다든가
-            val myclient = MyClientTask("living_LED_ON", tv_rec_a)
+            val myclient = MyClientTask("living_LED_OFF", tv_rec_a)
             myclient.execute()
-        }else{
+        } else {
             for (i in 0..items.size - 1) {
                 Log.d("D", items[i].imagebtn.toString())
                 items[i].imagebtn = R.drawable.imagebtn_states
-                //items[i][2] = R.drawable.imagebtn_states
             }
-            val myclient = MyClientTask("living_LED_OFF", tv_rec_a)
+            val myclient = MyClientTask("living_LED_ON", tv_rec_a)
             myclient.execute()
         }
         rv_fragment_a?.adapter?.notifyDataSetChanged()

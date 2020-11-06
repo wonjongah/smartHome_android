@@ -268,16 +268,6 @@ class RecyclerAdapter(var items: MutableList<MainData>,
     override fun getItemCount(): Int = items.size
     // 데이터 몇 개 있는가
 
-//    fun startTimer(){
-//        var timerTask: Timer? = null
-//        timerTask = timer(period = 10000){
-//            val myClientTask = MyClientTask("192.168.0.103", 8888, "humi", itemView.tv_rec_a)
-//            myClientTask.execute()
-//            runOnUiThread{
-//
-//            }
-//        }
-//    }
 
     fun jasonObjectsExample(){//msg:String
 //        val jasonString = msg.trimIndent()

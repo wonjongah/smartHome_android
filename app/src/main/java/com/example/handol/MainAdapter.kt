@@ -13,14 +13,6 @@ class MainAdapter(fm:FragmentManager):FragmentStatePagerAdapter(fm){
 
     override fun getItem(position: Int): Fragment {
 
-        when(position){
-            0->currentFragment = AFragment()
-            1->currentFragmentB = BFragment()
-            2->currentFragmentC = CFragment()
-            3->currentFragmentD = DFragment()
-            4->currentFragmentE = EFragment()
-            else -> currentFragment = AFragment()
-        }
         return when(position){
             0 -> AFragment()
             1 -> BFragment()
@@ -47,30 +39,34 @@ class MainAdapter(fm:FragmentManager):FragmentStatePagerAdapter(fm){
     var currentFragmentD : DFragment?=null
     var currentFragmentE : EFragment?=null
 
+
+
     override fun setPrimaryItem(container: ViewGroup, position: Int, `object`: Any) {
 
-//        if (currentFragment !== `object`) {
-//            currentFragment = `object` as AFragment
-//        }
-
-        if(currentFragment == AFragment()){
+        currentFragment = null
+        currentFragmentB = null
+        currentFragmentC = null
+        currentFragmentD = null
+        currentFragmentE = null
+        //if(currentFragment !== `object`){
+        //    currentFragment = `object` as AFragment
+        //}
+        if(position == 0){
             currentFragment = `object` as AFragment
         }
-        else if(currentFragmentB == BFragment()){
+        else if(position == 1){
             currentFragmentB = `object` as BFragment
         }
-        else if(currentFragmentC == CFragment()){
+        else if(position == 2){
             currentFragmentC = `object` as CFragment
         }
-        else if(currentFragmentD == DFragment()){
+        else if(position == 3){
             currentFragmentD = `object` as DFragment
         }
-        else if(currentFragmentE == EFragment()){
+        else if(position == 4){
             currentFragmentE = `object` as EFragment
         }
-        else if(currentFragment !== `object`){
-            currentFragment = `object` as AFragment
-        }
+
 
 
         super.setPrimaryItem(container!!, position, `object`)

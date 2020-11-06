@@ -1,5 +1,6 @@
 package com.example.handol
 
+import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,6 +14,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_a.view.*
 import kotlinx.android.synthetic.main.fragment_b.view.*
 import kotlinx.android.synthetic.main.fragment_c.view.*
+import java.io.ByteArrayOutputStream
+import java.io.IOException
+import java.net.Socket
+import java.net.UnknownHostException
 
 class RecyclerAdapterC(var items: MutableList<MainData>, val onLightClick:()->Unit) : RecyclerView.Adapter<RecyclerAdapterC.MainViewHolder>() {
 // var -> 멤버변수 선언, var 안 쓰면 생성자에서만 쓰이는 지역변수
@@ -30,7 +35,70 @@ class RecyclerAdapterC(var items: MutableList<MainData>, val onLightClick:()->Un
         // 뷰홀더와 연관된 데이터를 나중에 설정할 것, 그곳이 저기다
     }
 
+    inner class MyClientTask (message: String, private val tv_rec: View) : AsyncTask<Void?, Void?, Void?>() {
 
+        var response = ""
+        var myMessage = ""
+        // var dstAddress = "192.168.35.115"
+//        var dstAddress = "192.168.0.103"
+        var dstAddress = "192.168.35.148"
+
+
+        var dstPort = 8888
+        override fun doInBackground(vararg p0: Void?): Void? {
+            var socket: Socket? = null
+            myMessage = myMessage
+            try {
+                socket = Socket(dstAddress, dstPort)
+                //송신
+                val out = socket.getOutputStream()
+                out.write(myMessage.toByteArray())
+
+                //수신
+                val byteArrayOutputStream = ByteArrayOutputStream(1024)
+                val buffer = ByteArray(1024)
+                var bytesRead: Int
+                val inputStream = socket.getInputStream()
+                /*
+                 * notice:
+                 * inputStream.read() will block if no data return
+                 */while (inputStream.read(buffer).also { bytesRead = it } != -1) {
+                    byteArrayOutputStream.write(buffer, 0, bytesRead)
+                    response += byteArrayOutputStream.toString("UTF-8")
+                }
+                response = "($response)"
+            } catch (e: UnknownHostException) {
+                // TODO Auto-generated catch block
+                e.printStackTrace()
+                response = "UnknownHostException: " + e.toString()
+            } catch (e: IOException) {
+                // TODO Auto-generated catch block
+                e.printStackTrace()
+                response = "IOException: $e"
+            } finally {
+                if (socket != null) {
+                    try {
+                        //socket.close()
+                    } catch (e: IOException) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace()
+                    }
+                }
+            }
+            return null
+        }
+
+        override fun onPostExecute(result: Void?) {
+//            tv_rec.textView.text = result.toString()
+            tv_rec.tv_rec_c.text = response
+            super.onPostExecute(result)
+        }
+
+        //constructor
+        init {
+            myMessage = message
+        }
+    }
 
     // 2번째 호출
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
@@ -75,9 +143,13 @@ class RecyclerAdapterC(var items: MutableList<MainData>, val onLightClick:()->Un
                     imageBtnC.setOnClickListener {
                         if(imageBtnC.isSelected){
                             imageBtnC.setSelected(false)
+                            val myClient = MyClientTask("living_WINDOW_OPEN", itemView.tv_rec_c)
+                            myClient.execute()
                         }
                         else{
                             imageBtnC.setSelected(true)
+                            val myClient = MyClientTask("living_WINDOW_CLOSE", itemView.tv_rec_c)
+                            myClient.execute()
                         }
                     }
                 }

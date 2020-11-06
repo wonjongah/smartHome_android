@@ -24,7 +24,6 @@ class EFragment : Fragment() {
 
 
     var items: MutableList<MainData> = mutableListOf(
-            MainData(R.drawable.washer3,"세 탁 기", R.drawable.imagebtn_states),
             MainData(R.drawable.faucet,"누 수", R.drawable.imagebtn_states)
     )
 
