@@ -55,7 +55,15 @@ class MainActivity : AppCompatActivity() {
                 // ViewPager의 현재 프레그먼트를 찾아야 함.
                 val state = false
                 val adapter = vpMainAcitivty.adapter as MainAdapter
-                adapter.currentFragment?.controlOn(true)
+
+                adapter.currentFragment?.controlOn(false)
+                adapter.currentFragmentB?.controlOn(false)
+                adapter.currentFragmentC?.controlOn(false)
+
+                adapter.currentFragmentD?.controlOn(false)
+                adapter.currentFragmentE?.controlOn(false)
+
+
 
 
             }
@@ -65,6 +73,13 @@ class MainActivity : AppCompatActivity() {
                 // 아두이노에게 명령 보내기? -> 이거 프레그먼트에서 해야 함?
                 val state = true
                 val fg = AFragment
+                val adapter = vpMainAcitivty.adapter as MainAdapter
+                adapter.currentFragment?.controlOn(true)
+                adapter.currentFragmentB?.controlOn(true)
+                adapter.currentFragmentC?.controlOn(true)
+
+                adapter.currentFragmentD?.controlOn(true)
+                adapter.currentFragmentE?.controlOn(true)
                 //fg.controlOn(state)
             }
         }
@@ -184,120 +199,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    class MyClientTask2 (var dstAddress: String, var dstPort: Int, message: String, private val tv_rec: View) : AsyncTask<Void?, Void?, Void?>() {
 
-        var response = ""
-        var myMessage = ""
-        override fun doInBackground(vararg p0: Void?): Void? {
-            var socket: Socket? = null
-            myMessage = myMessage
-            try {
-                socket = Socket(dstAddress, dstPort)
-                //송신
-                val out = socket.getOutputStream()
-                out.write(myMessage.toByteArray())
 
-                //수신
-                val byteArrayOutputStream = ByteArrayOutputStream(1024)
-                val buffer = ByteArray(1024)
-                var bytesRead: Int
-                val inputStream = socket.getInputStream()
-                /*
-                 * notice:
-                 * inputStream.read() will block if no data return
-                 */while (inputStream.read(buffer).also { bytesRead = it } != -1) {
-                    byteArrayOutputStream.write(buffer, 0, bytesRead)
-                    response += byteArrayOutputStream.toString("UTF-8")
-                }
-                response = "$response"
-            } catch (e: UnknownHostException) {
-                // TODO Auto-generated catch block
-                e.printStackTrace()
-                response = "UnknownHostException: " + e.toString()
-            } catch (e: IOException) {
-                // TODO Auto-generated catch block
-                e.printStackTrace()
-                response = "IOException: $e"
-            } finally {
-                if (socket != null) {
-                    try {
-                        socket.close()
-                    } catch (e: IOException) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace()
-                    }
-                }
-            }
-            return null
-        }
-
-        override fun onPostExecute(result: Void?) {
-//            tv_rec.textView.text = result.toString()
-            tv_rec.tv_celsius.text = response + " °C"
-            super.onPostExecute(result)
-        }
-
-        //constructor
-        init {
-            myMessage = message
-        }
-    }
-    class MyClientTask3 (var dstAddress: String, var dstPort: Int, message: String, private val tv_rec: View) : AsyncTask<Void?, Void?, Void?>() {
-
-        var response = ""
-        var myMessage = ""
-        override fun doInBackground(vararg p0: Void?): Void? {
-            var socket: Socket? = null
-            myMessage = myMessage
-            try {
-                socket = Socket(dstAddress, dstPort)
-                //송신
-                val out = socket.getOutputStream()
-                out.write(myMessage.toByteArray())
-
-                //수신
-                val byteArrayOutputStream = ByteArrayOutputStream(1024)
-                val buffer = ByteArray(1024)
-                var bytesRead: Int
-                val inputStream = socket.getInputStream()
-                /*
-                 * notice:
-                 * inputStream.read() will block if no data return
-                 */while (inputStream.read(buffer).also { bytesRead = it } != -1) {
-                    byteArrayOutputStream.write(buffer, 0, bytesRead)
-                    response += byteArrayOutputStream.toString("UTF-8")
-                }
-                response = "$response"
-            } catch (e: UnknownHostException) {
-                // TODO Auto-generated catch block
-                e.printStackTrace()
-                response = "UnknownHostException: " + e.toString()
-            } catch (e: IOException) {
-                // TODO Auto-generated catch block
-                e.printStackTrace()
-                response = "IOException: $e"
-            } finally {
-                if (socket != null) {
-                    try {
-                        socket.close()
-                    } catch (e: IOException) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace()
-                    }
-                }
-            }
-            return null
-        }
-
-        override fun onPostExecute(result: Void?) {
-//            tv_rec.textView.text = result.toString()
-            tv_rec.tv_humi.text = response
-            super.onPostExecute(result)
-        }
-
-        //constructor
-        init {
-            myMessage = message
-        }
-    }
 }

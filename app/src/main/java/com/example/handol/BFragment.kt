@@ -66,6 +66,27 @@ class BFragment : Fragment() {
                 }
     }
 
+    fun controlOn(state:Boolean): Boolean{
+
+
+        if (state) {
+            for (i in 0..items.size - 1) {
+                Log.d("D", items[i].imagebtn.toString())
+                items[i].imagebtn = R.drawable.on_64_3
+                //items[i][2] = R.drawable.imagebtn_states
+            }
+            // items를 여기서 갱신, 버튼 이미지를 바꾼다든가
+        }else{
+            for (i in 0..items.size - 1) {
+                Log.d("D", items[i].imagebtn.toString())
+                items[i].imagebtn = R.drawable.off_64_3
+                //items[i][2] = R.drawable.imagebtn_states
+            }
+        }
+        rv_fragment_a?.adapter?.notifyDataSetChanged()
+        return state
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
