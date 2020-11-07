@@ -17,6 +17,10 @@
         android:roundIcon="@mipmap/ic_handol_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Handol">
+        <activity android:name=".UnknownSnapshot"/>
+        <activity android:name=".GallerySelect"/>
+        <activity android:name=".ResultSelect"/>
+        <activity android:name=".PhotoSelect"/>
         <receiver android:name=".Receiver"/>
         <activity android:name=".CctvActivity"></activity>
         <activity android:name=".GasActivity" />

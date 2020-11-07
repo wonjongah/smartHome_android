@@ -1,5 +1,6 @@
 package com.example.handol
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.webkit.WebSettings
@@ -35,8 +36,14 @@ class CctvActivity : AppCompatActivity() {
         btn_add.setOnClickListener {
             alert("등록할 방법을 선택해주세요."){
                 title = "안면인식 등록"
-                negativeButton("갤러리"){toast("갤러리 선택")}
-                neutralPressed("사진 찍기"){toast("사진 찍기")}
+                negativeButton("갤러리"){
+                    val intent = Intent(this.ctx, GallerySelect::class.java)
+                    startActivity(intent)
+                }
+                neutralPressed("사진 찍기"){
+                    val intent = Intent(this.ctx, PhotoSelect::class.java)
+                    startActivity(intent)
+                }
             }.show()
         }
 
