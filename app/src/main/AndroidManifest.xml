@@ -19,7 +19,9 @@
         android:theme="@style/Theme.Handol">
         <activity android:name=".UnknownSnapshot"/>
         <activity android:name=".GallerySelect"/>
-        <activity android:name=".ResultSelect"/>
+        <activity android:name=".ResultSelect">
+
+        </activity>
         <activity android:name=".PhotoSelect"/>
         <receiver android:name=".Receiver"/>
         <activity android:name=".CctvActivity"></activity>
@@ -40,6 +42,15 @@
             </intent-filter>
         </activity>
         <service android:name="org.eclipse.paho.android.service.MqttService" />
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.cameraonly.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
+        </provider>
     </application>
 
 </manifest>
