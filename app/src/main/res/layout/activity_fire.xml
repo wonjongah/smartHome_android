@@ -21,8 +21,8 @@
 
     <ImageView
         android:id="@+id/iv_fire"
-        android:layout_width="271dp"
-        android:layout_height="325dp"
+        android:layout_width="262dp"
+        android:layout_height="314dp"
         app:layout_constraintBottom_toTopOf="@+id/tv_fire_state"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.47"

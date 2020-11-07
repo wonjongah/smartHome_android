@@ -39,73 +39,6 @@ class RecyclerAdapter(var items: MutableList<MainData>,
         // 뷰홀더와 연관된 데이터를 나중에 설정할 것, 그곳이 저기다
     }
 
-    inner class MyClientTask (message: String, private val tv_rec: View) : AsyncTask<Void?, Void?, Void?>() {
-
-        var response = ""
-        var myMessage = ""
-        // var dstAddress = "192.168.35.115"
-//        var dstAddress = "192.168.0.103"
-        var dstAddress = "192.168.35.148"
-
-
-        var dstPort = 8888
-        override fun doInBackground(vararg p0: Void?): Void? {
-            var socket: Socket? = null
-            myMessage = myMessage
-            try {
-                socket = Socket(dstAddress, dstPort)
-                //송신
-                val out = socket.getOutputStream()
-                out.write(myMessage.toByteArray())
-
-                //수신
-                val byteArrayOutputStream = ByteArrayOutputStream(1024)
-                val buffer = ByteArray(1024)
-                var bytesRead: Int
-                val inputStream = socket.getInputStream()
-                /*
-                 * notice:
-                 * inputStream.read() will block if no data return
-                 */while (inputStream.read(buffer).also { bytesRead = it } != -1) {
-                    byteArrayOutputStream.write(buffer, 0, bytesRead)
-                    response += byteArrayOutputStream.toString("UTF-8")
-                }
-                response = "($response)"
-            } catch (e: UnknownHostException) {
-                // TODO Auto-generated catch block
-                e.printStackTrace()
-                response = "UnknownHostException: " + e.toString()
-            } catch (e: IOException) {
-                // TODO Auto-generated catch block
-                e.printStackTrace()
-                response = "IOException: $e"
-            } finally {
-                if (socket != null) {
-                    try {
-                        //socket.close()
-                    } catch (e: IOException) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace()
-                    }
-                }
-            }
-            return null
-        }
-
-        override fun onPostExecute(result: Void?) {
-//            tv_rec.textView.text = result.toString()
-            tv_rec.tv_rec_a.text = response
-            super.onPostExecute(result)
-        }
-
-        //constructor
-        init {
-            myMessage = message
-        }
-    }
-
-
-
     // 2번째 호출
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         // ViewHolder 만들어내는 역할
@@ -153,12 +86,12 @@ class RecyclerAdapter(var items: MutableList<MainData>,
                         imageBtnA.setOnClickListener {
                             if (imageBtnA.isSelected) {
                                 imageBtnA.setSelected(false)
-                                val myClientTask = MyClientTask("living_LED_ON", itemView.tv_rec_a)
+                                val myClientTask = MyClientTask("living_LED_ON")
                                 // val myClientTast = MyClientTask("192.168.0.103", 8888, "on", itemView.tv_rec_a)
                                 myClientTask.execute()
                             } else {
                                 imageBtnA.setSelected(true)
-                                val myClientTask = MyClientTask("living_LED_OFF", itemView.tv_rec_a)
+                                val myClientTask = MyClientTask("living_LED_OFF")
                                 myClientTask.execute()
                             }
                             // jasonObjectsExample()
@@ -184,9 +117,13 @@ class RecyclerAdapter(var items: MutableList<MainData>,
                     imageBtnA.setOnClickListener {
                         if(imageBtnA.isSelected){
                             imageBtnA.setSelected(false)
+                            val myClient = MyClientTask("inner_WINDOW_OPEN")
+                            myClient.execute()
                         }
                         else{
                             imageBtnA.setSelected(true)
+                            val myClient = MyClientTask("inner_WINDOW_CLOSE")
+                            myClient.execute()
                         }
                     }
                 }
@@ -209,9 +146,13 @@ class RecyclerAdapter(var items: MutableList<MainData>,
                     imageBtnA.setOnClickListener {
                         if(imageBtnA.isSelected){
                             imageBtnA.setSelected(false)
+                            val myClient = MyClientTask("living_WINDOW_OPEN")
+                            myClient.execute()
                         }
                         else{
                             imageBtnA.setSelected(true)
+                            val myClient = MyClientTask("living_WINDOW_CLOSE")
+                            myClient.execute()
                         }
                     }
                 }

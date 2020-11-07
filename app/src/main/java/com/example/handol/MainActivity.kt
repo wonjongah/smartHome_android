@@ -1,6 +1,8 @@
 package com.example.handol
 
+import android.content.Intent
 import android.os.AsyncTask
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -19,6 +21,7 @@ import org.json.JSONObject
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import android.telecom.Call
+import androidx.annotation.RequiresApi
 import androidx.viewpager.widget.ViewPager
 import kotlinx.android.synthetic.main.fragment_a.*
 import kotlinx.android.synthetic.main.fragment_a.view.*
@@ -34,74 +37,15 @@ import java.net.UnknownHostException
 
 
 const val SUB_TOPIC = "iot_app"
+const val SUB_TOPIC_INFO = "iot_app/info"
+const val SUB_TOPIC_EMERGENCY = "iot_app/emergency "
 const val SERVER_URI = "tcp://192.168.0.103"
 
 
 
-    class MainActivity : AppCompatActivity() {
-
-        inner class MyClientTask (message: String, private val tv_rec: View) : AsyncTask<Void?, Void?, Void?>() {
-
-            var response = ""
-            var myMessage = ""
-            // var dstAddress = "192.168.35.115"
-            //var dstAddress = "192.168.0.103"
-            var dstAddress = "192.168.35.148"
-
-            var dstPort = 8888
-            override fun doInBackground(vararg p0: Void?): Void? {
-                var socket: Socket? = null
-                myMessage = myMessage
-                try {
-                    socket = Socket(dstAddress, dstPort)
-                    //송신
-                    val out = socket.getOutputStream()
-                    out.write(myMessage.toByteArray())
-
-                    //수신
-                    val byteArrayOutputStream = ByteArrayOutputStream(1024)
-                    val buffer = ByteArray(1024)
-                    var bytesRead: Int
-                    val inputStream = socket.getInputStream()
-                    /*
-                     * notice:
-                     * inputStream.read() will block if no data return
-                     */while (inputStream.read(buffer).also { bytesRead = it } != -1) {
-                        byteArrayOutputStream.write(buffer, 0, bytesRead)
-                        response += byteArrayOutputStream.toString("UTF-8")
-                    }
-                    response = "($response)"
-                } catch (e: UnknownHostException) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace()
-                    response = "UnknownHostException: " + e.toString()
-                } catch (e: IOException) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace()
-                    response = "IOException: $e"
-                } finally {
-                    if (socket != null) {
-                        try {
-                            //socket.close()
-                        } catch (e: IOException) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace()
-                        }
-                    }
-                }
-                return null
-            }
-
-            override fun onPostExecute(result: Void?) {
-//            tv_rec.textView.text = result.toString()
-                tv_rec.tv_rec_a.text = response
-                super.onPostExecute(result)
-            }
-
-            //constructor
-            init {
-                myMessage = message
-            }
+class MainActivity : AppCompatActivity() {
+        private val notificationHandler: NotificationHandler by lazy{
+            NotificationHandler(applicationContext)
         }
 
         companion object {
@@ -113,11 +57,9 @@ const val SERVER_URI = "tcp://192.168.0.103"
 
         private val adapter by lazy { MainAdapter(supportFragmentManager) }
         val TAG = "MqttActivity"
-        val switchOn = "LED_ON"
-        val swtichOff = "LED_OFF"
         lateinit var mqttClient: Mqtt
-        var textValriable = "This to be read from the fragments"
 
+        @RequiresApi(Build.VERSION_CODES.O)
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
             setContentView(R.layout.activity_test)
@@ -126,13 +68,8 @@ const val SERVER_URI = "tcp://192.168.0.103"
 
             tab_layout.setupWithViewPager(vpMainAcitivty)
 
-            textValriable = "I can also change this text"
-
-
-            val name = intent.getStringExtra("input_txt")
-            if (name != null) {
-                AFragment.newInstance(name)
-            }
+            notificationHandler.sendWindowNotification("창문 알람", this)
+            notificationHandler.sendCctvNotification("CCTV 알람", this)
 
             switch_outing1.setOnCheckedChangeListener { CompoundButton, onSwitch ->
                 if (onSwitch) {
@@ -152,6 +89,7 @@ const val SERVER_URI = "tcp://192.168.0.103"
                     adapter.currentFragmentC?.controlOn(false)
                     adapter.currentFragmentD?.controlOn(false)
                     adapter.currentFragmentE?.controlOn(false)
+                    notificationHandler.sendGasNotification("가스 누수",this)
 
 
                 } else {
@@ -178,6 +116,9 @@ const val SERVER_URI = "tcp://192.168.0.103"
                 // mqttClient.setCallback{topic, message ->}
                 mqttClient.setCallback(::onReceived)
                 mqttClient.connect(arrayOf<String>(SUB_TOPIC))
+                mqttClient.connect(arrayOf<String>(SUB_TOPIC_INFO))
+                mqttClient.connect(arrayOf<String>(SUB_TOPIC_EMERGENCY))
+                
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -190,9 +131,6 @@ const val SERVER_URI = "tcp://192.168.0.103"
 //            myClientTask2.execute()
 //        }
 
-
-
-
         }
 
 
@@ -201,8 +139,15 @@ const val SERVER_URI = "tcp://192.168.0.103"
             val topic = topic
             //  println(msg + topic)
             Log.d(TAG, msg + topic)
+            if(topic == SUB_TOPIC_INFO){
+                jasonObjectsExample()
+            }else if(topic == SUB_TOPIC_EMERGENCY){
+                // json 작업해서 한 번 더 거른 다음 때에 따라서 noti 작업
+                // gas면 notificationHandler.sendGasNotification("가스 누수",this)
+                // cctv면
+                // 미세먼지
+            }
 
-            jasonObjectsExample()
             //jasonObjectsExample(msg)
             //tv_celsius.text = msg
         }
