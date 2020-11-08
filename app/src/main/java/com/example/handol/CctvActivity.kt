@@ -15,6 +15,7 @@ import android.provider.MediaStore
 import android.util.Log
 import android.webkit.WebSettings
 import android.webkit.WebViewClient
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
@@ -31,8 +32,8 @@ import java.util.*
 
 class CctvActivity : AppCompatActivity() {
 
-    val REQUEST_IMAGE_CAPTURE = 1
     lateinit var currentPhotoPath: String
+    lateinit var path : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,6 +85,7 @@ class CctvActivity : AppCompatActivity() {
 
 
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -91,16 +93,22 @@ class CctvActivity : AppCompatActivity() {
             1 -> {
                 if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
 
-                    val value = data
-                    val value2 = currentPhotoPath
+                    Log.d("haha", "haha")
+                    val url = data?.getStringExtra("url")
+                    if (url != null) {
+                        Log.d("PIC@@@@@@", url)
+                    }
+
                     val intent = Intent(this, ResultSelect::class.java)
-                    intent.putExtra("value", value)
-                    intent.putExtra("value2", value2)
-                    startActivityForResult(value, 2)
+
+                    intent.putExtra("url", currentPhotoPath)
+                    galleryAddPic()
+                    startActivityForResult(intent, 2)
 
                 }
             }
         }
+
     }
     // 카메라 열기
     private fun dispatchTakePictureIntent() {
@@ -121,8 +129,12 @@ class CctvActivity : AppCompatActivity() {
                         if(photoFile != null){
 
                             val photoURI = Uri.fromFile(photoFile)
+
                             takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+                            Log.d("PIC1", photoURI.toString())
+                            path = photoURI.toString()
+                            takePictureIntent.putExtra("url", path)
+                            startActivityForResult(takePictureIntent, 1)
 
                         }
                     }
@@ -132,7 +144,7 @@ class CctvActivity : AppCompatActivity() {
                                 this, "com.example.handol.fileprovider", it
                             )
                             takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+                            startActivityForResult(takePictureIntent, 1)
                         }
                     }
                 }
@@ -140,6 +152,16 @@ class CctvActivity : AppCompatActivity() {
         }
     }
 
+    private fun galleryAddPic() {
+        Log.i("galleryAddPic", "Call");
+        val mediaScanIntent: Intent = Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        // 해당 경로에 있는 파일을 객체화(새로 파일을 만든다는 것으로 이해하면 안 됨)
+        val f: File = File(currentPhotoPath);
+        val contentUri: Uri = Uri.fromFile(f);
+        mediaScanIntent.setData(contentUri);
+        sendBroadcast(mediaScanIntent);
+        Toast.makeText(this, "사진이 앨범에 저장되었습니다.", Toast.LENGTH_SHORT).show();
+    }
 
     // 카메라로 촬영한 이미지를 파일로 저장해준다
     @Throws(IOException::class)
@@ -160,7 +182,7 @@ class CctvActivity : AppCompatActivity() {
     // 카메라 권한 요청
     private fun requestPermission() {
         ActivityCompat.requestPermissions(this, arrayOf(READ_EXTERNAL_STORAGE, CAMERA),
-            REQUEST_IMAGE_CAPTURE)
+            1)
     }
 
     // 카메라 권한 체크
