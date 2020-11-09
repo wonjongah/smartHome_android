@@ -49,7 +49,7 @@ class MyClientTask (message: String) : AsyncTask<Void?, Void?, Void?>() {
         } finally {
             if (socket != null) {
                 try {
-                    //socket.close()
+                    socket.close()
                 } catch (e: IOException) {
                     // TODO Auto-generated catch block
                     e.printStackTrace()

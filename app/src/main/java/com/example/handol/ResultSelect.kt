@@ -19,12 +19,27 @@ import java.io.IOException
 
 class ResultSelect : AppCompatActivity() {
 
+    lateinit var file_url : String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result_select)
 
+        val i = intent ?: Log.d("인텐트 값 없음", "없네...")
+
+        val rec_path = intent.getStringExtra("url")
+        file_url = rec_path.toString()
+        val file = File(rec_path)
+
+
+
         btn_photo_cancel.setOnClickListener{
             onBackPressed()
+        }
+
+        btn_photo_select.setOnClickListener {
+            val socket = SocketFile(file_url)
+            socket.execute()
         }
     }
 
@@ -34,6 +49,7 @@ class ResultSelect : AppCompatActivity() {
         val i = intent ?: Log.d("인텐트 값 없음", "없네...")
 
         val rec_path = intent.getStringExtra("url")
+        file_url = rec_path.toString()
         val file = File(rec_path)
         if (Build.VERSION.SDK_INT < 28) {
             val bitmap = MediaStore.Images.Media

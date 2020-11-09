@@ -122,6 +122,7 @@ class CctvActivity : AppCompatActivity() {
             3->{
                 if (resultCode == Activity.RESULT_OK && requestCode == 3){
                     val url = data?.data.toString()
+                    Log.d("갤러리 url", url)
 
                     val intent = Intent(this, GallerySelect::class.java)
 
