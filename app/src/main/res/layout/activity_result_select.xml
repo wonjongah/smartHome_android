@@ -23,7 +23,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Name"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/btn_photo_select"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView12"
         app:layout_constraintTop_toBottomOf="@+id/iv_result" />
@@ -33,28 +33,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintBottom_toTopOf="@+id/btn_photo_cancel"
         app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_result" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btn_photo_select"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="등 록"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button2"
+        app:layout_constraintStart_toEndOf="@+id/btn_photo_cancel"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btn_photo_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="취 소"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button"
+        app:layout_constraintEnd_toStartOf="@+id/btn_photo_select"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
 </androidx.constraintlayout.widget.ConstraintLayout>

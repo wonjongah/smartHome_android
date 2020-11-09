@@ -22,6 +22,10 @@ class ResultSelect : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result_select)
+
+        btn_photo_cancel.setOnClickListener{
+            finishActivity(2)
+        }
     }
 
     override fun onStart() {
@@ -45,37 +49,37 @@ class ResultSelect : AppCompatActivity() {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        when (requestCode) {
-            2 -> {
-                if (requestCode == 2 && resultCode == Activity.RESULT_OK) {
-
-                    Log.d("REC!!!!", "받긴 한데 받은 게 널인듯")
-                    // 카메라로부터 받은 데이터가 있을경우에만
-                    val data2 = data?.getStringExtra("url")
-                    if (data2 != null) {
-                        Log.d("RESULTPIC", data2)
-                    }
-
-                    val file = File(data2)
-                    if (Build.VERSION.SDK_INT < 28) {
-                        val bitmap = MediaStore.Images.Media
-                            .getBitmap(contentResolver, Uri.fromFile(file))  //Deprecated
-                        iv_result.setImageBitmap(rotateImageIfRequired(file.path))
-                    } else {
-                        val decode = ImageDecoder.createSource(
-                            this.contentResolver,
-                            Uri.fromFile(file)
-                        )
-                        val bitmap = ImageDecoder.decodeBitmap(decode)
-                        iv_result.setImageBitmap(rotateImageIfRequired(file.path))
-                    }
-                }
-            }
-        }
-    }
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//
+//        when (requestCode) {
+//            2 -> {
+//                if (requestCode == 2 && resultCode == Activity.RESULT_OK) {
+//
+//                    Log.d("REC!!!!", "받긴 한데 받은 게 널인듯")
+//                    // 카메라로부터 받은 데이터가 있을경우에만
+//                    val data2 = data?.getStringExtra("url")
+//                    if (data2 != null) {
+//                        Log.d("RESULTPIC", data2)
+//                    }
+//
+//                    val file = File(data2)
+//                    if (Build.VERSION.SDK_INT < 28) {
+//                        val bitmap = MediaStore.Images.Media
+//                            .getBitmap(contentResolver, Uri.fromFile(file))  //Deprecated
+//                        iv_result.setImageBitmap(rotateImageIfRequired(file.path))
+//                    } else {
+//                        val decode = ImageDecoder.createSource(
+//                            this.contentResolver,
+//                            Uri.fromFile(file)
+//                        )
+//                        val bitmap = ImageDecoder.decodeBitmap(decode)
+//                        iv_result.setImageBitmap(rotateImageIfRequired(file.path))
+//                    }
+//                }
+//            }
+//        }
+//    }
 
 
     private fun rotateImageIfRequired(imagePath: String): Bitmap? {

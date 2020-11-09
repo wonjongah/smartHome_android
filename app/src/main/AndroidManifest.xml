@@ -22,7 +22,6 @@
         <activity android:name=".ResultSelect">
 
         </activity>
-        <activity android:name=".PhotoSelect"/>
         <receiver android:name=".Receiver"/>
         <activity android:name=".CctvActivity"></activity>
         <activity android:name=".GasActivity" />

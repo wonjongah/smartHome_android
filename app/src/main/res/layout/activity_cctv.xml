@@ -27,7 +27,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        app:layout_constraintTop_toBottomOf="@+id/textView8" >
+
+    </WebView>
 
     <ImageView
         android:id="@+id/btn_add"
@@ -38,6 +40,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView9"
         app:srcCompat="@drawable/add" />
+
+    <ProgressBar
+        android:id="@+id/progressBar_webView"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="141dp"
+        android:layout_height="113dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView9"
+        app:layout_constraintEnd_toEndOf="@+id/wv_stream"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     <TextView
         android:id="@+id/textView9"

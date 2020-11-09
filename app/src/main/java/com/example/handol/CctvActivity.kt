@@ -5,26 +5,23 @@ import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.ImageDecoder
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
-import android.webkit.WebSettings
+import android.view.View
+import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
-import androidx.core.view.size
 import kotlinx.android.synthetic.main.activity_cctv.*
-import kotlinx.android.synthetic.main.activity_result_select.*
 import org.jetbrains.anko.alert
-import org.jetbrains.anko.startActivityForResult
-import org.jetbrains.anko.toast
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -39,7 +36,22 @@ class CctvActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cctv)
 
-        wv_stream.setWebViewClient(WebViewClient()) // 클릭시 새창 안뜨게
+        wv_stream.setWebViewClient(object : WebViewClient(){
+            override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                super.onPageStarted(view, url, favicon)
+                progressBar_webView.setVisibility(View.VISIBLE)
+
+            }
+
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+                progressBar_webView.setVisibility(View.GONE)
+            }
+        }) // 클릭시 새창 안뜨게
+
+
+
+
         wv_stream.setHorizontalScrollbarOverlay(false)
         wv_stream.setVerticalScrollbarOverlay(false)
         wv_stream.settings.let {
@@ -54,20 +66,21 @@ class CctvActivity : AppCompatActivity() {
 
         }
 
+
         wv_stream.loadUrl("http://192.168.35.207:7072/video_feed"); // 웹뷰에 표시할 웹사이트 주소, 웹뷰 시작
+        //wv_stream.loadUrl("https://www.naver.com")
 
         btn_add.setOnClickListener {
             alert("등록할 방법을 선택해주세요."){
-                title = "안면인식 등록"
+                title = "얼굴인식 등록"
                 negativeButton("갤러리"){
                     if(checkPersmission()){
-                        val intent = Intent(this.ctx, GallerySelect::class.java)
-                        startActivity(intent)
+                        openGalleryForImage()
                     }
                     else{
                         requestPermission()
-                        val intent = Intent(this.ctx, GallerySelect::class.java)
-                        startActivity(intent)
+                        openGalleryForImage()
+
                     }
                 }
                 neutralPressed("사진 찍기"){
@@ -77,8 +90,6 @@ class CctvActivity : AppCompatActivity() {
                     else{
                         requestPermission()
                     }
-//                    val intent = Intent(this.ctx, PhotoSelect::class.java)
-//                    startActivity(intent)
                 }
             }.show()
         }
@@ -105,6 +116,17 @@ class CctvActivity : AppCompatActivity() {
                     galleryAddPic()
                     startActivityForResult(intent, 2)
 
+                }
+            }
+
+            3->{
+                if (resultCode == Activity.RESULT_OK && requestCode == 3){
+                    val url = data?.data.toString()
+
+                    val intent = Intent(this, GallerySelect::class.java)
+
+                    intent.putExtra("url", url)
+                    startActivityForResult(intent, 3)
                 }
             }
         }
@@ -151,6 +173,11 @@ class CctvActivity : AppCompatActivity() {
             }
         }
     }
+
+//    fun testSavePic(){
+//        val os = openFileOutput(currentPhotoPath, Context.MODE_PRIVATE)
+//        os.write()
+//    }
 
     private fun galleryAddPic() {
         Log.i("galleryAddPic", "Call");
@@ -204,6 +231,13 @@ class CctvActivity : AppCompatActivity() {
         }else{
             Log.d("TAG","카메라 허가 못받음 ㅠ 젠장!!")
         }
+    }
+
+
+    private fun openGalleryForImage(){
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, 3)
     }
 
 
