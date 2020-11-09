@@ -24,7 +24,7 @@ class ResultSelect : AppCompatActivity() {
         setContentView(R.layout.activity_result_select)
 
         btn_photo_cancel.setOnClickListener{
-            finishActivity(2)
+            onBackPressed()
         }
     }
 

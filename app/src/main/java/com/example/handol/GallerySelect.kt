@@ -21,7 +21,7 @@ class GallerySelect : AppCompatActivity(){
         setContentView(R.layout.activity_gallery)
 
         btn_gallery_cancel.setOnClickListener{
-            finishActivity(3)
+            onBackPressed()
         }
     }
 
