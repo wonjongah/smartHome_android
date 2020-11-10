@@ -32,7 +32,7 @@
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="등록 이름"
         app:layout_constraintBottom_toTopOf="@+id/btn_photo_cancel"
         app:layout_constraintEnd_toStartOf="@+id/edt_photo_select"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,4 +57,16 @@
         app:layout_constraintEnd_toStartOf="@+id/btn_photo_select"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edt_photo_select" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="얼굴 인식 등록"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:layout_constraintBottom_toTopOf="@+id/iv_result"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

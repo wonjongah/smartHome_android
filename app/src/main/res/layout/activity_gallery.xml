@@ -6,6 +6,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="얼굴 인식 등록"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:layout_constraintBottom_toTopOf="@+id/iv_result"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.52" />
+
     <Button
         android:id="@+id/btn_gallery_select"
         android:layout_width="wrap_content"
@@ -18,8 +30,8 @@
 
     <ImageView
         android:id="@+id/iv_gallery"
-        android:layout_width="298dp"
-        android:layout_height="472dp"
+        android:layout_width="306dp"
+        android:layout_height="378dp"
         app:layout_constraintBottom_toTopOf="@+id/edt_gallery_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
