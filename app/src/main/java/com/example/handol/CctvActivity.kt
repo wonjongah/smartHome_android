@@ -5,6 +5,7 @@ import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.database.Cursor
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
@@ -121,18 +122,49 @@ class CctvActivity : AppCompatActivity() {
 
             3->{
                 if (resultCode == Activity.RESULT_OK && requestCode == 3){
-                    val url = data?.data.toString()
-                    Log.d("갤러리 url", url)
+                    val imageView_url = data!!.data.toString()
+                    if (imageView_url != null) {
+                        Log.d("갤러리 url", imageView_url)
+                    }
+
 
                     val intent = Intent(this, GallerySelect::class.java)
 
-                    intent.putExtra("url", url)
+                    val send_url2 = getPath(data.data!!)
+
+                    Log.d("send url", send_url2)
+
+                    intent.putExtra("url", imageView_url)
+                    intent.putExtra("send_url", send_url2)
                     startActivityForResult(intent, 3)
                 }
             }
         }
 
     }
+
+    fun getPath(uri: Uri) : String {
+        val projection = arrayOf(MediaStore.Images.Media.DATA)
+        val cursor : Cursor = contentResolver.query(uri, projection, null, null, null)!!
+        startManagingCursor(cursor)
+        val columnIndex:Int = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+        cursor.moveToFirst()
+        return cursor.getString(columnIndex)
+    }
+
+    fun getExternalPath(forlderName: String): String {
+        var sdPath = ""
+        val ext = Environment.getExternalStorageState()
+        sdPath = if (ext == Environment.MEDIA_MOUNTED) {
+            Environment.getExternalStorageDirectory()
+                .absolutePath + "/" + forlderName
+        } else {
+            "$filesDir/$forlderName"
+        }
+        return sdPath
+    }
+
+
     // 카메라 열기
     private fun dispatchTakePictureIntent() {
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->

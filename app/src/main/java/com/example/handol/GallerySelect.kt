@@ -42,9 +42,11 @@ class GallerySelect : AppCompatActivity(){
 
         val i = intent ?: Log.d("인텐트 값 없음", "없네...")
 
+        val send_path : String = intent.getStringExtra("send_url").toString()
         val rec_path : String = intent.getStringExtra("url").toString()
-        file_url = rec_path
+        file_url = send_path
         val file = File(rec_path)
+
 
         iv_gallery.setImageURI(rec_path?.toUri())
 

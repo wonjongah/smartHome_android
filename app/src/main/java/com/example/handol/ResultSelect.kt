@@ -40,6 +40,7 @@ class ResultSelect : AppCompatActivity() {
         btn_photo_select.setOnClickListener {
             val socket = SocketFile(file_url)
             socket.execute()
+            onBackPressed()
         }
     }
 

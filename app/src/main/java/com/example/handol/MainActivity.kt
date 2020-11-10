@@ -38,6 +38,7 @@ import java.net.UnknownHostException
 
 const val SUB_TOPIC = "iot_app"
 const val SUB_TOPIC_INFO = "iot_app/info"
+const val SUB_TOPIC_UNKNOWN = "iot_app/unknown"
 const val SUB_TOPIC_EMERGENCY = "iot_app/emergency "
 const val SERVER_URI = "tcp://192.168.0.103"
 
@@ -146,6 +147,8 @@ class MainActivity : AppCompatActivity() {
                 // gas면 notificationHandler.sendGasNotification("가스 누수",this)
                 // cctv면
                 // 미세먼지
+            }else if(topic == SUB_TOPIC_UNKNOWN){
+
             }
 
             //jasonObjectsExample(msg)
