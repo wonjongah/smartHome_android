@@ -9,9 +9,9 @@ import java.nio.BufferOverflowException
 
 //const val SERVER = "192.168.35.148"
 const val SERVER = "192.168.0.101"
-const val PORT = 8888
+const val PORT = 8890
 
-class SocketFile(val outfile : String)  : AsyncTask<Void?, Void?, Void?>() {
+class SocketFile(val outfile : String, val filename : String)  : AsyncTask<Void?, Void?, Void?>() {
     val TAG = "CommThread"
     var socket: Socket? = null
 
@@ -28,8 +28,8 @@ class SocketFile(val outfile : String)  : AsyncTask<Void?, Void?, Void?>() {
 
             // 데이터 크기 전송
             val size = f.length()
-            Log.i(TAG, "size: $size")
-            bo.write(size.toString().toByteArray())
+            Log.i(TAG, "name, size: $filename, $size")
+            bo.write((filename + " " + size.toString()).toByteArray())
             bo.flush()
 
             // 준비 상태 수신

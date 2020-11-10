@@ -29,10 +29,11 @@ class GallerySelect : AppCompatActivity(){
         }
 
         btn_gallery_select.setOnClickListener {
-            val send_socket = SocketFile(file_url)
+            val filename = edt_gallery_name.text.toString()
+            val send_socket = SocketFile(file_url, filename)
             send_socket.execute()
             toast("얼굴 인식을 정상 등록했습니다.")
-            //onBackPressed()
+            onBackPressed()
         }
     }
 

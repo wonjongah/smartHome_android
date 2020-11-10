@@ -38,7 +38,8 @@ class ResultSelect : AppCompatActivity() {
         }
 
         btn_photo_select.setOnClickListener {
-            val socket = SocketFile(file_url)
+            val filename = edt_photo_select.text.toString()
+            val socket = SocketFile(file_url, filename)
             socket.execute()
             onBackPressed()
         }

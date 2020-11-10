@@ -14,13 +14,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btn_gallery_cancel"
-        app:layout_constraintTop_toBottomOf="@+id/et_gallery_name" />
+        app:layout_constraintTop_toBottomOf="@+id/edt_gallery_name" />
 
     <ImageView
         android:id="@+id/iv_gallery"
         android:layout_width="298dp"
         android:layout_height="472dp"
-        app:layout_constraintBottom_toTopOf="@+id/et_gallery_name"
+        app:layout_constraintBottom_toTopOf="@+id/edt_gallery_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,12 +28,12 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <EditText
-        android:id="@+id/et_gallery_name"
+        android:id="@+id/edt_gallery_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="등록할 이름을 입력해주세요"
         android:inputType="textPersonName"
-        android:text="Name"
         app:layout_constraintBottom_toTopOf="@+id/btn_gallery_select"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,5 +47,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_gallery_select"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_gallery_name" />
+        app:layout_constraintTop_toBottomOf="@+id/edt_gallery_name" />
 </androidx.constraintlayout.widget.ConstraintLayout>
