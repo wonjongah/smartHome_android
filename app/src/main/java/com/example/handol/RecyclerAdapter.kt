@@ -21,7 +21,8 @@ import kotlin.concurrent.timer
 
 class RecyclerAdapter(var items: MutableList<MainData>,
                       val onLightClick:()->Unit, val onGasClick:()->Unit,
-                      val onFireClick:()->Unit, val onLeakClick:()->Unit, val onCctvClick:()->Unit) : RecyclerView.Adapter<RecyclerAdapter.MainViewHolder>() {
+                      val onFireClick:()->Unit, val onLeakClick:()->Unit, val onCctvClick:()->Unit,
+                        val onWindowClick:()->Unit, val onWindowClick2:()->Unit) : RecyclerView.Adapter<RecyclerAdapter.MainViewHolder>() {
 // var -> 멤버변수 선언, var 안 쓰면 생성자에서만 쓰이는 지역변수
     // 생성자의 매개변수 앞에 var, val 키워드가 붙으면 멤버변수로 운영하겠다란 뜻
 
@@ -114,6 +115,9 @@ class RecyclerAdapter(var items: MutableList<MainData>,
                 }
 
                 else if(position == 2){
+                    itemView.setOnClickListener {
+                        onWindowClick()
+                    }
                     imageBtnA.setOnClickListener {
                         if(imageBtnA.isSelected){
                             imageBtnA.setSelected(false)
@@ -129,6 +133,9 @@ class RecyclerAdapter(var items: MutableList<MainData>,
                 }
 
                 else if (position == 3){
+
+                }
+                else if (position == 4){
                     itemView.setOnClickListener {
                         onFireClick()
                     }
@@ -142,7 +149,10 @@ class RecyclerAdapter(var items: MutableList<MainData>,
                     }
                 }
 
-                else if(position == 4){
+                else if(position == 5){
+                    itemView.setOnClickListener {
+                        onWindowClick2()
+                    }
                     imageBtnA.setOnClickListener {
                         if(imageBtnA.isSelected){
                             imageBtnA.setSelected(false)
@@ -157,7 +167,7 @@ class RecyclerAdapter(var items: MutableList<MainData>,
                     }
                 }
 
-                else if (position == 5){
+                else if (position == 6){
                     itemView.setOnClickListener {
                         onLeakClick()
                     }
@@ -171,7 +181,7 @@ class RecyclerAdapter(var items: MutableList<MainData>,
                     }
                 }
 
-                else if (position == 6){
+                else if (position == 7){
                     itemView.setOnClickListener {
                         onCctvClick()
                     }
@@ -185,7 +195,7 @@ class RecyclerAdapter(var items: MutableList<MainData>,
                     }
                 }
 
-                else if(position == 7){
+                else if(position == 8){
                     imageBtnA.setOnClickListener {
                         if(imageBtnA.isSelected){
                             imageBtnA.setSelected(false)

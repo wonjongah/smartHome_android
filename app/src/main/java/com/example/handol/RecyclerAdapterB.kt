@@ -18,7 +18,8 @@ import java.io.IOException
 import java.net.Socket
 import java.net.UnknownHostException
 
-class RecyclerAdapterB(var items: MutableList<MainData>, val onCctvClick:()->Unit) : RecyclerView.Adapter<RecyclerAdapterB.MainViewHolder>() {
+class RecyclerAdapterB(var items: MutableList<MainData>, val onCctvClick:()->Unit,
+                        var onWindowClick2:()->Unit) : RecyclerView.Adapter<RecyclerAdapterB.MainViewHolder>() {
 // var -> 멤버변수 선언, var 안 쓰면 생성자에서만 쓰이는 지역변수
     // 생성자의 매개변수 앞에 var, val 키워드가 붙으면 멤버변수로 운영하겠다란 뜻
 
@@ -75,6 +76,9 @@ class RecyclerAdapterB(var items: MutableList<MainData>, val onCctvClick:()->Uni
 
                 if(position == 1){
                     imageBtnB.setOnClickListener {
+                        itemView.setOnClickListener {
+                            onWindowClick2()
+                        }
                         if(imageBtnB.isSelected){
                             imageBtnB.setSelected(false)
                             val myClient = MyClientTask("inner_WINDOW_OPEN")

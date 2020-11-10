@@ -71,6 +71,8 @@ class RecyclerAdapterE(var items: MutableList<MainData>, val onLeackClick:()->Un
                             imageBtnE.setSelected(true)
                         }
                     }
+                } else if (position == 1){
+
                 }
             } // 실제 데이터 넣는 작업, 그 연결작업을 뷰홀더가 해주는 것
         }

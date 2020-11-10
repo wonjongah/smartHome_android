@@ -59,6 +59,10 @@ class CFragment : Fragment() {
 
     }
 
+    fun onWindowClick(){
+        val nextIntent = Intent(context, WindowActivity::class.java)
+        startActivity(nextIntent)
+    }
 
     fun onLightClick(){
         val nextIntext = Intent(context, LightActivity::class.java)
@@ -86,8 +90,8 @@ class CFragment : Fragment() {
                 Log.d("D", items[i].imagebtn.toString())
                 items[i].imagebtn = R.drawable.off_64_3
                 val myClient = MyClientTask("living_LED_ON")
-                val myClient2 = MyClientTask("living_WINDOW_ON")
-                val myClient3 = MyClientTask("inner_WINDOW_ON")
+                val myClient2 = MyClientTask("living_window_ON")
+                val myClient3 = MyClientTask("inner_window_ON")
                 myClient.execute()
                 myClient2.execute()
                 myClient3.execute()
@@ -98,8 +102,8 @@ class CFragment : Fragment() {
                 Log.d("D", items[i].imagebtn.toString())
                 items[i].imagebtn = R.drawable.on_64_3
                 val myClient = MyClientTask("living_LED_OFF")
-                val myClient2 = MyClientTask("living_WINDOW_OFF")
-                val myClient3 = MyClientTask("inner_WINDOW_OFF")
+                val myClient2 = MyClientTask("living_window_OFF")
+                val myClient3 = MyClientTask("inner_window_OFF")
                 myClient.execute()
                 myClient2.execute()
                 myClient3.execute()
@@ -112,7 +116,7 @@ class CFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        rv_fragment_a.adapter = RecyclerAdapterC(items, ::onLightClick)
+        rv_fragment_a.adapter = RecyclerAdapterC(items, ::onLightClick, ::onWindowClick)
         rv_fragment_a.setHasFixedSize(true)
         rv_fragment_a.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         rv_fragment_a.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))

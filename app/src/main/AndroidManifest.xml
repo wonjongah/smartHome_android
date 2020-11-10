@@ -5,11 +5,15 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-feature android:name="android.hardware.camera" android:required="true"/>
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_handol"
@@ -17,13 +21,15 @@
         android:roundIcon="@mipmap/ic_handol_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Handol">
-        <activity android:name=".UnknownSnapshot"/>
-        <activity android:name=".GallerySelect"/>
-        <activity android:name=".ResultSelect">
+        <activity android:name=".WindowActivity2"></activity>
+        <activity android:name=".WindowActivity" />
+        <activity android:name=".UnknownSnapshot" />
+        <activity android:name=".GallerySelect" />
+        <activity android:name=".ResultSelect" />
 
-        </activity>
-        <receiver android:name=".Receiver"/>
-        <activity android:name=".CctvActivity"></activity>
+        <receiver android:name=".Receiver" />
+
+        <activity android:name=".CctvActivity" />
         <activity android:name=".GasActivity" />
         <activity android:name=".FireActivity" />
         <activity android:name=".LeakActivity" />
@@ -40,7 +46,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <service android:name="org.eclipse.paho.android.service.MqttService" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.handol.fileprovider"
@@ -48,7 +56,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"/>
+                android:resource="@xml/file_paths" />
         </provider>
     </application>
 

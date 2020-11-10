@@ -4,51 +4,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LightActivity">
-
+    tools:context=".WindowActivity2">
 
     <ImageView
-        android:id="@+id/iv_light"
+        android:id="@+id/iv_window2"
         android:layout_width="295dp"
         android:layout_height="349dp"
-        android:layout_marginTop="50dp"
-        app:layout_constraintBottom_toTopOf="@+id/tv_light_bright"
+        android:layout_marginTop="124dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_window_angle"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.482"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/light_512" />
+        app:srcCompat="@drawable/window2" />
 
     <TextView
         android:id="@+id/textView1111"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
-        android:text="밝기  :  "
+        android:text="각도  :  "
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintBottom_toTopOf="@+id/seekBar_light"
+        app:layout_constraintBottom_toTopOf="@+id/seekBar_window"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.284"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_light"
+        app:layout_constraintTop_toBottomOf="@+id/iv_window2"
         app:layout_constraintVertical_bias="0.0" />
 
     <SeekBar
-        android:id="@+id/seekBar_light"
+        android:id="@+id/seekBar_window2"
         android:layout_width="290dp"
         android:layout_height="86dp"
         android:layout_marginBottom="29dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_light_bright" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_window_angle2" />
 
     <TextView
-        android:id="@+id/tv_light_bright"
+        android:id="@+id/tv_window_angle2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="80dp"
-        android:text="75 %"
+        android:text="75 °"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView1111"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,12 +60,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
-        android:text="전 등"
+        android:text="거실 창문"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        app:layout_constraintBottom_toTopOf="@+id/iv_light"
+        app:layout_constraintBottom_toTopOf="@+id/iv_window2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

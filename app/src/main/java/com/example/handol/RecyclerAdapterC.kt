@@ -19,7 +19,8 @@ import java.io.IOException
 import java.net.Socket
 import java.net.UnknownHostException
 
-class RecyclerAdapterC(var items: MutableList<MainData>, val onLightClick:()->Unit) : RecyclerView.Adapter<RecyclerAdapterC.MainViewHolder>() {
+class RecyclerAdapterC(var items: MutableList<MainData>, val onLightClick:()->Unit,
+                        val onWindowClick:()->Unit) : RecyclerView.Adapter<RecyclerAdapterC.MainViewHolder>() {
 // var -> 멤버변수 선언, var 안 쓰면 생성자에서만 쓰이는 지역변수
     // 생성자의 매개변수 앞에 var, val 키워드가 붙으면 멤버변수로 운영하겠다란 뜻
 
@@ -79,6 +80,9 @@ class RecyclerAdapterC(var items: MutableList<MainData>, val onLightClick:()->Un
                 }
 
                 else if(position == 1){
+                    itemView.setOnClickListener {
+                        onWindowClick()
+                    }
                     imageBtnC.setOnClickListener {
                         if(imageBtnC.isSelected){
                             imageBtnC.setSelected(false)

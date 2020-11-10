@@ -24,7 +24,8 @@ class EFragment : Fragment() {
 
 
     var items: MutableList<MainData> = mutableListOf(
-            MainData(R.drawable.faucet,"누 수", R.drawable.imagebtn_states)
+        MainData(R.drawable.washer3, "세 탁 기", R.drawable.imagebtn_states),
+        MainData(R.drawable.faucet,"누 수", R.drawable.imagebtn_states)
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,8 +73,8 @@ class EFragment : Fragment() {
                 Log.d("D", items[i].imagebtn.toString())
                 items[i].imagebtn = R.drawable.off_64_3
                 val myClient = MyClientTask("living_LED_ON")
-                val myClient2 = MyClientTask("living_WINDOW_ON")
-                val myClient3 = MyClientTask("inner_WINDOW_ON")
+                val myClient2 = MyClientTask("living_window_ON")
+                val myClient3 = MyClientTask("inner_window_ON")
                 myClient.execute()
                 myClient2.execute()
                 myClient3.execute()
@@ -84,8 +85,8 @@ class EFragment : Fragment() {
                 Log.d("D", items[i].imagebtn.toString())
                 items[i].imagebtn = R.drawable.on_64_3
                 val myClient = MyClientTask("living_LED_OFF")
-                val myClient2 = MyClientTask("living_WINDOW_OFF")
-                val myClient3 = MyClientTask("inner_WINDOW_OFF")
+                val myClient2 = MyClientTask("living_window_OFF")
+                val myClient3 = MyClientTask("inner_window_OFF")
                 myClient.execute()
                 myClient2.execute()
                 myClient3.execute()

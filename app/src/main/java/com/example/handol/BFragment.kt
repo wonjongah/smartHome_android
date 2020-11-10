@@ -60,6 +60,11 @@ class BFragment : Fragment() {
 
     }
 
+    fun onWindowClick2(){
+        val nextIntent = Intent(context, WindowActivity2::class.java)
+        startActivity(nextIntent)
+    }
+
     fun onCctvClick(){
         val nextIntent = Intent(context, CctvActivity::class.java)
         startActivity(nextIntent)
@@ -85,8 +90,8 @@ class BFragment : Fragment() {
                 Log.d("D", items[i].imagebtn.toString())
                 items[i].imagebtn = R.drawable.off_64_3
                 val myClient = MyClientTask("living_LED_ON")
-                val myClient2 = MyClientTask("living_WINDOW_ON")
-                val myClient3 = MyClientTask("inner_WINDOW_ON")
+                val myClient2 = MyClientTask("living_window_ON")
+                val myClient3 = MyClientTask("inner_window_ON")
                 myClient.execute()
                 myClient2.execute()
                 myClient3.execute()
@@ -97,8 +102,8 @@ class BFragment : Fragment() {
                 Log.d("D", items[i].imagebtn.toString())
                 items[i].imagebtn = R.drawable.on_64_3
                 val myClient = MyClientTask("living_LED_OFF")
-                val myClient2 = MyClientTask("living_WINDOW_OFF")
-                val myClient3 = MyClientTask("inner_WINDOW_OFF")
+                val myClient2 = MyClientTask("living_window_OFF")
+                val myClient3 = MyClientTask("inner_window_OFF")
                 myClient.execute()
                 myClient2.execute()
                 myClient3.execute()
@@ -112,7 +117,7 @@ class BFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        rv_fragment_a.adapter = RecyclerAdapterB(items, ::onCctvClick)
+        rv_fragment_a.adapter = RecyclerAdapterB(items, ::onCctvClick, ::onWindowClick2)
         rv_fragment_a.setHasFixedSize(true)
         rv_fragment_a.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         rv_fragment_a.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))

@@ -19,6 +19,27 @@ class NotificationHandler(private val ctx: Context) {
         ctx.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     }
 
+    fun sendFireNotification(message: String, applicationContext:Context){
+        val notificationIntent = Intent(applicationContext, FireActivity::class.java)
+        val pendingIntent: PendingIntent = PendingIntent.getActivity(applicationContext, 3, notificationIntent, 0)
+        val bitmap = BitmapFactory.decodeResource(Resources.getSystem(), R.drawable.fire)
+        val defaultSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+        val builder : NotificationCompat.Builder = NotificationCompat.Builder(applicationContext, CHANNEL_ID)
+            .setLargeIcon(bitmap)
+            .setSmallIcon(R.drawable.fire)
+            .setContentTitle(message)
+            .setContentText("화재가 발생했습니다")
+            .setPriority(NotificationCompat.PRIORITY_MAX)
+            .setWhen(System.currentTimeMillis())
+            .setContentIntent(pendingIntent)
+            .setAutoCancel(true)
+            .setSound(defaultSound)
+            .setColor(Color.WHITE)
+
+
+        notificationManager.notify(0, builder.build())
+    }
+
     fun sendGasNotification(message: String, applicationContext:Context){
         val notificationIntent = Intent(applicationContext, GasActivity::class.java)
         val pendingIntent: PendingIntent = PendingIntent.getActivity(applicationContext, 0, notificationIntent, 0)
@@ -60,7 +81,7 @@ class NotificationHandler(private val ctx: Context) {
                 .setAutoCancel(true)
                 .setSound(defaultSound)
                 .addAction(0, "창문을 닫습니다", actionIntent)
-                .setStyle(NotificationCompat.BigTextStyle().bigText("창문을 닫기 위해서 알림창을 펼쳐주세요."))
+               // .setStyle(NotificationCompat.BigTextStyle().bigText("창문을 닫기 위해서 알림창을 펼쳐주세요."))
                 .setColor(Color.WHITE)
 
 
@@ -69,7 +90,7 @@ class NotificationHandler(private val ctx: Context) {
     }
 
     fun sendCctvNotification(message: String, applicationContext:Context){
-        val notificationIntent = Intent(applicationContext, CctvActivity::class.java)
+        val notificationIntent = Intent(applicationContext, UnknownSnapshot::class.java)
         val pendingIntent: PendingIntent = PendingIntent.getActivity(applicationContext, 2, notificationIntent, 0)
         val bitmap = BitmapFactory.decodeResource(Resources.getSystem(), R.drawable.cctv)
         val defaultSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)

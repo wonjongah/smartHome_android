@@ -71,6 +71,7 @@ class MainActivity : AppCompatActivity() {
 
             notificationHandler.sendWindowNotification("창문 알람", this)
             notificationHandler.sendCctvNotification("CCTV 알람", this)
+            notificationHandler.sendFireNotification("화재 발생", this)
 
             switch_outing1.setOnCheckedChangeListener { CompoundButton, onSwitch ->
                 if (onSwitch) {
