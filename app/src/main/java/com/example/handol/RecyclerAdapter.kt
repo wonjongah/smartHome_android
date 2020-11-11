@@ -63,7 +63,7 @@ class RecyclerAdapter(var items: MutableList<MainData>,
                 iconA.setImageResource(it.icon)
                 tvfurStateA.text = it.content
                 imageBtnA.setImageResource(it.imagebtn)
-
+                tvrec.text = it.state
 //                timer(period = 100000, initialDelay = 1000) {
 //                    val myClientTask = MyClientTask("192.168.0.103", 8888, "humi", itemView.tv_rec_a)
 //                    myClientTask.execute()
@@ -101,6 +101,7 @@ class RecyclerAdapter(var items: MutableList<MainData>,
                 }
 
                 else if (position == 1){
+
                     itemView.setOnClickListener {
                         onGasClick()
                     }
@@ -255,20 +256,6 @@ class RecyclerAdapter(var items: MutableList<MainData>,
         Log.d(TAG, "temp : $temp")
         val humi = dhtObject.getString("Humi")
         Log.d(TAG, "humi : $humi")
-
-
-//        val jArray = jObject.getJSONArray("IoT3")
-//
-//        for (i in 0 until jArray.length()){
-//            val obj = jArray.getJSONObject(i)
-//            val room = obj.getString("room")
-//            val sensor = obj.getString("sensor")
-//            val order = obj.getString("order")
-//            Log.d(ContentValues.TAG, "room: $room")
-//            Log.d(ContentValues.TAG, "sensor: $sensor")
-//            Log.d(ContentValues.TAG, "order: $order")
-//
-//        }
 
 
     }

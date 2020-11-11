@@ -37,15 +37,15 @@ class AFragment : Fragment() {
     val ARG_NAME = "name"
 
     var items: MutableList<MainData> = mutableListOf(
-        MainData(R.drawable.light_out2,"전 등", R.drawable.imagebtn_states),
-        MainData(R.drawable.valve,"가 스", R.drawable.imagebtn_states),
-        MainData(R.drawable.window,"침실 창문", R.drawable.imagebtn_states),
-        MainData(R.drawable.washer3, "세 탁 기", R.drawable.imagebtn_states),
-        MainData(R.drawable.fire,"화 재", R.drawable.imagebtn_states),
-        MainData(R.drawable.window2,"거실 창문", R.drawable.imagebtn_states),
-        MainData(R.drawable.faucet,"누 수", R.drawable.imagebtn_states),
-            MainData(R.drawable.doorlock, "도 어 락", R.drawable.imagebtn_states),
-            MainData(R.drawable.sunny, "날 씨", R.drawable.imagebtn_states)
+        MainData(R.drawable.light_out2,"전 등", R.drawable.imagebtn_states, "(꺼짐)"),
+        MainData(R.drawable.valve,"가 스", R.drawable.imagebtn_states, ""),
+        MainData(R.drawable.window,"침실 창문", R.drawable.imagebtn_states, "(잠김)"),
+        MainData(R.drawable.washer3, "세 탁 기", R.drawable.imagebtn_states, "(중지)"),
+        MainData(R.drawable.fire,"화 재", R.drawable.imagebtn_states, ""),
+        MainData(R.drawable.window2,"거실 창문", R.drawable.imagebtn_states, "(잠김)"),
+        MainData(R.drawable.faucet,"누 수", R.drawable.imagebtn_states,""),
+            MainData(R.drawable.doorlock, "도 어 락", R.drawable.imagebtn_states, "(잠김)"),
+            MainData(R.drawable.sunny, "날 씨", R.drawable.imagebtn_states, "(맑음)")
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,9 +92,23 @@ class AFragment : Fragment() {
             }
     }
 
+
+    fun setText(led:String, gas:String, innerwin:String, washer:String, fire:String, livingwin:String, leak:String, door:String, weather:String){
+        items[0].state = led
+        items[1].state = gas
+        items[2].state = innerwin
+        items[3].state = washer
+        items[4].state = fire
+        items[5].state = livingwin
+        items[6].state = leak
+        items[7].state = door
+        items[8].state = weather
+        rv_fragment_a?.adapter?.notifyDataSetChanged()
+
+    }
+
+
     fun controlOn(state:Boolean): Boolean{
-
-
         if (state) {
             for (i in 0..items.size - 1) {
                 Log.d("D", items[i].imagebtn.toString())

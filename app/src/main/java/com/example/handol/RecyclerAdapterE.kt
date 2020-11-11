@@ -26,6 +26,7 @@ class RecyclerAdapterE(var items: MutableList<MainData>, val onLeackClick:()->Un
         val iconE = itemView.iv_e
         val tvfurStateE = itemView.tv_furState_e
         val imageBtnE = itemView.ib_e
+        val rece = itemView.tv_rec_e
 
         // 카드뷰 자식으로 메인 컨텐트가 뭐냐를 참조로 넣음
         // 뷰홀더와 연관된 데이터를 나중에 설정할 것, 그곳이 저기다
@@ -57,6 +58,7 @@ class RecyclerAdapterE(var items: MutableList<MainData>, val onLeackClick:()->Un
                 iconE.setImageResource(it.icon)
                 tvfurStateE.text = it.content
                 imageBtnE.setImageResource(it.imagebtn)
+                rece.text = it.state
 
 
                 if(position == 0){

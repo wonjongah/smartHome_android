@@ -24,8 +24,8 @@ class DFragment : Fragment() {
 
 
     var items: MutableList<MainData> = mutableListOf(
-            MainData(R.drawable.fire,"화 재", R.drawable.imagebtn_states),
-            MainData(R.drawable.valve,"가 스", R.drawable.imagebtn_states)
+            MainData(R.drawable.fire,"화 재", R.drawable.imagebtn_states, ""),
+            MainData(R.drawable.valve,"가 스", R.drawable.imagebtn_states, "")
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,6 +59,15 @@ class DFragment : Fragment() {
                     }
                 }
     }
+
+    fun setText(fire:String, gas:String){
+        items[0].state = fire
+        items[1].state = gas
+
+        rv_fragment_a?.adapter?.notifyDataSetChanged()
+
+    }
+
 
 
     fun controlOn(state:Boolean): Boolean{

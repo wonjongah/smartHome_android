@@ -25,7 +25,7 @@ class RecyclerAdapterD(var items: MutableList<MainData>, val onFireClick:()->Uni
         val iconD = itemView.iv_d
         val tvfurStateD = itemView.tv_furState_d
         val imageBtnD = itemView.ib_d
-
+        val recd = itemView.tv_rec_d
         // 카드뷰 자식으로 메인 컨텐트가 뭐냐를 참조로 넣음
         // 뷰홀더와 연관된 데이터를 나중에 설정할 것, 그곳이 저기다
     }
@@ -56,6 +56,7 @@ class RecyclerAdapterD(var items: MutableList<MainData>, val onFireClick:()->Uni
                 iconD.setImageResource(it.icon)
                 tvfurStateD.text = it.content
                 imageBtnD.setImageResource(it.imagebtn)
+                recd.text = it.state
 
                 if(position == 0){
                     itemView.setOnClickListener {

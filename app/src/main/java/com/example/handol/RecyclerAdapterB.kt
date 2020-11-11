@@ -30,6 +30,7 @@ class RecyclerAdapterB(var items: MutableList<MainData>, val onCctvClick:()->Uni
         val iconB = itemView.iv_b
         val tvfurStateB = itemView.tv_furState_b
         val imageBtnB = itemView.ib_b
+        val rcvb = itemView.tv_rec_b
 
         // 카드뷰 자식으로 메인 컨텐트가 뭐냐를 참조로 넣음
         // 뷰홀더와 연관된 데이터를 나중에 설정할 것, 그곳이 저기다
@@ -59,6 +60,7 @@ class RecyclerAdapterB(var items: MutableList<MainData>, val onCctvClick:()->Uni
                 iconB.setImageResource(it.icon)
                 tvfurStateB.text = it.content
                 imageBtnB.setImageResource(it.imagebtn)
+                rcvb.text = it.state
 
                 if(position == 0){
                     itemView.setOnClickListener {

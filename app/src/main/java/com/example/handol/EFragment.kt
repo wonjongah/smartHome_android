@@ -24,8 +24,8 @@ class EFragment : Fragment() {
 
 
     var items: MutableList<MainData> = mutableListOf(
-        MainData(R.drawable.washer3, "세 탁 기", R.drawable.imagebtn_states),
-        MainData(R.drawable.faucet,"누 수", R.drawable.imagebtn_states)
+        MainData(R.drawable.washer3, "세 탁 기", R.drawable.imagebtn_states, "(중지)"),
+        MainData(R.drawable.faucet,"누 수", R.drawable.imagebtn_states, "")
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,6 +46,14 @@ class EFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+
+    }
+
+    fun setText(washer:String, leak:String){
+        items[0].state = washer
+        items[1].state = leak
+
+        rv_fragment_a?.adapter?.notifyDataSetChanged()
 
     }
 

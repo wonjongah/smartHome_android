@@ -33,9 +33,9 @@ class BFragment : Fragment() {
 
 
     var items: MutableList<MainData> = mutableListOf(
-            MainData(R.drawable.doorlock, "도 어 락", R.drawable.imagebtn_states),
-            MainData(R.drawable.window2, "거실 창문", R.drawable.imagebtn_states),
-            MainData(R.drawable.sunny, "날 씨", R.drawable.imagebtn_states)
+            MainData(R.drawable.doorlock, "도 어 락", R.drawable.imagebtn_states, "(잠김)"),
+            MainData(R.drawable.window2, "거실 창문", R.drawable.imagebtn_states, "(잠김)"),
+            MainData(R.drawable.sunny, "날 씨", R.drawable.imagebtn_states, "(맑음)")
 
     )
 
@@ -81,6 +81,14 @@ class BFragment : Fragment() {
                 }
     }
 
+    fun setText(door:String, livingwin:String, weather:String){
+        items[0].state = door
+        items[1].state = livingwin
+        items[2].state = weather
+
+        rv_fragment_a?.adapter?.notifyDataSetChanged()
+
+    }
 
     fun controlOn(state:Boolean): Boolean{
 
