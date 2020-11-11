@@ -8,7 +8,8 @@ import java.net.Socket
 import java.nio.BufferOverflowException
 
 //const val SERVER = "192.168.35.148"
-const val SERVER = "192.168.0.101"
+//const val SERVER = "192.168.0.101"
+const val SERVER = "192.168.0.103"
 const val PORT = 8890
 
 class SocketFile(val outfile : String, val filename : String)  : AsyncTask<Void?, Void?, Void?>() {
