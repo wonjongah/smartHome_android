@@ -58,6 +58,8 @@ class MainActivity : AppCompatActivity() {
         private val adapter by lazy { MainAdapter(supportFragmentManager) }
         val TAG = "MqttActivity"
         lateinit var mqttClient: Mqtt
+        lateinit var mqttClient2: Mqtt
+        lateinit var mqttClient3: Mqtt
 
         @RequiresApi(Build.VERSION_CODES.O)
         override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,8 +71,8 @@ class MainActivity : AppCompatActivity() {
             tab_layout.setupWithViewPager(vpMainAcitivty)
 
             notificationHandler.sendWindowNotification("창문 알람", this)
-            notificationHandler.sendCctvNotification("CCTV 알람", this)
             notificationHandler.sendFireNotification("화재 발생", this)
+            notificationHandler.sendCctvNotification("낯선 인물 감지", this)
 
             iv_weather.setImageResource(R.drawable.sunny)
 
@@ -116,13 +118,19 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             mqttClient = Mqtt(this, SERVER_URI)
+            mqttClient2 = Mqtt(this, SERVER_URI)
+            mqttClient3 = Mqtt(this, SERVER_URI)
 
             try {
                 // mqttClient.setCallback{topic, message ->}
                 mqttClient.setCallback(::onReceived)
                 mqttClient.connect(arrayOf<String>(SUB_TOPIC))
-                mqttClient.connect(arrayOf<String>(SUB_TOPIC))
-                mqttClient.connect(arrayOf<String>(SUB_TOPIC_EMERGENCY))
+                // 수정할 것
+                mqttClient2.setCallback(::onReceivedUnknown)
+                mqttClient2.connect(arrayOf<String>(SUB_TOPIC_UNKNOWN))
+
+                mqttClient3.setCallback(::onReceivedEmergency)
+                mqttClient3.connect(arrayOf<String>(SUB_TOPIC_EMERGENCY))
                 
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -144,19 +152,42 @@ class MainActivity : AppCompatActivity() {
             val topic = topic
             //  println(msg + topic)
             Log.d(TAG, msg + topic)
-            if(topic == SUB_TOPIC){
+                //if(topic == SUB_TOPIC){
                 jasonObjectsExample2(msg)
-            }else if(topic == SUB_TOPIC_EMERGENCY){
+           // }else if(topic == SUB_TOPIC_EMERGENCY){
                 // 1. toilet/waterSensor/[floor/stop] -> split해서 floor면 알림 계속 보내기, stop오면 stop
                 // 2. living/DHT/Humi/[HIGH or LOW]
                 // 3. kitchen/gas -> 가스 농도 if문 돌려서 일정 수준 넘으면 노티
                 // 4. kitchen/fire -> 온도 일정 이상 올라가면 if문 돌려서 노티
-            }else if(topic == SUB_TOPIC_UNKNOWN){
+           // }else if(topic == SUB_TOPIC_UNKNOWN){
                 // 모르는 사람 노티
-                notificationHandler.sendCctvNotification("등록하지 않은 사람 인식", this)
-            }
+            //    notificationHandler.sendCctvNotification("등록하지 않은 사람 인식", this)
+            //}
 
         }
+    fun onReceivedUnknown(topic: String, message: MqttMessage) {
+        val msg = String(message.payload)
+        val topic = topic
+        //  println(msg + topic)
+        Log.d(TAG, msg + topic)
+
+            // 1. toilet/waterSensor/[floor/stop] -> split해서 floor면 알림 계속 보내기, stop오면 stop
+            // 2. living/DHT/Humi/[HIGH or LOW]
+            // 3. kitchen/gas -> 가스 농도 if문 돌려서 일정 수준 넘으면 노티
+            // 4. kitchen/fire -> 온도 일정 이상 올라가면 if문 돌려서 노티
+
+
+    }
+    fun onReceivedEmergency(topic: String, message: MqttMessage) {
+        val msg = String(message.payload)
+        val topic = topic
+        //  println(msg + topic)
+        Log.d(TAG, msg + topic)
+
+        notificationHandler.sendCctvNotification("등록하지 않은 사람 인식", this)
+
+
+    }
 
         fun jasonObjectsExample() {//msg:String
 //        val jasonString = msg.trimIndent()
@@ -164,7 +195,7 @@ class MainActivity : AppCompatActivity() {
             val jasonString = """
             {
                 "living": {
-                    "dht" : {
+                    "DHT" : {
                         "te": 24,
                         "hu" :30
                     },
@@ -172,18 +203,18 @@ class MainActivity : AppCompatActivity() {
                         "dd" : 30,
                         "dl" : 3
                     },
-                    "ws" : {
+                    "Window" : {
                         "ws" : 1
                     }
                 },
                 "inner" : {
-                    "rs" : {
+                    "Rain" : {
                         "rs" : 1
                     },
-                    "ws" : {
+                    "Window" : {
                         "ws" : 1
                     },
-                    "led" : {
+                    "Led" : {
                         "led" : 1
                     }
                 },
@@ -199,10 +230,10 @@ class MainActivity : AppCompatActivity() {
                     }
                 },
                 "kitchen" : {
-                    "gas" : {
+                    "Gas" : {
                         "gas" : 30
                     },
-                    "fire" : {
+                    "Fire" : {
                         "fire" : 50
                     }
                 },
@@ -216,7 +247,7 @@ class MainActivity : AppCompatActivity() {
             val jObject = JSONObject(jasonString)
             val livingObject = jObject.getJSONObject("living")
             Log.d(TAG, livingObject.toString())
-            val dhtObject = livingObject.getJSONObject("dht")
+            val dhtObject = livingObject.getJSONObject("DHT")
             Log.d(TAG, dhtObject.toString())
             val temp = dhtObject.getInt("te")
             Log.d(TAG, "temp : $temp")
@@ -228,21 +259,21 @@ class MainActivity : AppCompatActivity() {
             Log.d(TAG, "dd : $dd")
             val dl = dustObject.getString("dl")
             Log.d(TAG, "dl : $dl")
-            val livingwinObject = livingObject.getJSONObject("ws")
+            val livingwinObject = livingObject.getJSONObject("Window")
             Log.d(TAG, livingwinObject.toString())
             val livingwinstate = livingwinObject.getInt("ws")
             Log.d(TAG, "living win state : $livingwinstate")
             val innerObject = jObject.getJSONObject("inner")
             Log.d(TAG, innerObject.toString())
-            val rsObject = innerObject.getJSONObject("rs")
+            val rsObject = innerObject.getJSONObject("Rain")
             Log.d(TAG, rsObject.toString())
             val rs = rsObject.getString("rs")
             Log.d(TAG, "rs : $rs")
-            val innerwinObject = innerObject.getJSONObject("ws")
+            val innerwinObject = innerObject.getJSONObject("Window")
             Log.d(TAG, innerwinObject.toString())
             val innerwin = innerwinObject.getInt("ws")
             Log.d(TAG, "inner win state : $innerwin")
-            val ledObject = innerObject.getJSONObject("led")
+            val ledObject = innerObject.getJSONObject("Led")
             Log.d(TAG, ledObject.toString())
             val led = ledObject.getInt("led")
             Log.d(TAG, "led : $led")
@@ -262,11 +293,11 @@ class MainActivity : AppCompatActivity() {
             Log.d(TAG, "vib_s : $vib_s")
             val kitchenObject = jObject.getJSONObject("kitchen")
             Log.d(TAG, kitchenObject.toString())
-            val gasObject = kitchenObject.getJSONObject("gas")
+            val gasObject = kitchenObject.getJSONObject("Gas")
             Log.d(TAG, gasObject.toString())
             val gas = gasObject.getString("gas")
             Log.d(TAG, "gas : $gas")
-            val fireObject = kitchenObject.getJSONObject("fire")
+            val fireObject = kitchenObject.getJSONObject("Fire")
             Log.d(TAG, fireObject.toString())
             val fire = fireObject.getString("fire")
             Log.d(TAG, "fire : $fire")
@@ -275,17 +306,16 @@ class MainActivity : AppCompatActivity() {
             val door = doorObject.getInt("door")
             Log.d(TAG, "door : $door")
 
-            tv_celsius.text = "$temp °C"
-            tv_humi.text = "$humi %"
+
             var dust_density = "측정중"
             if(dd > 0 && dd <= 30){
-                dust_density = "좋 음"
+                dust_density = "좋음"
             }
             else if(dd > 30 && dd <= 80){
-                dust_density = "보 통"
+                dust_density = "보통"
             }
             else if(dd > 80 && dd <= 150){
-                dust_density = "나 쁨"
+                dust_density = "나쁨"
             }
             else{
                 dust_density = "매우 나쁨"
@@ -364,6 +394,10 @@ class MainActivity : AppCompatActivity() {
             }else if(door == 0){
                 adapter.currentFragment?.btn_setting_door(false)
             }
+
+            tv_celsius.text = "$temp °C"
+            tv_finedust.text = "$dd ㎍/㎥ $dust_density"
+            tv_humi.text = "$humi %"
         }
 
     fun jasonObjectsExample2(msg:String) {//msg:String
@@ -371,11 +405,14 @@ class MainActivity : AppCompatActivity() {
 
         val jasonString = msg.trimIndent()
 
+        Log.d("json들", jasonString)
+
+
 
         val jObject = JSONObject(jasonString)
         val livingObject = jObject.getJSONObject("living")
         Log.d(TAG, livingObject.toString())
-        val dhtObject = livingObject.getJSONObject("dht")
+        val dhtObject = livingObject.getJSONObject("DHT")
         Log.d(TAG, dhtObject.toString())
         val temp = dhtObject.getInt("te")
         Log.d(TAG, "temp : $temp")
@@ -387,21 +424,21 @@ class MainActivity : AppCompatActivity() {
         Log.d(TAG, "dd : $dd")
         val dl = dustObject.getString("dl")
         Log.d(TAG, "dl : $dl")
-        val livingwinObject = livingObject.getJSONObject("ws")
+        val livingwinObject = livingObject.getJSONObject("Window")
         Log.d(TAG, livingwinObject.toString())
         val livingwinstate = livingwinObject.getInt("ws")
         Log.d(TAG, "living win state : $livingwinstate")
         val innerObject = jObject.getJSONObject("inner")
         Log.d(TAG, innerObject.toString())
-        val rsObject = innerObject.getJSONObject("rs")
+        val rsObject = innerObject.getJSONObject("Rain")
         Log.d(TAG, rsObject.toString())
         val rs = rsObject.getString("rs")
         Log.d(TAG, "rs : $rs")
-        val innerwinObject = innerObject.getJSONObject("ws")
+        val innerwinObject = innerObject.getJSONObject("Window")
         Log.d(TAG, innerwinObject.toString())
         val innerwin = innerwinObject.getInt("ws")
         Log.d(TAG, "inner win state : $innerwin")
-        val ledObject = innerObject.getJSONObject("led")
+        val ledObject = innerObject.getJSONObject("Led")
         Log.d(TAG, ledObject.toString())
         val led = ledObject.getInt("led")
         Log.d(TAG, "led : $led")
@@ -421,11 +458,11 @@ class MainActivity : AppCompatActivity() {
         Log.d(TAG, "vib_s : $vib_s")
         val kitchenObject = jObject.getJSONObject("kitchen")
         Log.d(TAG, kitchenObject.toString())
-        val gasObject = kitchenObject.getJSONObject("gas")
+        val gasObject = kitchenObject.getJSONObject("Gas")
         Log.d(TAG, gasObject.toString())
         val gas = gasObject.getString("gas")
         Log.d(TAG, "gas : $gas")
-        val fireObject = kitchenObject.getJSONObject("fire")
+        val fireObject = kitchenObject.getJSONObject("Fire")
         Log.d(TAG, fireObject.toString())
         val fire = fireObject.getString("fire")
         Log.d(TAG, "fire : $fire")
@@ -434,8 +471,7 @@ class MainActivity : AppCompatActivity() {
         val door = doorObject.getInt("door")
         Log.d(TAG, "door : $door")
 
-        tv_celsius.text = "$temp °C"
-        tv_humi.text = "$humi %"
+
         var dust_density = "측정중"
         if(dd > 0 && dd <= 30){
             dust_density = "좋 음"
@@ -523,6 +559,10 @@ class MainActivity : AppCompatActivity() {
         }else if(door == 0){
             adapter.currentFragment?.btn_setting_door(false)
         }
+
+        tv_celsius.text = "$temp °C"
+        tv_finedust.text = "$dd ㎍/㎥ $dust_density"
+        tv_humi.text = "$humi %"
     }
 
         fun changeFragment(f: Fragment, cleanStack: Boolean = false) {

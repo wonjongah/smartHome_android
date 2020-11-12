@@ -18,9 +18,9 @@ class FireActivity : AppCompatActivity() {
         }
 
         btn_fire_sms_report.setOnClickListener {
-            var intent = Intent(Intent.ACTION_VIEW)
+            val intent = Intent(Intent.ACTION_SENDTO)
             intent.putExtra("sms_body", "서울특별시 강남구 삼성동 SAC아트홀 6층 iot강의실에 불이 났습니다. 출동 부탁드립니다.")
-            intent.setType("vnd.android-dir/mms-sms")
+            intent.setData(Uri.parse("smsto:"+119))
             startActivity(intent)
         }
 
