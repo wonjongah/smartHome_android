@@ -34,7 +34,7 @@ class BFragment : Fragment() {
 
     var items: MutableList<MainData> = mutableListOf(
             MainData(R.drawable.doorlock, "도 어 락", R.drawable.imagebtn_states, "(잠김)"),
-            MainData(R.drawable.window2, "거실 창문", R.drawable.imagebtn_states, "(잠김)"),
+            MainData(R.drawable.window2, "거실 창문", R.drawable.imagebtn_states, "(닫힘)"),
             MainData(R.drawable.sunny, "날 씨", 0, "(맑음)")
 
     )
@@ -90,6 +90,24 @@ class BFragment : Fragment() {
 
     }
 
+    fun btn_setting_door(state: Boolean){
+        if(state) {
+            items[7].imagebtn = R.drawable.imagebtn_states
+        }else{
+            items[7].imagebtn = R.drawable.imagebtn_state_on
+        }
+        rv_fragment_a?.adapter?.notifyDataSetChanged()
+    }
+
+    fun btn_setting_livingwin(state: Boolean){
+        if(state) {
+            items[5].imagebtn = R.drawable.imagebtn_states
+        }else{
+            items[5].imagebtn = R.drawable.imagebtn_state_on
+        }
+        rv_fragment_a?.adapter?.notifyDataSetChanged()
+    }
+
     fun controlOn(state:Boolean): Boolean{
 
 
@@ -97,20 +115,6 @@ class BFragment : Fragment() {
 
             items[0].imagebtn = R.drawable.imagebtn_state_on
             items[1].imagebtn = R.drawable.imagebtn_state_on
-
-            val myClient = MyClientTask("living_LED_ON")
-            val myClient2 = MyClientTask("living_window_ON")
-            val myClient3 = MyClientTask("inner_window_ON")
-            val myClient4 = MyClientTask("door_door_ON")
-            myClient.execute()
-            myClient2.execute()
-            myClient3.execute()
-            myClient4.execute()
-
-        }else{
-
-            items[0].imagebtn = R.drawable.imagebtn_states
-            items[1].imagebtn = R.drawable.imagebtn_states
 
             val myClient = MyClientTask("living_LED_OFF")
             val myClient2 = MyClientTask("living_window_OFF")
@@ -120,6 +124,24 @@ class BFragment : Fragment() {
             myClient2.execute()
             myClient3.execute()
             myClient4.execute()
+            items[0].state = "(잠김)"
+            items[1].state = "(닫힘)"
+
+        }else{
+
+            items[0].imagebtn = R.drawable.imagebtn_states
+            items[1].imagebtn = R.drawable.imagebtn_states
+
+            val myClient = MyClientTask("living_LED_ON")
+            val myClient2 = MyClientTask("living_window_ON")
+            val myClient3 = MyClientTask("inner_window_ON")
+            val myClient4 = MyClientTask("door_door_ON")
+            myClient.execute()
+            myClient2.execute()
+            myClient3.execute()
+            myClient4.execute()
+            items[0].state = "(열림)"
+            items[1].state = "(열림)"
 
         }
         rv_fragment_a?.adapter?.notifyDataSetChanged()

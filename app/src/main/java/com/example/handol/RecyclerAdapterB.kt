@@ -69,9 +69,15 @@ class RecyclerAdapterB(var items: MutableList<MainData>, val onCctvClick:()->Uni
                     imageBtnB.setOnClickListener {
                         if(imageBtnB.isSelected){
                             imageBtnB.setSelected(false)
+                            val myClient = MyClientTask("door_door_OPEN")
+                            myClient.execute()
+                            rcvb.text = "(열림)"
                         }
                         else{
                             imageBtnB.setSelected(true)
+                            val myClient = MyClientTask("door_door_CLOSE")
+                            myClient.execute()
+                            rcvb.text = "(닫힘)"
                         }
                     }
                 }
@@ -85,24 +91,17 @@ class RecyclerAdapterB(var items: MutableList<MainData>, val onCctvClick:()->Uni
                             imageBtnB.setSelected(false)
                             val myClient = MyClientTask("inner_WINDOW_OPEN")
                             myClient.execute()
+                            rcvb.text = "(열림)"
                         }
                         else{
                             imageBtnB.setSelected(true)
                             val myClient = MyClientTask("inner_WINDOW_CLOSE")
                             myClient.execute()
+                            rcvb.text = "(닫힘)"
                         }
                     }
                 }
-                if(position == 2){
-                    imageBtnB.setOnClickListener {
-                        if(imageBtnB.isSelected){
-                            imageBtnB.setSelected(false)
-                        }
-                        else{
-                            imageBtnB.setSelected(true)
-                        }
-                    }
-                }
+
 
             } // 실제 데이터 넣는 작업, 그 연결작업을 뷰홀더가 해주는 것
         }

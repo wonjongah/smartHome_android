@@ -75,10 +75,10 @@ class DFragment : Fragment() {
 
         if (state) {
 
-            val myClient = MyClientTask("living_LED_ON")
-            val myClient2 = MyClientTask("living_window_ON")
-            val myClient3 = MyClientTask("inner_window_ON")
-            val myClient4 = MyClientTask("door_door_ON")
+            val myClient = MyClientTask("living_LED_OFF")
+            val myClient2 = MyClientTask("living_window_OFF")
+            val myClient3 = MyClientTask("inner_window_OFF")
+            val myClient4 = MyClientTask("door_door_OFF")
             myClient.execute()
             myClient2.execute()
             myClient3.execute()
@@ -86,10 +86,10 @@ class DFragment : Fragment() {
 
         }else{
 
-            val myClient = MyClientTask("living_LED_OFF")
-            val myClient2 = MyClientTask("living_window_OFF")
-            val myClient3 = MyClientTask("inner_window_OFF")
-            val myClient4 = MyClientTask("door_door_OFF")
+            val myClient = MyClientTask("living_LED_ON")
+            val myClient2 = MyClientTask("living_window_ON")
+            val myClient3 = MyClientTask("inner_window_ON")
+            val myClient4 = MyClientTask("door_door_ON")
             myClient.execute()
             myClient2.execute()
             myClient3.execute()

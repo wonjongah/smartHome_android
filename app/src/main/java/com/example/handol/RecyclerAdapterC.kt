@@ -72,11 +72,13 @@ class RecyclerAdapterC(var items: MutableList<MainData>, val onLightClick:()->Un
                             imageBtnC.setSelected(false)
                             val myClient = MyClientTask("living_LED_ON")
                             myClient.execute()
+                            recc.text = "(켜짐)"
                         }
                         else{
                             imageBtnC.setSelected(true)
                             val myClient = MyClientTask("living_LED_OFF")
                             myClient.execute()
+                            recc.text = "(꺼짐)"
                         }
                     }
                 }
@@ -90,11 +92,13 @@ class RecyclerAdapterC(var items: MutableList<MainData>, val onLightClick:()->Un
                             imageBtnC.setSelected(false)
                             val myClient = MyClientTask("living_WINDOW_OPEN")
                             myClient.execute()
+                            recc.text = "(열림)"
                         }
                         else{
                             imageBtnC.setSelected(true)
                             val myClient = MyClientTask("living_WINDOW_CLOSE")
                             myClient.execute()
+                            recc.text = "(닫힘)"
                         }
                     }
                 }

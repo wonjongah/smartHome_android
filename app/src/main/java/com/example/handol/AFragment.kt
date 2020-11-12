@@ -39,10 +39,10 @@ class AFragment : Fragment() {
     var items: MutableList<MainData> = mutableListOf(
         MainData(R.drawable.light_out2,"전 등", R.drawable.imagebtn_states, "(꺼짐)"),
         MainData(R.drawable.valve,"가 스", 0, ""),
-        MainData(R.drawable.window,"침실 창문", R.drawable.imagebtn_states, "(잠김)"),
+        MainData(R.drawable.window,"침실 창문", R.drawable.imagebtn_states, "(닫힘)"),
         MainData(R.drawable.washer3, "세 탁 기", 0, "(중지)"),
         MainData(R.drawable.fire,"화 재",0, ""),
-        MainData(R.drawable.window2,"거실 창문", R.drawable.imagebtn_states, "(잠김)"),
+        MainData(R.drawable.window2,"거실 창문", R.drawable.imagebtn_states, "(닫힘)"),
         MainData(R.drawable.faucet,"누 수", 0,""),
             MainData(R.drawable.doorlock, "도 어 락", R.drawable.imagebtn_states, "(잠김)"),
             MainData(R.drawable.sunny, "날 씨", 0, "(맑음)")
@@ -156,6 +156,10 @@ class AFragment : Fragment() {
             myClient2.execute()
             myClient3.execute()
             MyClient4.execute()
+            items[0].state = "(꺼짐)"
+            items[2].state = "(닫힘)"
+            items[5].state = "(닫힘)"
+            items[7].state = "(잠김)"
 
             // items를 여기서 갱신, 버튼 이미지를 바꾼다든가
         }else{
@@ -173,6 +177,10 @@ class AFragment : Fragment() {
             myClient2.execute()
             myClient3.execute()
             myClient4.execute()
+            items[0].state = "(켜짐)"
+            items[2].state = "(열림)"
+            items[5].state = "(열림)"
+            items[7].state = "(열림)"
 
         }
         rv_fragment_a?.adapter?.notifyDataSetChanged()

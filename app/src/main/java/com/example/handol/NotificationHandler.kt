@@ -19,6 +19,27 @@ class NotificationHandler(private val ctx: Context) {
         ctx.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     }
 
+    fun sendWaterNotification(message: String, applicationContext:Context){
+        val notificationIntent = Intent(applicationContext, LeakActivity::class.java)
+        val pendingIntent: PendingIntent = PendingIntent.getActivity(applicationContext, 4, notificationIntent, 0)
+        val bitmap = BitmapFactory.decodeResource(Resources.getSystem(), R.drawable.water_drop)
+        val defaultSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+        val builder : NotificationCompat.Builder = NotificationCompat.Builder(applicationContext, CHANNEL_ID)
+                .setLargeIcon(bitmap)
+                .setSmallIcon(R.drawable.water_drop)
+                .setContentTitle(message)
+                .setContentText("수도가 계속 틀어져 있습니다")
+                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setWhen(System.currentTimeMillis())
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
+                .setSound(defaultSound)
+                .setColor(Color.WHITE)
+
+
+        notificationManager.notify(4, builder.build())
+    }
+
     fun sendFireNotification(message: String, applicationContext:Context){
         val notificationIntent = Intent(applicationContext, FireActivity::class.java)
         val pendingIntent: PendingIntent = PendingIntent.getActivity(applicationContext, 3, notificationIntent, 0)
@@ -37,7 +58,7 @@ class NotificationHandler(private val ctx: Context) {
             .setColor(Color.WHITE)
 
 
-        notificationManager.notify(0, builder.build())
+        notificationManager.notify(3, builder.build())
     }
 
     fun sendGasNotification(message: String, applicationContext:Context){

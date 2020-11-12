@@ -33,8 +33,7 @@ class RecyclerAdapter(var items: MutableList<MainData>,
         val tvfurStateA = itemView.tv_furState_a
         val imageBtnA = itemView.ib_a
         val tvrec = itemView.tv_rec_a
-        lateinit var ACTIVITY:MainActivity
-        lateinit var str:String
+
 
         // 카드뷰 자식으로 메인 컨텐트가 뭐냐를 참조로 넣음
         // 뷰홀더와 연관된 데이터를 나중에 설정할 것, 그곳이 저기다
@@ -90,10 +89,12 @@ class RecyclerAdapter(var items: MutableList<MainData>,
                                 val myClientTask = MyClientTask("living_LED_ON")
                                 // val myClientTast = MyClientTask("192.168.0.103", 8888, "on", itemView.tv_rec_a)
                                 myClientTask.execute()
+                                tvrec.text = "(켜짐)"
                             } else {
                                 imageBtnA.setSelected(true)
                                 val myClientTask = MyClientTask("living_LED_OFF")
                                 myClientTask.execute()
+                                tvrec.text = "(꺼짐)"
                             }
                             // jasonObjectsExample()
                         }
@@ -105,14 +106,7 @@ class RecyclerAdapter(var items: MutableList<MainData>,
                     itemView.setOnClickListener {
                         onGasClick()
                     }
-                    imageBtnA.setOnClickListener {
-                        if(imageBtnA.isSelected){
-                            imageBtnA.setSelected(false)
-                        }
-                        else{
-                            imageBtnA.setSelected(true)
-                        }
-                    }
+
                 }
 
                 else if(position == 2){
@@ -124,30 +118,23 @@ class RecyclerAdapter(var items: MutableList<MainData>,
                             imageBtnA.setSelected(false)
                             val myClient = MyClientTask("inner_WINDOW_OPEN")
                             myClient.execute()
+                            tvrec.text = "(열림)"
                         }
                         else{
                             imageBtnA.setSelected(true)
                             val myClient = MyClientTask("inner_WINDOW_CLOSE")
                             myClient.execute()
+                            tvrec.text = "(닫힘)"
                         }
                     }
                 }
 
-                else if (position == 3){
 
-                }
                 else if (position == 4){
                     itemView.setOnClickListener {
                         onFireClick()
                     }
-                    imageBtnA.setOnClickListener {
-                        if(imageBtnA.isSelected){
-                            imageBtnA.setSelected(false)
-                        }
-                        else{
-                            imageBtnA.setSelected(true)
-                        }
-                    }
+
                 }
 
                 else if(position == 5){
@@ -159,11 +146,13 @@ class RecyclerAdapter(var items: MutableList<MainData>,
                             imageBtnA.setSelected(false)
                             val myClient = MyClientTask("living_WINDOW_OPEN")
                             myClient.execute()
+                            tvrec.text = "(열림)"
                         }
                         else{
                             imageBtnA.setSelected(true)
                             val myClient = MyClientTask("living_WINDOW_CLOSE")
                             myClient.execute()
+                            tvrec.text = "(닫힘)"
                         }
                     }
                 }
@@ -172,14 +161,7 @@ class RecyclerAdapter(var items: MutableList<MainData>,
                     itemView.setOnClickListener {
                         onLeakClick()
                     }
-                    imageBtnA.setOnClickListener {
-                        if(imageBtnA.isSelected){
-                            imageBtnA.setSelected(false)
-                        }
-                        else{
-                            imageBtnA.setSelected(true)
-                        }
-                    }
+
                 }
 
                 else if (position == 7){
@@ -189,26 +171,19 @@ class RecyclerAdapter(var items: MutableList<MainData>,
                     imageBtnA.setOnClickListener {
                         if(imageBtnA.isSelected){
                             imageBtnA.setSelected(false)
+                            val myClient = MyClientTask("door_door_OPEN")
+                            myClient.execute()
+                            tvrec.text = "(열림)"
                         }
                         else{
                             imageBtnA.setSelected(true)
+                            val myClient = MyClientTask("door_door_CLOSE")
+                            myClient.execute()
+                            tvrec.text = "(닫힘)"
                         }
                     }
                 }
 
-                else if(position == 8){
-                    imageBtnA.setOnClickListener {
-                        if(imageBtnA.isSelected){
-                            imageBtnA.setSelected(false)
-                        }
-                        else{
-                            imageBtnA.setSelected(true)
-                        }
-                    }
-                }
-                else{
-                    Log.d("else", "else")
-                }
             }
 
 
@@ -221,43 +196,5 @@ class RecyclerAdapter(var items: MutableList<MainData>,
     // 데이터 몇 개 있는가
 
 
-    fun jasonObjectsExample(){//msg:String
-//        val jasonString = msg.trimIndent()
-
-        val jasonString = """
-            {
-                "living": {
-                    "DHT" : {
-                        "Temp": 24,
-                        "Humi" :30
-                    },
-                    "LED" : {
-                        "Brig" : 255,
-                        "stat" : 1
-                    }
-                },
-                "bathroom" : {
-                    "tap" : {
-                        "str" : 0,
-                        "open" : 0
-                    }
-                }
-                
-            }
-        """.trimIndent()
-
-
-        val jObject = JSONObject(jasonString)
-        val livingObject = jObject.getJSONObject("living")
-        Log.d(TAG, livingObject.toString())
-        val dhtObject = livingObject.getJSONObject("DHT")
-        Log.d(TAG, dhtObject.toString())
-        val temp = dhtObject.getString("Temp")
-        Log.d(TAG, "temp : $temp")
-        val humi = dhtObject.getString("Humi")
-        Log.d(TAG, "humi : $humi")
-
-
-    }
 
 }
