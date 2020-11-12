@@ -30,8 +30,8 @@
 
     <ImageView
         android:id="@+id/iv_gallery"
-        android:layout_width="306dp"
-        android:layout_height="378dp"
+        android:layout_width="237dp"
+        android:layout_height="305dp"
         app:layout_constraintBottom_toTopOf="@+id/edt_gallery_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"

@@ -64,8 +64,10 @@
             android:text="TextView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/ib_e"
+            app:layout_constraintHorizontal_bias="0.476"
             app:layout_constraintStart_toEndOf="@+id/iv_e"
-            app:layout_constraintTop_toBottomOf="@+id/tv_furState_e" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_furState_e"
+            app:layout_constraintVertical_bias="0.083" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

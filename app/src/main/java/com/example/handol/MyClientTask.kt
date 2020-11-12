@@ -11,7 +11,7 @@ class MyClientTask (message: String) : AsyncTask<Void?, Void?, Void?>() {
     var response = ""
     var myMessage = ""
     // var dstAddress = "192.168.35.115"
-        var dstAddress = "192.168.0.103"
+        var dstAddress = "192.168.0.138"
 //    var dstAddress = "192.168.35.148"
 
 

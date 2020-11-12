@@ -22,14 +22,14 @@
             android:text="Sunny"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/iv_weather"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/iv_weather"
             android:layout_width="77dp"
             android:layout_height="81dp"
-            android:layout_marginStart="12dp"
+            android:layout_marginStart="37dp"
             app:layout_constraintBottom_toTopOf="@+id/tv_celsius"
             app:layout_constraintEnd_toStartOf="@+id/tv_weather"
             app:layout_constraintStart_toStartOf="parent"
@@ -61,7 +61,7 @@
             android:id="@+id/tv_celsius"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
+            android:layout_marginStart="100dp"
             android:layout_marginBottom="14dp"
             android:text="17.5 °C"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -101,7 +101,7 @@
             android:text="온도"
             app:layout_constraintBottom_toTopOf="@+id/tv_celsius"
             app:layout_constraintStart_toStartOf="@+id/tv_celsius"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_weather" />
 
         <TextView
             android:id="@+id/textView6"
@@ -111,7 +111,7 @@
             android:text="습도"
             app:layout_constraintBottom_toTopOf="@+id/tv_humi"
             app:layout_constraintStart_toStartOf="@+id/tv_humi"
-            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/iv_weather"
             app:layout_constraintVertical_bias="0.478" />
 
         <TextView
@@ -125,7 +125,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/tv_finedust"
-            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/iv_weather"
             app:layout_constraintVertical_bias="0.478" />
 
         <Switch
@@ -136,7 +136,7 @@
             android:text="외출모드"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.925"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/iv_weather"
             app:layout_constraintTop_toTopOf="parent" />
 
 

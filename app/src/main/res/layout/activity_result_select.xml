@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/iv_result"
-        android:layout_width="323dp"
-        android:layout_height="415dp"
+        android:layout_width="271dp"
+        android:layout_height="357dp"
         app:layout_constraintBottom_toTopOf="@+id/edt_photo_select"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

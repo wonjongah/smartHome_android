@@ -95,25 +95,30 @@ class CFragment : Fragment() {
         if (state) {
             for (i in 0..items.size - 1) {
                 Log.d("D", items[i].imagebtn.toString())
-                items[i].imagebtn = R.drawable.off_64_3
+                items[i].imagebtn = R.drawable.imagebtn_state_on
                 val myClient = MyClientTask("living_LED_ON")
                 val myClient2 = MyClientTask("living_window_ON")
                 val myClient3 = MyClientTask("inner_window_ON")
+                val myClient4 = MyClientTask("door_door_ON")
                 myClient.execute()
                 myClient2.execute()
                 myClient3.execute()
+                myClient4.execute()
             }
             // items를 여기서 갱신, 버튼 이미지를 바꾼다든가
         }else{
             for (i in 0..items.size - 1) {
                 Log.d("D", items[i].imagebtn.toString())
-                items[i].imagebtn = R.drawable.on_64_3
+                items[i].imagebtn = R.drawable.imagebtn_states
                 val myClient = MyClientTask("living_LED_OFF")
                 val myClient2 = MyClientTask("living_window_OFF")
                 val myClient3 = MyClientTask("inner_window_OFF")
+                val myClient4 = MyClientTask("door_door_OFF")
                 myClient.execute()
                 myClient2.execute()
                 myClient3.execute()
+                myClient4.execute()
+
             }
         }
         rv_fragment_a?.adapter?.notifyDataSetChanged()

@@ -68,7 +68,7 @@ class CctvActivity : AppCompatActivity() {
         }
 
 
-        wv_stream.loadUrl("http://192.168.35.207:7072/video_feed"); // 웹뷰에 표시할 웹사이트 주소, 웹뷰 시작
+        wv_stream.loadUrl("http://192.168.0.138:7072/video_feed"); // 웹뷰에 표시할 웹사이트 주소, 웹뷰 시작
         //wv_stream.loadUrl("https://www.naver.com")
 
         btn_add.setOnClickListener {
@@ -114,7 +114,7 @@ class CctvActivity : AppCompatActivity() {
                     val intent = Intent(this, ResultSelect::class.java)
 
                     intent.putExtra("url", currentPhotoPath)
-                    galleryAddPic()
+//                    galleryAddPic()
                     startActivityForResult(intent, 2)
 
                 }

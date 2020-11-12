@@ -24,8 +24,8 @@ class EFragment : Fragment() {
 
 
     var items: MutableList<MainData> = mutableListOf(
-        MainData(R.drawable.washer3, "세 탁 기", R.drawable.imagebtn_states, "(중지)"),
-        MainData(R.drawable.faucet,"누 수", R.drawable.imagebtn_states, "")
+        MainData(R.drawable.washer3, "세 탁 기", 0, "(중지)"),
+        MainData(R.drawable.faucet,"누 수", 0, "")
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,28 +77,28 @@ class EFragment : Fragment() {
 
 
         if (state) {
-            for (i in 0..items.size - 1) {
-                Log.d("D", items[i].imagebtn.toString())
-                items[i].imagebtn = R.drawable.off_64_3
-                val myClient = MyClientTask("living_LED_ON")
-                val myClient2 = MyClientTask("living_window_ON")
-                val myClient3 = MyClientTask("inner_window_ON")
-                myClient.execute()
-                myClient2.execute()
-                myClient3.execute()
-            }
+
+            val myClient = MyClientTask("living_LED_ON")
+            val myClient2 = MyClientTask("living_window_ON")
+            val myClient3 = MyClientTask("inner_window_ON")
+            val myClient4 = MyClientTask("door_door_ON")
+            myClient.execute()
+            myClient2.execute()
+            myClient3.execute()
+            myClient4.execute()
+
             // items를 여기서 갱신, 버튼 이미지를 바꾼다든가
         }else{
-            for (i in 0..items.size - 1) {
-                Log.d("D", items[i].imagebtn.toString())
-                items[i].imagebtn = R.drawable.on_64_3
-                val myClient = MyClientTask("living_LED_OFF")
-                val myClient2 = MyClientTask("living_window_OFF")
-                val myClient3 = MyClientTask("inner_window_OFF")
-                myClient.execute()
-                myClient2.execute()
-                myClient3.execute()
-            }
+
+            val myClient = MyClientTask("living_LED_OFF")
+            val myClient2 = MyClientTask("living_window_OFF")
+            val myClient3 = MyClientTask("inner_window_OFF")
+            val myClient4 = MyClientTask("door_door_OFF")
+            myClient.execute()
+            myClient2.execute()
+            myClient3.execute()
+            myClient4.execute()
+
         }
         rv_fragment_a?.adapter?.notifyDataSetChanged()
         return state
