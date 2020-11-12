@@ -9,15 +9,15 @@
 
     <ImageView
         android:id="@+id/iv_light"
-        android:layout_width="295dp"
-        android:layout_height="349dp"
+        android:layout_width="257dp"
+        android:layout_height="320dp"
         android:layout_marginTop="50dp"
         app:layout_constraintBottom_toTopOf="@+id/tv_light_bright"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/light_512" />
+        app:srcCompat="@drawable/inner_light_off" />
 
     <TextView
         android:id="@+id/textView1111"

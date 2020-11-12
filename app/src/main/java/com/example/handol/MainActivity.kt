@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity() {
 
             switch_outing1.setOnCheckedChangeListener { CompoundButton, onSwitch ->
                 if (onSwitch) {
-                    toast("switch on")
+                    toast("외출 모드 on")
                     // 프레그먼트에 데이터 보내서 on 버튼들 세팅하기
                     // 아두이노에게 명령 보내기? -> 이거 프레그먼트에서 해야 함?
                     // getOnData()
@@ -98,7 +98,7 @@ class MainActivity : AppCompatActivity() {
 
 
                 } else {
-                    toast("switch off")
+                    toast("외출 모드 off")
                     // 프레그먼트에 데이터 보내서 off 버튼들 세팅하기
                     // 아두이노에게 명령 보내기? -> 이거 프레그먼트에서 해야 함?
 

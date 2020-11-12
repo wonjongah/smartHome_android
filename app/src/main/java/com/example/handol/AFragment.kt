@@ -38,10 +38,10 @@ class AFragment : Fragment() {
 
     var items: MutableList<MainData> = mutableListOf(
         MainData(R.drawable.light_out2,"전 등", R.drawable.imagebtn_states, "(꺼짐)"),
-        MainData(R.drawable.valve,"가 스", 0, ""),
+        MainData(R.drawable.valve,"가 스", 0, "(30 ppm)"),
         MainData(R.drawable.window,"침실 창문", R.drawable.imagebtn_states, "(닫힘)"),
         MainData(R.drawable.washer3, "세 탁 기", 0, "(중지)"),
-        MainData(R.drawable.fire,"화 재",0, ""),
+        MainData(R.drawable.fire,"화 재",0, "(30 °C)"),
         MainData(R.drawable.window2,"거실 창문", R.drawable.imagebtn_states, "(닫힘)"),
         MainData(R.drawable.faucet,"누 수", 0,""),
             MainData(R.drawable.doorlock, "도 어 락", R.drawable.imagebtn_states, "(잠김)"),

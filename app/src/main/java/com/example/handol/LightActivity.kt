@@ -25,6 +25,11 @@ class LightActivity : AppCompatActivity() {
         seekBar_light.setOnSeekBarChangeListener(object:SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
                 tv_light_bright.text = "$p1"
+                if(p1 >= 0 && p1 <= 50){
+                    iv_light.setImageResource(R.drawable.inner_light_off)
+                }else{
+                    iv_light.setImageResource(R.drawable.inner_light_on)
+                }
             }
 
             override fun onStartTrackingTouch(p0: SeekBar?) {
@@ -42,6 +47,11 @@ class LightActivity : AppCompatActivity() {
     inner class SeekBarListener : SeekBar.OnSeekBarChangeListener{
         override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
             tv_light_bright.text = "$p1"
+            if(p1 >= 0 && p1 <= 50){
+                iv_light.setImageResource(R.drawable.inner_light_off)
+            }else{
+                iv_light.setImageResource(R.drawable.inner_light_on)
+            }
         }
 
         override fun onStartTrackingTouch(p0: SeekBar?) {

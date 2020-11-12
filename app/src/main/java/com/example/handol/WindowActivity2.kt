@@ -18,6 +18,11 @@ class WindowActivity2 : AppCompatActivity() {
         seekBar_window2.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
                 tv_window_angle2.text = "$p1"
+                if(p1 >= 0 && p1 <= 50){
+                    iv_window2.setImageResource(R.drawable.living_win_inner)
+                }else{
+                    iv_window2.setImageResource(R.drawable.open_living_inner)
+                }
             }
 
             override fun onStartTrackingTouch(p0: SeekBar?) {
@@ -35,6 +40,11 @@ class WindowActivity2 : AppCompatActivity() {
     inner class SeekBarListner : SeekBar.OnSeekBarChangeListener {
         override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
             tv_window_angle2.text = "$p1"
+            if(p1 >= 0 && p1 <= 50){
+                iv_window2.setImageResource(R.drawable.living_win_inner)
+            }else{
+                iv_window2.setImageResource(R.drawable.open_living_inner)
+            }
         }
 
         override fun onStartTrackingTouch(p0: SeekBar?) {

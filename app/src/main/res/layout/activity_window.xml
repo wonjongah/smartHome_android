@@ -9,15 +9,15 @@
 
     <ImageView
         android:id="@+id/iv_window"
-        android:layout_width="295dp"
-        android:layout_height="349dp"
+        android:layout_width="261dp"
+        android:layout_height="305dp"
         android:layout_marginTop="50dp"
         app:layout_constraintBottom_toTopOf="@+id/tv_window_angle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/window" />
+        app:srcCompat="@drawable/close_win_inner" />
 
     <TextView
         android:id="@+id/textView1111"
