@@ -34,7 +34,7 @@
             app:layout_constraintEnd_toStartOf="@+id/tv_weather"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.358"
+            app:layout_constraintVertical_bias="0.493"
             tools:srcCompat="@drawable/cloudy" />
 
         <com.google.android.material.tabs.TabLayout
