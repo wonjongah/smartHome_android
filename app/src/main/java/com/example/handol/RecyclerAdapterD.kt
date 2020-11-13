@@ -58,12 +58,6 @@ class RecyclerAdapterD(var items: MutableList<MainData>, val onFireClick:()->Uni
                 imageBtnD.setImageResource(it.imagebtn)
                 recd.text = it.state
 
-                if(position == 0){
-                    itemView.setOnClickListener {
-                        onFireClick()
-                    }
-                }
-
                 if(position == 1){
                     itemView.setOnClickListener {
                         onGasClick()

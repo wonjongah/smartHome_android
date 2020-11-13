@@ -37,7 +37,7 @@ class LightActivity : AppCompatActivity() {
 
             override fun onStopTrackingTouch(p0: SeekBar?) {
                 val value: Int? = (p0?.progress)?.times(2.55)?.roundToInt()
-                val MyClient = MyClientTask("living_LED_$value")
+                val MyClient = MyClientTask("inner_led_$value")
                 MyClient.execute()
             }
         })
@@ -59,7 +59,7 @@ class LightActivity : AppCompatActivity() {
 
         override fun onStopTrackingTouch(p0: SeekBar?) {
             val value: Int? = (p0?.progress)?.times(2.55)?.roundToInt()
-            val MyClient = MyClientTask("living_LED_$value")
+            val MyClient = MyClientTask("inner_led_$value")
             MyClient.execute()
         }
     }

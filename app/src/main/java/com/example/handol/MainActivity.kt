@@ -70,9 +70,9 @@ class MainActivity : AppCompatActivity() {
 
             tab_layout.setupWithViewPager(vpMainAcitivty)
 
-            notificationHandler.sendWindowNotification("창문 알람", this)
-            notificationHandler.sendFireNotification("화재 발생", this)
-            notificationHandler.sendCctvNotification("낯선 인물 감지", this)
+//            notificationHandler.sendWindowNotification("창문 알람", this)
+//            notificationHandler.sendFireNotification("화재 발생", this)
+//            notificationHandler.sendCctvNotification("낯선 인물 감지", this)
 
             iv_weather.setImageResource(R.drawable.sunny)
 
@@ -94,7 +94,7 @@ class MainActivity : AppCompatActivity() {
                     adapter.currentFragmentC?.controlOn(false)
                     adapter.currentFragmentD?.controlOn(false)
                     adapter.currentFragmentE?.controlOn(false)
-                    notificationHandler.sendGasNotification("가스 누수",this)
+//                    notificationHandler.sendGasNotification("가스 누수",this)
 
 
                 } else {
@@ -141,7 +141,6 @@ class MainActivity : AppCompatActivity() {
 //            myClientTask.execute()
 //            myClientTask2.execute()
 //        }
-
         }
 
 
@@ -150,7 +149,9 @@ class MainActivity : AppCompatActivity() {
             val topic = topic
             //  println(msg + topic)
             Log.d(TAG, msg + topic)
-                //if(topic == SUB_TOPIC){
+            Log.d("함수 호출", "ok")
+
+            //if(topic == SUB_TOPIC){
                 jasonObjectsExample2(msg)
            // }else if(topic == SUB_TOPIC_EMERGENCY){
                 // 1. toilet/waterSensor/[floor/stop] -> split해서 floor면 알림 계속 보내기, stop오면 stop
@@ -161,6 +162,7 @@ class MainActivity : AppCompatActivity() {
                 // 모르는 사람 노티
             //    notificationHandler.sendCctvNotification("등록하지 않은 사람 인식", this)
             //}
+            Log.d("함수 끝", "ok")
 
         }
     fun onReceivedUnknown(topic: String, message: MqttMessage) {
@@ -169,8 +171,7 @@ class MainActivity : AppCompatActivity() {
         //  println(msg + topic)
         Log.d(TAG, msg + topic)
 
-        val socketrecv = SocketServer
-        notificationHandler.sendCctvNotification("등록하지 않은 사람 인식", this)
+        notificationHandler.sendCctvNotification("낯선 인물 감지", this)
 
     }
     fun onReceivedEmergency(topic: String, message: MqttMessage) {
@@ -184,13 +185,13 @@ class MainActivity : AppCompatActivity() {
         if(msg_split[2] == "floor"){
             notificationHandler.sendWaterNotification("수도 알림", this)
         }else if(msg_split[1] == "gas"){
-            if(msg_split[2].toInt() > 28){
+
                 notificationHandler.sendGasNotification("가스 알림", this)
-            }
+
         }else if(msg_split[1] == "fire"){
-            if(msg_split[2].toInt() > 28){
+
                 notificationHandler.sendFireNotification("화재 알림",this)
-            }
+
         }
 
         // 1. toilet/waterSensor/[floor/stop] -> split해서 floor면 알림 계속 보내기, stop오면 stop
@@ -205,7 +206,7 @@ class MainActivity : AppCompatActivity() {
             val jasonString = """
             {
                 "living": {
-                    "DHT" : {
+                    "dht" : {
                         "te": 28,
                         "hu" :40
                     },
@@ -213,23 +214,23 @@ class MainActivity : AppCompatActivity() {
                         "dd" : 30,
                         "dl" : 3
                     },
-                    "Window" : {
+                    "window" : {
                         "ws" : 0
                     }
                 },
                 "inner" : {
-                    "Rain" : {
+                    "rain" : {
                         "rs" : 1
                     },
-                    "Window" : {
+                    "window" : {
                         "ws" : 1
                     },
-                    "Led" : {
+                    "led" : {
                         "led" : 1
                     }
                 },
                 "toilet" : {
-                    "wat_s" : {
+                    "water" : {
                         "wat_s" : 0  
                     },
                     "pir_s" : {
@@ -240,10 +241,10 @@ class MainActivity : AppCompatActivity() {
                     }
                 },
                 "kitchen" : {
-                    "Gas" : {
+                    "gas" : {
                         "gas" : 30
                     },
-                    "Fire" : {
+                    "fire" : {
                         "fire" : 50
                     }
                 },
@@ -257,7 +258,7 @@ class MainActivity : AppCompatActivity() {
             val jObject = JSONObject(jasonString)
             val livingObject = jObject.getJSONObject("living")
             Log.d(TAG, livingObject.toString())
-            val dhtObject = livingObject.getJSONObject("DHT")
+            val dhtObject = livingObject.getJSONObject("dht")
             Log.d(TAG, dhtObject.toString())
             val temp = dhtObject.getInt("te")
             Log.d(TAG, "temp : $temp")
@@ -269,27 +270,27 @@ class MainActivity : AppCompatActivity() {
             Log.d(TAG, "dd : $dd")
             val dl = dustObject.getString("dl")
             Log.d(TAG, "dl : $dl")
-            val livingwinObject = livingObject.getJSONObject("Window")
+            val livingwinObject = livingObject.getJSONObject("window")
             Log.d(TAG, livingwinObject.toString())
             val livingwinstate = livingwinObject.getInt("ws")
             Log.d(TAG, "living win state : $livingwinstate")
             val innerObject = jObject.getJSONObject("inner")
             Log.d(TAG, innerObject.toString())
-            val rsObject = innerObject.getJSONObject("Rain")
+            val rsObject = innerObject.getJSONObject("rain")
             Log.d(TAG, rsObject.toString())
             val rs = rsObject.getString("rs")
             Log.d(TAG, "rs : $rs")
-            val innerwinObject = innerObject.getJSONObject("Window")
+            val innerwinObject = innerObject.getJSONObject("window")
             Log.d(TAG, innerwinObject.toString())
             val innerwin = innerwinObject.getInt("ws")
             Log.d(TAG, "inner win state : $innerwin")
-            val ledObject = innerObject.getJSONObject("Led")
+            val ledObject = innerObject.getJSONObject("led")
             Log.d(TAG, ledObject.toString())
             val led = ledObject.getInt("led")
             Log.d(TAG, "led : $led")
             val toiletObject = jObject.getJSONObject("toilet")
             Log.d(TAG, toiletObject.toString())
-            val wat_sObejct = toiletObject.getJSONObject("wat_s")
+            val wat_sObejct = toiletObject.getJSONObject("water")
             Log.d(TAG, wat_sObejct.toString())
             val wat_s = wat_sObejct.getInt("wat_s")
             Log.d(TAG, "wat_s : $wat_s")
@@ -303,11 +304,11 @@ class MainActivity : AppCompatActivity() {
             Log.d(TAG, "vib_s : $vib_s")
             val kitchenObject = jObject.getJSONObject("kitchen")
             Log.d(TAG, kitchenObject.toString())
-            val gasObject = kitchenObject.getJSONObject("Gas")
+            val gasObject = kitchenObject.getJSONObject("gas")
             Log.d(TAG, gasObject.toString())
             val gas = gasObject.getString("gas")
             Log.d(TAG, "gas : $gas")
-            val fireObject = kitchenObject.getJSONObject("Fire")
+            val fireObject = kitchenObject.getJSONObject("fire")
             Log.d(TAG, fireObject.toString())
             val fire = fireObject.getString("fire")
             Log.d(TAG, "fire : $fire")
@@ -426,168 +427,119 @@ class MainActivity : AppCompatActivity() {
         Log.d("json들2", jasonString)
 
 
-
         val jObject = JSONObject(jasonString)
         val livingObject = jObject.getJSONObject("living")
         Log.d(TAG, livingObject.toString())
-        val dhtObject = livingObject.getJSONObject("DHT")
+        val dhtObject = livingObject.getJSONObject("dht")
         Log.d(TAG, dhtObject.toString())
         val temp = dhtObject.getInt("te")
         Log.d(TAG, "temp : $temp")
         val humi = dhtObject.getInt("hu")
         Log.d(TAG, "humi : $humi")
-        val dustObject = livingObject.getJSONObject("dust")
-        Log.d(TAG, dustObject.toString())
-        val dd = dustObject.getInt("dd")
-        Log.d(TAG, "dd : $dd")
-        val dl = dustObject.getInt("dl")
-        Log.d(TAG, "dl : $dl")
-        val livingwinObject = livingObject.getJSONObject("Window")
-        Log.d(TAG, livingwinObject.toString())
-        val livingwinstate = livingwinObject.getInt("ws")
-        Log.d(TAG, "living win state : $livingwinstate")
-        val innerObject = jObject.getJSONObject("inner")
-        Log.d(TAG, innerObject.toString())
-        val rsObject = innerObject.getJSONObject("Rain")
-        Log.d(TAG, rsObject.toString())
-        val rs = rsObject.getInt("rs")
-        Log.d(TAG, "rs : $rs")
-        val innerwinObject = innerObject.getJSONObject("Window")
-        Log.d(TAG, innerwinObject.toString())
-        val innerwin = innerwinObject.getInt("ws")
-        Log.d(TAG, "inner win state : $innerwin")
-        val ledObject = innerObject.getJSONObject("Led")
-        Log.d(TAG, ledObject.toString())
-        val led = ledObject.getInt("led")
-        Log.d(TAG, "led : $led")
-        val toiletObject = jObject.getJSONObject("toilet")
-        Log.d(TAG, toiletObject.toString())
-        val wat_sObejct = toiletObject.getJSONObject("wat_s")
-        Log.d(TAG, wat_sObejct.toString())
-        val wat_s = wat_sObejct.getInt("wat_s")
-        Log.d(TAG, "wat_s : $wat_s")
-        val pir_sObject = toiletObject.getJSONObject("pir_s")
-        Log.d(TAG, pir_sObject.toString())
-        val pir_s = pir_sObject.getInt("pir_s")
-        Log.d(TAG, "pir_s : $pir_s")
-        val vib_sObject = toiletObject.getJSONObject("vib_s")
-        Log.d(TAG, vib_sObject.toString())
-        val vib_s = vib_sObject.getInt("vib_s")
-        Log.d(TAG, "vib_s : $vib_s")
-        val kitchenObject = jObject.getJSONObject("kitchen")
-        Log.d(TAG, kitchenObject.toString())
-        val gasObject = kitchenObject.getJSONObject("Gas")
-        Log.d(TAG, gasObject.toString())
-        val gas = gasObject.getInt("gas")
-        Log.d(TAG, "gas : $gas")
-        val fireObject = kitchenObject.getJSONObject("Fire")
-        Log.d(TAG, fireObject.toString())
-        val fire = fireObject.getInt("fire")
-        Log.d(TAG, "fire : $fire")
-        val doorObject = jObject.getJSONObject("door")
-        Log.d(TAG, doorObject.toString())
-        val door = doorObject.getInt("door")
-        Log.d(TAG, "door : $door")
 
 
-        var dust_density = "측정중"
-        if(dd > 0 && dd <= 30){
-            dust_density = "좋 음"
-        }
-        else if(dd > 30 && dd <= 80){
-            dust_density = "보 통"
-        }
-        else if(dd > 80 && dd <= 150){
-            dust_density = "나 쁨"
-        }
-        else{
-            dust_density = "매우 나쁨"
-        }
+//        var dust_density = "측정중"
+//        if(dd > 0 && dd <= 30){
+//            dust_density = "좋 음"
+//        }
+//        else if(dd > 30 && dd <= 80){
+//            dust_density = "보 통"
+//        }
+//        else if(dd > 80 && dd <= 150){
+//            dust_density = "나 쁨"
+//        }
+//        else{
+//            dust_density = "매우 나쁨"
+//        }
+//
+//        var weather = ""
+//        if((temp > 17 && temp <= 28) || (humi > 10 && humi <=50)){
+//            weather = "맑음"
+//        } else {
+//            weather = "흐림"
+//        }
+//
+//        var led_state = ""
+//        if(led == 1){
+//            led_state = "(켜짐)"
+//        } else{
+//            led_state = "(꺼짐)"
+//        }
+//
+//        var inner_win_state = ""
+//        if(innerwin == 1){
+//            inner_win_state = "(열림)"
+//        } else {
+//            inner_win_state = "(닫힘)"
+//        }
+//
+//        var washer_state = ""
+//        if(vib_s == 1){
+//            washer_state = "(작동중)"
+//        }else{
+//            washer_state = "(중지)"
+//        }
+//
+//        var living_win_state = ""
+//        if(livingwinstate == 1){
+//            living_win_state = "(열림)"
+//        }else{
+//            living_win_state = "(닫힘)"
+//        }
+//
+//        var water_state = ""
+//        if(wat_s == 1){
+//            water_state = "(수도꼭지 열림)"
+//        }else{
+//            water_state = "(수도꼭지 닫힘)"
+//        }
+//
+//        var door_state = ""
+//        if(door == 1){
+//            door_state = "(열림)"
+//        }else{
+//            door_state = "(닫힘)"
+//        }
 
-        var weather = ""
-        if((temp > 17 && temp <= 28) || (humi > 10 && humi <=50)){
-            weather = "맑음"
-        } else {
-            weather = "흐림"
-        }
-
-        var led_state = ""
-        if(led == 1){
-            led_state = "(켜짐)"
-        } else{
-            led_state = "(꺼짐)"
-        }
-
-        var inner_win_state = ""
-        if(innerwin == 1){
-            inner_win_state = "(열림)"
-        } else {
-            inner_win_state = "(닫힘)"
-        }
-
-        var washer_state = ""
-        if(vib_s == 1){
-            washer_state = "(작동중)"
-        }else{
-            washer_state = "(중지)"
-        }
-
-        var living_win_state = ""
-        if(livingwinstate == 1){
-            living_win_state = "(열림)"
-        }else{
-            living_win_state = "(닫힘)"
-        }
-
-        var water_state = ""
-        if(wat_s == 1){
-            water_state = "(수도꼭지 열림)"
-        }else{
-            water_state = "(수도꼭지 닫힘)"
-        }
-
-        var door_state = ""
-        if(door == 1){
-            door_state = "(열림)"
-        }else{
-            door_state = "(닫힘)"
-        }
-        val adapter = vpMainAcitivty.adapter as MainAdapter
-        adapter.currentFragment?.setText(led_state, "($gas ppm)", inner_win_state, washer_state, "($fire °C)", living_win_state, water_state, door_state, weather)
-        adapter.currentFragmentB?.setText(door_state, living_win_state, weather)
-        adapter.currentFragmentC?.setText(led_state, inner_win_state)
-        adapter.currentFragmentE?.setText(washer_state, water_state)
-        adapter.currentFragmentD?.setText("($fire °C)", "($gas ppm)")
-
-        if(led == 1){
-            adapter.currentFragment?.btn_setting_led(true)
-            adapter.currentFragmentC?.btn_setting_led(true)
-        }else if(led == 0){
-            adapter.currentFragment?.btn_setting_led(false)
-            adapter.currentFragmentC?.btn_setting_led(false)
-        }else if(innerwin == 1){
-            adapter.currentFragment?.btn_setting_innerwin(true)
-            adapter.currentFragmentC?.btn_setting_innerwin(true)
-        }else if(innerwin == 0){
-            adapter.currentFragment?.btn_setting_innerwin(false)
-            adapter.currentFragmentC?.btn_setting_innerwin(false)
-        }else if(livingwinstate == 1){
-            adapter.currentFragment?.btn_setting_livingwin(true)
-            adapter.currentFragmentB?.btn_setting_livingwin(true)
-        }else if(livingwinstate == 0){
-            adapter.currentFragment?.btn_setting_livingwin(false)
-            adapter.currentFragmentB?.btn_setting_livingwin(false)
-        }else if(door == 1){
-            adapter.currentFragment?.btn_setting_door(true)
-            adapter.currentFragmentB?.btn_setting_door(true)
-        }else if(door == 0){
-            adapter.currentFragment?.btn_setting_door(false)
-            adapter.currentFragmentB?.btn_setting_door(false)
-        }
-
+        Log.d("텍스트뷰 전!!!!!!!!!!", "ok")
         tv_celsius.text = "$temp °C"
-        tv_finedust.text = "$dd ㎍/㎥ $dust_density"
+       // tv_finedust.text = "$dd ㎍/㎥"
         tv_humi.text = "$humi %"
+//
+//        val adapter = vpMainAcitivty.adapter as MainAdapter
+//        adapter.currentFragment?.setText(led_state, "($gas ppm)", inner_win_state, washer_state, "($fire °C)", living_win_state, water_state, door_state, weather)
+//        adapter.currentFragmentB?.setText(door_state, living_win_state, weather)
+//        adapter.currentFragmentC?.setText(led_state, inner_win_state)
+//        adapter.currentFragmentE?.setText(washer_state, water_state)
+//        adapter.currentFragmentD?.setText("($fire °C)", "($gas ppm)")
+//
+//        if(led == 1){
+//            adapter.currentFragment?.btn_setting_led(true)
+//            adapter.currentFragmentC?.btn_setting_led(true)
+//        }else if(led == 0){
+//            adapter.currentFragment?.btn_setting_led(false)
+//            adapter.currentFragmentC?.btn_setting_led(false)
+//        }else if(innerwin == 1){
+//            adapter.currentFragment?.btn_setting_innerwin(true)
+//            adapter.currentFragmentC?.btn_setting_innerwin(true)
+//        }else if(innerwin == 0){
+//            adapter.currentFragment?.btn_setting_innerwin(false)
+//            adapter.currentFragmentC?.btn_setting_innerwin(false)
+//        }else if(livingwinstate == 1){
+//            adapter.currentFragment?.btn_setting_livingwin(true)
+//            adapter.currentFragmentB?.btn_setting_livingwin(true)
+//        }else if(livingwinstate == 0){
+//            adapter.currentFragment?.btn_setting_livingwin(false)
+//            adapter.currentFragmentB?.btn_setting_livingwin(false)
+//        }else if(door == 1){
+//            adapter.currentFragment?.btn_setting_door(true)
+//            adapter.currentFragmentB?.btn_setting_door(true)
+//        }else if(door == 0){
+//            adapter.currentFragment?.btn_setting_door(false)
+//            adapter.currentFragmentB?.btn_setting_door(false)
+//        }
+        Log.d("함수 끝!!!!!!!!!!", "ok")
+
     }
 
 //        fun changeFragment(f: Fragment, cleanStack: Boolean = false) {

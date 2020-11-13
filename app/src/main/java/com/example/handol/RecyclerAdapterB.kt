@@ -69,13 +69,13 @@ class RecyclerAdapterB(var items: MutableList<MainData>, val onCctvClick:()->Uni
                     imageBtnB.setOnClickListener {
                         if(imageBtnB.isSelected){
                             imageBtnB.setSelected(false)
-                            val myClient = MyClientTask("door_door_OPEN")
+                            val myClient = MyClientTask("door_door_0")
                             myClient.execute()
                             rcvb.text = "(열림)"
                         }
                         else{
                             imageBtnB.setSelected(true)
-                            val myClient = MyClientTask("door_door_CLOSE")
+                            val myClient = MyClientTask("door_door_1")
                             myClient.execute()
                             rcvb.text = "(닫힘)"
                         }
@@ -89,13 +89,13 @@ class RecyclerAdapterB(var items: MutableList<MainData>, val onCctvClick:()->Uni
                         }
                         if(imageBtnB.isSelected){
                             imageBtnB.setSelected(false)
-                            val myClient = MyClientTask("inner_WINDOW_OPEN")
+                            val myClient = MyClientTask("inner_window_ON")
                             myClient.execute()
                             rcvb.text = "(열림)"
                         }
                         else{
                             imageBtnB.setSelected(true)
-                            val myClient = MyClientTask("inner_WINDOW_CLOSE")
+                            val myClient = MyClientTask("inner_window_OFF")
                             myClient.execute()
                             rcvb.text = "(닫힘)"
                         }

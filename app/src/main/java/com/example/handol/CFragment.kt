@@ -113,10 +113,10 @@ class CFragment : Fragment() {
             for (i in 0..items.size - 1) {
                 Log.d("D", items[i].imagebtn.toString())
                 items[i].imagebtn = R.drawable.imagebtn_state_on
-                val myClient = MyClientTask("living_LED_OFF")
-                val myClient2 = MyClientTask("living_window_OFF")
-                val myClient3 = MyClientTask("inner_window_OFF")
-                val myClient4 = MyClientTask("door_door_OFF")
+                val myClient = MyClientTask("living_led_ON")
+                val myClient2 = MyClientTask("living_window_ON")
+                val myClient3 = MyClientTask("inner_window_ON")
+                val myClient4 = MyClientTask("door_door_0")
                 myClient.execute()
                 myClient2.execute()
                 myClient3.execute()
@@ -129,10 +129,10 @@ class CFragment : Fragment() {
             for (i in 0..items.size - 1) {
                 Log.d("D", items[i].imagebtn.toString())
                 items[i].imagebtn = R.drawable.imagebtn_states
-                val myClient = MyClientTask("living_LED_ON")
-                val myClient2 = MyClientTask("living_window_ON")
-                val myClient3 = MyClientTask("inner_window_ON")
-                val myClient4 = MyClientTask("door_door_ON")
+                val myClient = MyClientTask("living_led_OFF")
+                val myClient2 = MyClientTask("living_window_OFF")
+                val myClient3 = MyClientTask("inner_window_OFF")
+                val myClient4 = MyClientTask("door_door_1")
                 myClient.execute()
                 myClient2.execute()
                 myClient3.execute()

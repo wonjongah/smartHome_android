@@ -116,14 +116,14 @@ class BFragment : Fragment() {
             items[0].imagebtn = R.drawable.imagebtn_state_on
             items[1].imagebtn = R.drawable.imagebtn_state_on
 
-            val myClient = MyClientTask("living_LED_OFF")
-            val myClient2 = MyClientTask("living_window_OFF")
-            val myClient3 = MyClientTask("inner_window_OFF")
-            val myClient4 = MyClientTask("door_door_OFF")
+            val myClient = MyClientTask("living_led_ON")
+            val myClient2 = MyClientTask("living_window_ON")
+            val myClient3 = MyClientTask("inner_window_ON")
+            val MyClient4 = MyClientTask("door_door_0")
             myClient.execute()
             myClient2.execute()
             myClient3.execute()
-            myClient4.execute()
+            MyClient4.execute()
             items[0].state = "(잠김)"
             items[1].state = "(닫힘)"
 
@@ -132,10 +132,10 @@ class BFragment : Fragment() {
             items[0].imagebtn = R.drawable.imagebtn_states
             items[1].imagebtn = R.drawable.imagebtn_states
 
-            val myClient = MyClientTask("living_LED_ON")
-            val myClient2 = MyClientTask("living_window_ON")
-            val myClient3 = MyClientTask("inner_window_ON")
-            val myClient4 = MyClientTask("door_door_ON")
+            val myClient = MyClientTask("living_led_OFF")
+            val myClient2 = MyClientTask("living_window_OFF")
+            val myClient3 = MyClientTask("inner_window_OFF")
+            val myClient4 = MyClientTask("door_door_1")
             myClient.execute()
             myClient2.execute()
             myClient3.execute()
