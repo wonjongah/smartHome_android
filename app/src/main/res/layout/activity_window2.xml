@@ -10,7 +10,7 @@
         android:id="@+id/iv_window2"
         android:layout_width="275dp"
         android:layout_height="318dp"
-        android:layout_marginTop="132dp"
+        android:layout_marginTop="150dp"
         app:layout_constraintBottom_toTopOf="@+id/tv_window_angle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,11 +36,13 @@
         android:id="@+id/seekBar_window2"
         android:layout_width="290dp"
         android:layout_height="86dp"
-        android:layout_marginBottom="29dp"
+        android:layout_marginBottom="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_window_angle2" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_window_angle2"
+        android:progressDrawable="@drawable/seekbar_seekbar1"
+        android:thumb="@drawable/seekbar_seekbar1_thumb"/>
 
     <TextView
         android:id="@+id/tv_window_angle2"

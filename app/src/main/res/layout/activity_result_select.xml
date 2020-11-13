@@ -10,6 +10,7 @@
         android:id="@+id/iv_result"
         android:layout_width="271dp"
         android:layout_height="357dp"
+        android:layout_marginTop="70dp"
         app:layout_constraintBottom_toTopOf="@+id/edt_photo_select"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,6 +21,7 @@
         android:id="@+id/edt_photo_select"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
         android:ems="10"
         android:hint="등록할 이름을 입력해주세요."
         android:inputType="textPersonName"
@@ -32,7 +34,8 @@
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="등록 이름"
+        android:layout_marginStart="32dp"
+        android:text="등록 이름  :  "
         app:layout_constraintBottom_toTopOf="@+id/btn_photo_cancel"
         app:layout_constraintEnd_toStartOf="@+id/edt_photo_select"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,9 +43,15 @@
 
     <Button
         android:id="@+id/btn_photo_select"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+
+        android:layout_width="113dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/buttonshape"
         android:text="등 록"
+        android:textColor="#666666"
+        android:textSize="18sp"
+        app:backgroundTint="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btn_photo_cancel"
@@ -50,8 +59,13 @@
 
     <Button
         android:id="@+id/btn_photo_cancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="113dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="32dp"
+        android:background="@drawable/buttonshape"
+        android:textColor="#666666"
+        android:textSize="18sp"
+        app:backgroundTint="@null"
         android:text="취 소"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_photo_select"
@@ -68,5 +82,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.71000004" />
 </androidx.constraintlayout.widget.ConstraintLayout>

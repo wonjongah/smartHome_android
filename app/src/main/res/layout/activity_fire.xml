@@ -45,41 +45,44 @@
         android:id="@+id/tv_fire_gas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="100dp"
         android:text="검출된 가스 : CO2"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_fire_state" />
 
     <Button
         android:id="@+id/btn_fire_call_report"
-        android:layout_width="120dp"
+        android:layout_width="113dp"
         android:layout_height="48dp"
-
+        android:layout_marginStart="32dp"
         android:background="@drawable/buttonshape"
         android:text="전화 신고"
         android:textColor="#666666"
-        android:textSize="30sp"
+        android:textSize="18sp"
+        app:backgroundTint="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_fire_sms_report"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_fire_gas" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_fire_gas"
+        app:layout_constraintVertical_bias="0.486" />
 
     <Button
         android:id="@+id/btn_fire_sms_report"
-        android:layout_width="120dp"
+        android:layout_width="111dp"
         android:layout_height="48dp"
 
+        android:layout_marginEnd="32dp"
         android:background="@drawable/buttonshape"
         android:text="문자 신고"
         android:textColor="#666666"
-        android:textSize="30sp"
+        android:textSize="18sp"
+        app:backgroundTint="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btn_fire_call_report"
-        app:layout_constraintTop_toBottomOf="@+id/tv_fire_gas"
-        app:strokeColor="#79ABFF" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_fire_gas" />
 </androidx.constraintlayout.widget.ConstraintLayout>

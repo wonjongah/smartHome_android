@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="335dp"
-        android:layout_height="437dp"
+        android:layout_width="277dp"
+        android:layout_height="375dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_sms_report"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,9 +18,15 @@
 
     <Button
         android:id="@+id/btn_sms_report"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="113dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/buttonshape"
         android:text="문자 신고"
+        android:textColor="#666666"
+        android:textSize="18sp"
+        app:backgroundTint="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btn_call_report"
@@ -28,9 +34,15 @@
 
     <Button
         android:id="@+id/btn_call_report"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="113dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/buttonshape"
         android:text="전화 신고"
+        android:textColor="#666666"
+        android:textSize="18sp"
+        app:backgroundTint="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_sms_report"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,10 +52,12 @@
         android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="낯선 인물이 감지되었습니다. \n 신고하시겠습니까?"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:text=" 낯선 인물이 감지되었습니다. \n \n신고하시겠습니까?"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintBottom_toTopOf="@+id/imageView4"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.523"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
