@@ -35,7 +35,7 @@ class SocketServer : Runnable {
 
     companion object {
         const val ServerPort = 9999
-        const val ServerIP = "localhost"
+        const val ServerIP = "192.168.0.101"
 
         @JvmStatic
         fun main(args: Array<String>) {

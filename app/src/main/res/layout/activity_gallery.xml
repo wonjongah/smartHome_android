@@ -21,8 +21,8 @@
 
     <Button
         android:id="@+id/btn_gallery_select"
-        android:layout_width="113dp"
-        android:layout_height="48dp"
+        android:layout_width="98dp"
+        android:layout_height="45dp"
         android:layout_marginEnd="32dp"
         android:background="@drawable/buttonshape"
         android:text="등 록"
@@ -57,18 +57,20 @@
         app:layout_constraintBottom_toTopOf="@+id/btn_gallery_select"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView14"
-        app:layout_constraintTop_toBottomOf="@+id/iv_gallery" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_gallery"
+        android:backgroundTint="#79ABFF"
+        android:textCursorDrawable="@drawable/cursor"/>
 
     <Button
         android:id="@+id/btn_gallery_cancel"
-        android:layout_width="113dp"
-        android:layout_height="48dp"
+        android:layout_width="98dp"
+        android:layout_height="45dp"
         android:layout_marginStart="32dp"
         android:background="@drawable/buttonshape"
+        android:text="취 소"
         android:textColor="#666666"
         android:textSize="18sp"
         app:backgroundTint="@null"
-        android:text="취 소"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_gallery_select"
         app:layout_constraintStart_toStartOf="parent"

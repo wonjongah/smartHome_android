@@ -169,6 +169,7 @@ class MainActivity : AppCompatActivity() {
         //  println(msg + topic)
         Log.d(TAG, msg + topic)
 
+        val socketrecv = SocketServer
         notificationHandler.sendCctvNotification("등록하지 않은 사람 인식", this)
 
     }
