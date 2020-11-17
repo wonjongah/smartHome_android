@@ -34,7 +34,7 @@
         android:id="@+id/tv_gas_state"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="가스밸브 열려있음"
+        android:text="20 ppm"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintBottom_toTopOf="@+id/tv_gas_var"
         app:layout_constraintEnd_toEndOf="parent"

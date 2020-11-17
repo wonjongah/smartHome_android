@@ -18,7 +18,9 @@ class Receiver : BroadcastReceiver(){
         val message = p1?.getStringExtra("toastMessage")
         Toast.makeText(p0, message, Toast.LENGTH_LONG).show()
 
-        val myClient = MyClientTask("living_WINDOW_CLOSE")
+        val myClient = MyClientTask("living_window_OFF")
+        val myClient2 = MyClientTask("inner_window_OFF")
         myClient.execute()
+        myClient2.execute()
     }
 }

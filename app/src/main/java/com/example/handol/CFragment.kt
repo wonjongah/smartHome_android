@@ -35,7 +35,8 @@ class CFragment : Fragment() {
 
     var items: MutableList<MainData> = mutableListOf(
             MainData(R.drawable.light_out2,"전 등", R.drawable.imagebtn_states, "(꺼짐)"),
-            MainData(R.drawable.window,"침실 창문", R.drawable.imagebtn_states, "(닫힘)")
+            MainData(R.drawable.window,"침실 창문", R.drawable.imagebtn_states, "(닫힘)"), 
+            MainData(R.drawable.rainy, "강 우", 0, "(강수 없음)")
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,9 +59,10 @@ class CFragment : Fragment() {
 
 
     }
-    fun setText(led:String, innerwin:String){
+    fun setText(led:String, innerwin:String, rain:String){
         items[0].state = led
         items[1].state = innerwin
+        items[2].state = rain
 
         rv_fragment_a?.adapter?.notifyDataSetChanged()
 
@@ -91,9 +93,9 @@ class CFragment : Fragment() {
 
     fun btn_setting_innerwin(state: Boolean){
         if(state) {
-            items[2].imagebtn = R.drawable.imagebtn_states
+            items[1].imagebtn = R.drawable.imagebtn_states
         }else{
-            items[2].imagebtn = R.drawable.imagebtn_state_on
+            items[1].imagebtn = R.drawable.imagebtn_state_on
         }
         rv_fragment_a?.adapter?.notifyDataSetChanged()
     }

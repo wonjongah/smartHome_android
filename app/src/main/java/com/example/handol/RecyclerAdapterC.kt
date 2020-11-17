@@ -90,13 +90,13 @@ class RecyclerAdapterC(var items: MutableList<MainData>, val onLightClick:()->Un
                     imageBtnC.setOnClickListener {
                         if(imageBtnC.isSelected){
                             imageBtnC.setSelected(false)
-                            val myClient = MyClientTask("living_window_ON")
+                            val myClient = MyClientTask("inner_window_ON")
                             myClient.execute()
                             recc.text = "(열림)"
                         }
                         else{
                             imageBtnC.setSelected(true)
-                            val myClient = MyClientTask("living_window_OFF")
+                            val myClient = MyClientTask("inner_window_OFF")
                             myClient.execute()
                             recc.text = "(닫힘)"
                         }

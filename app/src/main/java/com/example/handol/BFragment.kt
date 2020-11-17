@@ -92,18 +92,18 @@ class BFragment : Fragment() {
 
     fun btn_setting_door(state: Boolean){
         if(state) {
-            items[7].imagebtn = R.drawable.imagebtn_states
+            items[0].imagebtn = R.drawable.imagebtn_states
         }else{
-            items[7].imagebtn = R.drawable.imagebtn_state_on
+            items[0].imagebtn = R.drawable.imagebtn_state_on
         }
         rv_fragment_a?.adapter?.notifyDataSetChanged()
     }
 
     fun btn_setting_livingwin(state: Boolean){
         if(state) {
-            items[5].imagebtn = R.drawable.imagebtn_states
+            items[1].imagebtn = R.drawable.imagebtn_states
         }else{
-            items[5].imagebtn = R.drawable.imagebtn_state_on
+            items[1].imagebtn = R.drawable.imagebtn_state_on
         }
         rv_fragment_a?.adapter?.notifyDataSetChanged()
     }
