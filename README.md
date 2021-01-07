@@ -312,14 +312,6 @@ mqtt로 리시브를 하면 그에 따른 정보를 바꾼 후 nofity
 
 
 
-[iot김세훈] [오후 2:32] iot_app/emergency
-[iot김세훈] [오후 2:33] living/DHT/Temp/HIGH
-[iot김세훈] [오후 2:33] 이런식으로 메세지가 오고
-[iot김세훈] [오후 2:33] 토픽은 
-iot_app/emergency
-
-
-
 가구 만들 것 침대, 세면대, 가스렌지, 세탁기, 소파
 
 
