@@ -1,3 +1,13 @@
+#### 스마트 홈 프로젝트 한돌, 안드로이드
+
+#### 기능
+
+- 아두이노의 센서와 모터의 MQTT를 라즈베리파이에서 받아 가공 뒤 안드로이드로 MQTT pub -> 세탁기 진동, 전등 ON/OFF 상태, 온도, 습도, 창문 ON/OFF 상태, 가스와 화재 상태 activity와 각 방의 fragment에서 확인 가능
+- socket 통신을 통해 모터, LED 제어 
+- 불이 나거나, 낯선 사람이 감지되었을 경우 확인하고 전화 혹은 문자 신고 가능
+- 얼굴 인식 도어락 -> 얼굴 등록 가능(사진을 찍거나 선택해서 등록하면 서버에 사진 등록)
+
+
 ![스크린샷(75)](https://user-images.githubusercontent.com/50413112/103846045-aa994580-50e0-11eb-90d9-351cda6e27f9.png)
 ![스크린샷(77)](https://user-images.githubusercontent.com/50413112/103846072-b84ecb00-50e0-11eb-9f3f-f691e9d2fe8e.png)
 ![스크린샷(78)](https://user-images.githubusercontent.com/50413112/103846086-bf75d900-50e0-11eb-925b-3ca88abc094a.png)
