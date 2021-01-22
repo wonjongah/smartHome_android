@@ -11,10 +11,13 @@
 - 얼굴 인식 도어락 겸 CCTV -> 얼굴 등록 가능(사진을 찍거나 선택해서 등록하면 서버에 사진 등록)
                           -> 실시간 CCTV(라즈베리파이 웹캠 서버에서 돌리는 url을 웹뷰에 띄움)
 
-
+![스크린샷(155)](https://user-images.githubusercontent.com/50413112/105451806-85036300-5cc0-11eb-8b95-6f1796bfc705.png)
 ![스크린샷(75)](https://user-images.githubusercontent.com/50413112/103846045-aa994580-50e0-11eb-90d9-351cda6e27f9.png)
 ![스크린샷(77)](https://user-images.githubusercontent.com/50413112/103846072-b84ecb00-50e0-11eb-9f3f-f691e9d2fe8e.png)
 ![스크린샷(78)](https://user-images.githubusercontent.com/50413112/103846086-bf75d900-50e0-11eb-925b-3ca88abc094a.png)
+![스크린샷(156)](https://user-images.githubusercontent.com/50413112/105451809-859bf980-5cc0-11eb-9aa8-dd4968b5997f.png)
+![스크린샷(157)](https://user-images.githubusercontent.com/50413112/105451812-86cd2680-5cc0-11eb-8c91-e966324a57e5.png)
+![스크린샷(160)](https://user-images.githubusercontent.com/50413112/105451813-8765bd00-5cc0-11eb-857d-9b16172b18aa.png)
 ![스크린샷(79)](https://user-images.githubusercontent.com/50413112/103846096-c3096000-50e0-11eb-8c37-8d2810ecc93f.png)
 ![스크린샷(76)](https://user-images.githubusercontent.com/50413112/103846105-c69ce700-50e0-11eb-8745-08089b272b8a.png)
 ![스크린샷(80)](https://user-images.githubusercontent.com/50413112/103846117-cac90480-50e0-11eb-911e-2259b0136750.png)
