@@ -1,7 +1,7 @@
-### 스마트 홈 프로젝트 한돌, 안드로이드
+## < 스마트 홈 프로젝트 한돌, 안드로이드 >
 
 #### 개발 환경
-- android studio 이용, kotlin 사용
+- android studio 이용, kotlin, java 사용
 
 #### 기능
 
